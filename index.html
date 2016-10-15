@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+<title>Dice Roller</title>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+	var socket = io.connect();
+	socket.on('test2', function(msg){
+		console.log("Meow");
+		document.getElementById('Test').innerHTML = msg;
+	});
+
+
+
+
+
+   </script>
+  </head>
+  <body>
+
+	<script> 
+		function testFun(){
+			console.log("button clicked");
+			socket.emit('test', { thing: 'pancake'});
+ 			document.getElementById('Test').innerHTML = "Hmmmm";
+		}
+	</script>
+
+
+    <p> ADDING STUFF! </p>
+    <button id="button" onclick="testFun()">Button!</button>
+    <p id="Test">Test stuff </p>
+
+  </body>
+</html>
