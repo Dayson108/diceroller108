@@ -131,7 +131,6 @@ function rolld20Dice(plus, advantage){
 
 
 	socket.on('20DiceResult', function(msg){
-		console.log("20DiceResultRecieved!")
 		updateResultList(msg);
 	});
 
@@ -172,7 +171,6 @@ function rollSidedDice(sides, plus, diceNum){
 }//rollSidedDice
 
 	socket.on('sidedDiceResult', function(msg){
-		console.log("sidedDiceResultRecieved!")
 		updateResultList(msg);
 	});
 
