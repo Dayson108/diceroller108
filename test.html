@@ -1,0 +1,288 @@
+<html><head>
+<script>
+  var versionNumber = 0;
+  console.log("API Ready v" + versionNumber);
+  var LocalResultList = [];
+</script>
+<script>
+  function updateResultList(newInput){
+    LocalResultList.push(newInput);
+    console.log("LocalResultList: " + LocalResultList);
+    temp23 = JSON.stringify(LocalResultList);
+    console.log("Temp: " + temp23);
+    console.log("Update Result List Called");
+    var tempOutput = "";
+    var i = 0;
+    var listLength = LocalResultList.length;
+    tempOutput = "<ul>";
+    for(i = listLength; i > 0; --i){
+      tempOutput += "<li>";
+      tempOutput += LocalResultList[i - 1].name + ": ";
+      tempOutput += LocalResultList[i - 1].result;
+      tempOutput += "</li><hr>";
+    }
+    tempOutput += "</ul>";
+    console.log("tempOutput: " + tempOutput);
+    document.getElementById('ResultListMain').innerHTML = tempOutput;
+  }
+  function roll20(){
+    return roll20(0);
+  }
+  function roll20(temp)
+  {
+    var dice1;
+    var dice2;
+    var output;
+    dice1 = Math.floor((Math.random() * 20) + 1);
+    if(document.getElementById("MainAdv").checked == true){
+      if(document.getElementById("MainDis").checked == false){
+          //Advantage
+          dice2 = Math.floor((Math.random() * 20) + 1);
+          if (dice1 > dice2){ return (dice1 + temp)}
+          else{return (dice2 + temp)};  
+      }
+    }
+    else if (document.getElementById("MainDis").checked == true){
+          //Disadvantage
+          dice2 = Math.floor((Math.random() * 20) + 1);
+          if (dice2 > dice1){ return (dice1 + temp)}
+          else{return (dice2 + temp)};  
+    }
+    //Other
+    return (dice1 + temp);
+  }
+function hideAllScreens(){
+  hideAllMacroButtons();
+  document.getElementById('CharacterSheet').style.visibility = 'hidden';
+  document.getElementById('MacroControl').style.visibility = 'hidden';
+  document.getElementById('Main').style.visibility = 'hidden';
+  document.getElementById('SkillButtonsMain').style.visibility = 'hidden';
+  document.getElementById('AdvDisMain').style.visibility = 'hidden';
+  document.getElementById('SavingThrowsButtonsMain').style.visibility = 'hidden';
+  document.getElementById('MacroButtonsMain').style.visibility = 'hidden';
+  document.getElementById('ResultListMain').style.visibility = 'hidden';
+  document.getElementById('PartyListMain').style.visibility = 'hidden';
+  document.getElementById('MacroNav').style.visibility = 'hidden';
+    document.getElementById('MSettings').style.visibility = 'hidden';
+  document.getElementById('M1').style.visibility = 'hidden';
+}
+function showMain(){
+  hideAllScreens();
+  document.getElementById('Main').style.visibility = 'visible';
+  document.getElementById('SkillButtonsMain').style.visibility = 'visible';
+  document.getElementById('MacroButtonsMain').style.visibility = 'visible';
+  document.getElementById('AdvDisMain').style.visibility = 'visible';
+  document.getElementById('SavingThrowsButtonsMain').style.visibility = 'visible';
+  displayMacroButtons();
+  document.getElementById('ResultListMain').style.visibility = 'visible';
+  document.getElementById('PartyListMain').style.visibility = 'visible';
+}
+function showCharacterSheet(){
+  hideAllScreens();
+  document.getElementById('CharacterSheet').style.visibility = 'visible';
+}
+function showMacro(){
+  hideAllScreens();
+  document.getElementById('MacroControl').style.visibility = 'visible';
+  document.getElementById('MacroNav').style.visibility = 'visible';
+  document.getElementById('MSettings').style.visibility = 'visible';
+}
+function hideAllMacroButtons(){
+  document.getElementById('M1FRoll').style.visibility = 'hidden';
+  document.getElementById('M2FRoll').style.visibility = 'hidden';
+  document.getElementById('M3FRoll').style.visibility = 'hidden';
+  document.getElementById('M4FRoll').style.visibility = 'hidden';
+  document.getElementById('M5FRoll').style.visibility = 'hidden';
+  document.getElementById('M6FRoll').style.visibility = 'hidden';
+  document.getElementById('M7FRoll').style.visibility = 'hidden';
+  document.getElementById('M8FRoll').style.visibility = 'hidden';
+  document.getElementById('M9FRoll').style.visibility = 'hidden';
+  document.getElementById('M10FRoll').style.visibility = 'hidden';
+  document.getElementById('M11FRoll').style.visibility = 'hidden';
+  document.getElementById('M12FRoll').style.visibility = 'hidden';
+  document.getElementById('M13FRoll').style.visibility = 'hidden';
+  document.getElementById('M14FRoll').style.visibility = 'hidden';
+  document.getElementById('M15FRoll').style.visibility = 'hidden';
+  document.getElementById('M16FRoll').style.visibility = 'hidden';
+  document.getElementById('M17FRoll').style.visibility = 'hidden';
+  document.getElementById('M18FRoll').style.visibility = 'hidden';
+}
+function displayMacroButtons(){
+  if(document.getElementById("M1Fav").checked == true){
+        document.getElementById('M1FRoll').style.visibility = 'visible';
+  }
+  else{
+      document.getElementById('M1FRoll').style.visibility = 'hidden';
+  }
+}
+</script>
+<script>
+function showMSettings(){
+  document.getElementById('MSettings').style.visibility = 'visible';
+  document.getElementById('M1').style.visibility = 'hidden';
+}
+function M1Save(){
+  document.getElementById('M1FRoll').innerHTML = document.getElementById("M1Name").value;
+  document.getElementById('M1Screen').innerHTML = document.getElementById("M1Name").value;
+  document.getElementById('M1FavToggle').innerHTML = '<input type="checkbox" id="M1Fav" checked>' + document.getElementById("M1Name").value;
+}
+function M1Roll(){
+  M1Save();
+  var tempResult = document.getElementById("M1OutText").value;
+  var temp1 = {
+      result: tempResult,
+      name: "Player"
+  };
+  updateResultList(temp1);
+    //Send Message to other players
+}
+function showM1(){
+  document.getElementById('MSettings').style.visibility = 'hidden';
+  document.getElementById('M1').style.visibility = 'visible';
+}
+</script>
+</head><body>
+<nav id="nav" style="background-color:#00004d; position:absolute; left:0; top:0; height:100%; width:75px; float:left;">
+  <p><button id="MainScreenButton" onclick="showMain()" style="visibility:visible;">Main</button></p>
+  <p><button id="CharacterSheetButton" onclick="showCharacterSheet()" style="visibility:visible;">CS</button></p>
+  <p><button id="MacroButton" onclick="showMacro()" style="visibility:visible;">Macros</button></p>
+</nav>
+<div id="CharacterSheet" style="height:100%; width:100%; position:absolute; top:0; left:75; background-color:#6600cc; visibility:hidden;">
+  <p>
+    <button id="loadCharacter" onclick="loadCharacter()">Import Character</button><input type="text" id="loadCharacterInput" size="5">
+    <button id="loadCharacter" onclick="roll20()">roll20</button>
+  </p>
+  <p>
+    Character Name: <input type="text" id="CharacterName" value="Bitchkylt" size="5">Player Name: <input type="text" id="PlayerName" value="Scott" size="5"><br>
+    Race:<input type="text" id="Race" size="5"><br>
+    Background:<input type="text" id="Background" size="5"><br>
+    Alignment:<input type="text" id="Alignment" size="5"><br>
+    Strength:<input type="text" id="STR" size="5"><br>
+    Dexterity:<input type="text" id="DEX" size="5"><br>
+    Constitution:<input type="text" id="CON" size="5"><br>
+    Intelligence:<input type="text" id="INT" size="5"><br>
+    Wisdom:<input type="text" id="WIS" size="5"><br>
+    Charisma::<input type="text" id="CHR" size="5"><br>
+    Proficiency Bonus:<input type="ProficiencyBonus" id="Race" size="5"><br>
+    AC:<input type="text" id="AC" size="5"><br>
+    Speed:<input type="text" id="Speed" size="5"><br>
+    Hit Dice:<input type="text" id="HitDice" size="5"><br>
+    Personaity Traits:<input type="text" id="Personality" size="5"><br>
+    Ideals:<input type="text" id="Ideals" size="5"><br>
+    Bonds:<input type="text" id="Bonds" size="5"><br>
+    Flaws:<input type="text" id="Flaws" size="5"><br>
+    Features And Traits:<input type="text" id="Features" size="5"><br>
+    CP:<input type="text" id="CP" size="5"><br>
+    SP:<input type="text" id="SP" size="5"><br>
+    EP:<input type="text" id="EP" size="5"><br>
+    GP:<input type="text" id="GP" size="5"><br>
+    PP:<input type="text" id="PP" size="5"><br>
+    Equipment:<input type="text" id="Equipment" size="5"><br>
+    Proficiencies:<input type="text" id="Proficiencies" size="5"><br>
+    Languages:<input type="text" id="Languages" size="5"><br>
+    Expertise:<input type="text" id="Expertise" size="5"><br>
+    <hr>
+    Below Here are Calculated Stats:  Click The Button to Recalculate<br>
+    <button id="loadCharacter" onclick="calcStats()">Reload</button>
+  </p>
+</div>
+<div id="MacroControl" style="height:100%; width:100%; position:absolute; top:0; left:75; background-color:#A0F04d; visibility:visible;">
+  <nav id="MacroNav" style="background-color:#990000; position:absolute; left:0; top:0; height:100%; width:75px; float:left; overflow: auto;">
+    <p><button id="MSettingsScreen" onclick="showMSettings()">Settings</button></p>
+    <p><button id="M1Screen" onclick="showM1()">Macro1</button></p>
+    <p><button id="M2Screen" onclick="updateResultList()">UpdateResultList</button></p>
+    <p><button id="M3Screen" onclick="showM3()">Macro3</button></p>
+    <p><button id="M4Screen" onclick="showM4()">Macro4</button></p>
+    <p><button id="M5Screen" onclick="showM5()">Macro5</button></p>
+    <p><button id="M6Screen" onclick="showM6()">Macro6</button></p>
+    <p><button id="M7Screen" onclick="showM7()">Macro7</button></p>
+    <p><button id="M8Screen" onclick="showM8()">Macro8</button></p>
+    <p><button id="M9Screen" onclick="showM9()">Macro9</button></p>
+    <p><button id="M10Screen" onclick="showM10()">Macro10</button></p>
+    <p><button id="M11Screen" onclick="showM11()">Macro11</button></p>
+    <p><button id="M12Screen" onclick="showM12()">Macro12</button></p>
+    <p><button id="M13Screen" onclick="showM13()">Macro13</button></p>
+    <p><button id="M14Screen" onclick="showM14()">Macro14</button></p>
+    <p><button id="M15Screen" onclick="showM15()">Macro15</button></p>
+    <p><button id="M16Screen" onclick="showM16()">Macro16</button></p>
+    <p><button id="M17Screen" onclick="showM17()">Macro17</button></p>
+    <p><button id="M18Screen" onclick="showM18()">Macro18</button></p>
+  </nav>
+  <div id="MSettings" style="height:100%; width:100%; position:absolute; top:0; left:75; background-color:#A0F04d;">
+      This is the Settings Screen<br>
+      Select Visible Favorites
+      <br>
+      <p id="M1FavToggle"><input type="checkbox" id="M1Fav" checked>Macro 1</p><br>
+  </div>
+  <div id="M1" style="height:100%; width:100%; position:absolute; top:0; left:75; background-color:#A0F04d; visibility:hidden">
+    Macro 1:<br>
+    Name:<input type="text" id="M1Name" size="5"><br> 
+    Output Text: <input type="text" id="M1OutText" size="5"><br>
+    <hr>
+    <button id="M1Save" onclick="M1Save()">Save</button>
+    
+  </div>
+</div>
+<div id="Main" style="height:100%; width:100%; position:absolute; top:0; left:75; background-color:#A0F04d; visibility:hidden;">
+  <div id="AdvDisMain" style="height:30px; width:200px; background-color:#0000ff; position: absolute; top:0; left:0; visibility:hidden; overflow: auto;">
+    <input type="checkbox" id="MainAdv">Advantage
+    <input type="checkbox" id="MainDis">Disadvantage
+   
+  </div>
+  <div id="SavingThrowsButtonsMain" style="height:100%; width:100px; background-color:#006600; position: absolute; top:30; left:0; visibility:hidden; overflow: auto;">
+<button id="StrST" onclick="StrST()">Strength</button>
+<button id="DexSt" onclick="DexST()">Dexterity</button>
+<button id="ConST" onclick="ConST()">Constitution</button>
+<button id="IntST" onclick="IntST()">Intelligence</button>
+<button id="WisST" onclick="WisST()">Wisdom</button>
+<button id="ChrST" onclick="ChrST()">Charisma</button>
+  </div>  
+  <div id="SkillButtonsMain" style="height:100%; width:100px; background-color:#6600cc; position: absolute; top:30; left:100; visibility:hidden; overflow: auto;">
+    <button id="rollAcrobatics" onclick="rollAcrobatics()">Acrobatics</button>
+    <button id="rollAnimalHandling" onclick="rollAnimalHandling()">AnimalHandling</button>
+    <button id="rollArcana" onclick="rollArcana()">Arcana</button>
+    <button id="rollAthletics" onclick="rollAthletics()">Athletics</button>
+    <button id="rollDeception" onclick="rollDeception()">Deception</button>
+    <button id="rollHistory" onclick="rollHistory()">History</button>
+    <button id="rollInsight" onclick="rollInsight()">Insight</button>
+    <button id="rollIntimidation" onclick="rollIntimidation()">Intimidation</button>
+    <button id="rollInvestigation" onclick="rollInvestigation()">Investigation</button>
+    <button id="rollMedicine" onclick="rollMedicine()">Medicine</button>
+    <button id="rollNature" onclick="rollNature()">Nature</button>
+    <button id="rollPerception" onclick="rollPerception()">Perception</button>
+    <button id="rollPerformance" onclick="rollPerformance()">Performance</button>
+    <button id="rollPersuasion" onclick="rollPersuasion()">Persuasion</button>
+    <button id="rollReligion" onclick="rollReligion()">Religion</button>
+    <button id="rollSleightOfHand" onclick="rollSleightOfHand()">SleightOfHand</button>
+    <button id="rollStealth" onclick="rollStealth()">Stealth</button>
+    <button id="rollSurvival" onclick="rollSurvival()">Survival</button>
+  </div>
+  <div id="MacroButtonsMain" style="height:100%; width:100px; background-color:#339966; position: absolute; top:0; left:200; visibility:hidden;">
+    <button id="M1FRoll" onclick="M1Roll()">Macro 1</button><br>
+    <button id="M2FRoll" onclick="M2Roll()">Macro 2</button><br>
+    <button id="M3FRoll" onclick="M3Roll()">Macro 3</button><br>
+    <button id="M4FRoll" onclick="M4Roll()">Macro 4</button><br>
+    <button id="M5FRoll" onclick="M5Roll()">Macro 5</button><br>
+    <button id="M6FRoll" onclick="M6Roll()">Macro 6</button><br>
+    <button id="M7FRoll" onclick="M7Roll()">Macro 7</button><br>
+    <button id="M8FRoll" onclick="M8Roll()">Macro 8</button><br>
+    <button id="M9FRoll" onclick="M9Roll()">Macro 9</button><br>
+    <button id="M10FRoll" onclick="M10Roll()">Macro 10</button><br>
+    <button id="M11FRoll" onclick="M11Roll()">Macro 11</button><br>
+    <button id="M12FRoll" onclick="M12Roll()">Macro 12</button><br>
+    <button id="M13FRoll" onclick="M13Roll()">Macro 13</button><br>
+    <button id="M14FRoll" onclick="M14Roll()">Macro 14</button><br>
+    <button id="M15FRoll" onclick="M15Roll()">Macro 15</button><br>
+    <button id="M16FRoll" onclick="M16Roll()">Macro 16</button><br>
+    <button id="M17FRoll" onclick="M17Roll()">Macro 17</button><br>
+    <button id="M18FRoll" onclick="M18Roll()">Macro 18</button><br>
+  </div>
+  <div id="ResultListMain" style="height:100%; width:500px; background-color:#cc6600; position:absolute; top:0; left:300; visibility:hidden; overflow: auto;">
+  This is where The result list should go!
+  </div>
+  <div id="PartyListMain" style="height:100%; width:150px; background-color:#662200; position:absolute; top:0; left:800; visibility:hidden;">
+  Party Info Will Go here!
+  </div>  
+</div>
+</body>
+</html>
