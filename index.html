@@ -1,17 +1,17 @@
-<!doctype html>
 <html>
   <head>
-<title>Dice Roller</title>
+<title>D&D 5e App</title>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="dicerolls.js"></script>
+<script src="dicerolls.js"></script>
 <script src="chatcommands.js"></script>
+<script src="CharacterCommands.js"></script>
 
 <script>
-var versionNumber = 1.12;
-console.log("API Ready v" + versionNumber)
-var socket = io.connect();
 var LocalResultList = [];
 
+var versionNumber = 0.26;
+console.log("API Ready v" + versionNumber)
+var socket = io.connect();
 socket.on('20DiceResult', function(msg){
 	updateResultList(msg);
 });
@@ -19,57 +19,181 @@ socket.on('sidedDiceResult', function(msg){
 	updateResultList(msg);
 });
 
+function hideAll(){
+	document.getElementById('Main').style.visibility = 'hidden';
+	document.getElementById('DiceMain').style.visibility = 'hidden';
+	document.getElementById('OriginalDiceMain').style.visibility = 'hidden';
+	document.getElementById('CharacterStats').style.visibility = 'hidden';
+	document.getElementById('CharacterSheet').style.visibility = 'hidden';
+}
+function showScreen(screen){
+	hideAll();
+	document.getElementById(screen).style.visibility = 'visible';
+}
 
+function Login(){
+	MyCharacter.CName = document.getElementById('CharacterName').value;
+	MyCharacter.PName = document.getElementById('PlayerName').value;
+	document.getElementById('Login').style.visibility = 'hidden';
+	showScreen('CharacterSheet');
+	document.getElementById('OriginalDiceScreenButton').style.visibility = 'visible';
+	document.getElementById('CharacterSheetButton').style.visibility = 'visible';
+}
 
 
 </script>
 </head>
+
 <body>
+<nav id="nav" style="background-color:#00004d; position:absolute; left:0px; top:0px; height:100%; width:75px; float:left;">
+  <p><button id="OriginalDiceScreenButton" onclick="showScreen('OriginalDiceMain')" style="visibility:hidden">Original</button></p>
+  <p><button id="MainScreenButton" onclick="showScreen('DiceMain')" style="visibility:hidden">New Dice</button></p>
+  <p><button id="CharacterSheetButton" onclick="showScreen('CharacterSheet')" style="visibility:hidden">CS</button></p>
+  <p><button id="CharacterStatsButton" onclick="showScreen('CharacterStats')" style="visibility:hidden">Stats</button></p>
+</nav>
 
-<div id="Dice" style="height:500px; width:100%; position:absolute; top:0px; left:0px; background-color:#BEC6DD; ">
+<div id="Login" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#A0F04d; visibility:visible;">
+    <button id="loadCharacter" onclick="loadCharacter()">Import Character(Not Working)</button><input type="text" id="loadCharacterInput" size="5"><br>
+    Character Name: <input type="text" id="CharacterName" value="Bitchkylt" size="5"><br>
+	Player Name: <input type="text" id="PlayerName" value="Player Name" size="5"><br>
+	<button id="Login" onclick="Login()">Login</button>
+</div>
 
-<form>
-  Name:<input type="text" id="UserName" size="10"><input type="checkbox" id="PrivateRoll">Private
-</form>
-  <hr>
-  
-    1d20 + <input type="text" id="ADd20P" size="1"><button id="rollADd20" onclick="rolldAD20()">Roll</button>
-    <br><input type="radio" name="adv" id="RadioAdv" value="Adv" checked="checked"> Advantage
-    <input type="radio" name="adv" id="RadioDis" value="Dis"> Disadvantage
-  
-  <hr>
-  1d20 + <input type="text" id="d20P" size="1"><button id="rollADd20" onclick="rolld20()">Roll</button><br>
-  <input type="text" id="d12" size="1">d12 + <input type="text" id="d12P" size="1"><button id="rolld12" onclick="rolld12()">Roll</button><br>
-  <input type="text" id="d10"  size="1">d10 + <input type="text" id="d10P" size="1"><button id="rolld10" onclick="rolld10()">Roll</button><br>
-  <input type="text" id="d8"  size="1">d8 + <input type="text" id="d8P" size="1"><button id="rolld8" onclick="rolld8()">Roll</button><br>
-  <input type="text" id="d6"  size="1">d6 + <input type="text" id="d6P" size="1"><button id="rolld6" onclick="rolld6()">Roll</button><br>
-  <input type="text" id="d4"  size="1">d4 + <input type="text" id="d4P" size="1"><button id="rolld4" onclick="rolld4()">Roll</button><br><hr>
-  <button id="clearChatButton" onclick="clearChat()">Clear Chat</button><br>
-</div>  
+<div id="Main" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#A0F04d; visibility:hidden;">
 
+	<div id="DiceMain" style="height:100%; width:300px; position:absolute; top:0px; left:0px; background-color:#6600cc; visibility:hidden;">
+		<div id="AdvDisMain" style="height:40px; width:300px; background-color:#006600; position: absolute; top:0px; left:0px; overflow: auto;">
+			<input type="radio" name="adv" id="RadioAdv" value="Adv" checked="checked"> Advantage
+			<input type="radio" name="adv" id="RadioDis" value="Dis"> Disadvantage
+			<button id="ClearAdvDis" onclick="ClearAdvDis()">Clear</button>
+			<hr>
+		</div>
+		<div id="DiceMain" style="height:135px; width:300px; background-color#6600cc; position:absolute; top:40px; left:0px;">
+			<input type="checkbox" id="PrivateRoll">Private<br>
+			1d20 + <input type="text" id="d20P" size="1">
+			<button id="rolld20" onclick="rollSkill(document.getElementById('d20P').value, 'd20')">Roll</button><br>
+			<input type="text" id="d12" size="1">d12 + <input type="text" id="d12P" size="1">
+			<button id="rolld12" onclick="rollSidedDice(12, Number(document.getElementById('d12P').value), document.getElementById('d12').value, 'd12')">Roll</button><br>
+			<input type="text" id="d10" size="1">d10 + <input type="text" id="d10P" size="1">
+			<button id="rolld10" onclick="rollSidedDice(10, Number(document.getElementById('d10P').value), document.getElementById('d10').value, 'd10')">Roll</button><br>
+			<input type="text" id="d8" size="1">d8 + <input type="text" id="d8P" size="1">
+			<button id="rolld8" onclick="rollSidedDice(8, Number(document.getElementById('d8P').value), document.getElementById('d8').value, 'd8')">Roll</button><br>
+			<input type="text" id="d6" size="1">d6 + <input type="text" id="d6P" size="1">
+			<button id="rolld6" onclick="rollSidedDice(6, Number(document.getElementById('d6P').value), document.getElementById('d6').value, 'd6')">Roll</button><br>
+			<input type="text" id="d4" size="1">d4 + <input type="text" id="d4P" size="1">
+			<button id="rolld4" onclick="rollSidedDice(4, Number(document.getElementById('d4P').value), document.getElementById('d4').value, 'd4')">Roll</button><br>
+		</div>
+		<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; background-color#6600cc; position:absolute; top:200px; left:0px; overflow:auto;">
+			<button id="STRRoll" onclick="rollSkill(MyCharacter.STRP, 'Strength')">Strength</button><br>
+			<button id="DEXRoll" onclick="rollSkill(MyCharacter.DEXP, 'Dexterity')">Dexterity</button><br>
+			<button id="CONRoll" onclick="rollSkill(MyCharacter.CONP, 'Constitution')">Constitution</button><br>
+			<button id="INTRoll" onclick="rollSkill(MyCharacter.INTP, 'Intelligence')">Intelligence</button><br>
+			<button id="WISRoll" onclick="rollSkill(MyCharacter.WISP, 'Wisdom')">Wisdom</button><br>
+			<button id="CHRRoll" onclick="rollSkill(MyCharacter.CHRP, 'Charisma')">Charisma</button><br>
+		</div>
 
+		
+		<div id="SkillButtonsMain" style="height:100%; width:150px; background-color:#6600cc; position: absolute; top:200px; left:150px; overflow: auto;">
+			<button id="rollAcrobatics" onclick="rollSkill(MyCharacter.Acrobatics, 'Acrobatics')">Acrobatics</button><br>
+			<button id="rollAnimalHandling" onclick="rollSkill(MyCharacter.AnimalHandling, 'Animal Handling')">AnimalHandling</button><br>
+			<button id="rollArcana" onclick="rollSkill(MyCharacter.Arcana, 'Arcana')")">Arcana</button><br>
+			<button id="rollAthletics" onclick="rollSkill(MyCharacter.Athletics, 'Athletics')">Athletics</button><br>
+			<button id="rollDeception" onclick="rollSkill(MyCharacter.Deception, 'Deception')">Deception</button><br>
+			<button id="rollHistory" onclick="rollSkill(MyCharacter.History, 'History')">History</button><br>	
+			<button id="rollInsight" onclick="rollSkill(MyCharacter.Insight, 'Insight')">Insight</button><br>			
+			<button id="rollIntimidation" onclick="rollSkill(MyCharacter.Intimidation, 'Intimidation')">Intimidation</button><br>
+			<button id="rollInvestigation" onclick="rollSkill(MyCharacter.Investigation, 'Investigation')">Investigation</button><br>
+			<button id="rollMedicine" onclick="rollSkill(MyCharacter.Medicine, 'Medicine')">Medicine</button><br>
+			<button id="rollPerception" onclick="rollSkill(MyCharacter.Perception, 'Perception')">Perception</button><br>
+			<button id="rollPerformance" onclick="rollSkill(MyCharacter.Performance, 'Performance')">Performance</button><br>
+			<button id="rollPersuasion" onclick="rollSkill(MyCharacter.Persuasion, 'Persuasion')">Persuasion</button><br>	
+			<button id="rollReligion" onclick="rollSkill(MyCharacter.Religion, 'Religion')">Religion</button><br>
+			<button id="rollSleightOfHand" onclick="rollSkill(MyCharacter.SleightOfHand, 'Sleight of Hand')">Sleight Of Hand</button><br>
+			<button id="rollStealth" onclick="rollSkill(MyCharacter.Stealth, 'Stealth')">Stealth</button><br>
+			<button id="rollSurvival" onclick="rollSkill(MyCharacter.Survival, 'Survival')">Survival</button><br>
+		</div>
+	</div>  
+	  
+	<div id="OriginalDiceMain" style="height:100%; width:300px; background-color:#123456; position: absolute; top:0px; left:0px; overflow: auto; visibility:hidden">
 
-<div id="ResultListMain" style="height:100%; width:100%; position:absolute; top:270px; left:0; background-color:#BEC6DD; overflow: auto;">
-<p>King Tomal is a cunt<br>
-He doesn't give a fuck<br>
-if his councilmen die<br>
-he will just lie<br>
-to fill his pockets with gooold.<br>
-<br>
-He will steal your taxes<br>
-Kills councilmen with axes<br>
-He removes your booze<br>
-While you snooze<br>
-Tightening his hooold<br>
-<br>
-Tomal has got to go<br>
-To return this towns glow<br>
-Break his bones<br>
-Take his throne<br>
-Make his body grow coooollld</p>
+		<input type="checkbox" id="PrivateRoll2">Private
+		<hr>
+		1d20 + <input type="text" id="ADd20POrig" size="1">
+		<button id="rollADd20Orig" onclick="rollADd20Orig()">Roll</button>
+		<br><input type="radio" name="adv" id="RadioAdv2" value="Adv" checked="checked"> Advantage
+		<input type="radio" name="adv" id="RadioDis2" value="Dis"> Disadvantage
+		<hr>
+
+		
+		1d20 + <input type="text" id="d20POrig" size="1">
+		<button id="rolld20Orig" onclick="rolld20Dice(Number(document.getElementById('d20P').value), 0, 'd20')">Roll</button><br>
+		<input type="text" id="d12Orig" size="1">d12 + <input type="text" id="d12POrig" size="1">
+		<button id="rolld12Orig" onclick="rollSidedDice(12, Number(document.getElementById('d12POrig').value), document.getElementById('d12Orig').value, 'd12')">Roll</button><br>
+		<input type="text" id="d10Orig" size="1">d10 + <input type="text" id="d10POrig" size="1">
+		<button id="rolld10Orig" onclick="rollSidedDice(10, Number(document.getElementById('d10POrig').value), document.getElementById('d10Orig').value, 'd10')">Roll</button><br>
+		<input type="text" id="d8Orig" size="1">d8 + <input type="text" id="d8POrig" size="1">
+		<button id="rolld8Orig" onclick="rollSidedDice(8, Number(document.getElementById('d8POrig').value), document.getElementById('d8Orig').value, 'd8')">Roll</button><br>
+		<input type="text" id="d6Orig" size="1">d6 + <input type="text" id="d6POrig" size="1">
+		<button id="rolld6" onclick="rollSidedDice(6, Number(document.getElementById('d6POrig').value), document.getElementById('d6Orig').value, 'd6')">Roll</button><br>
+		<input type="text" id="d4Orig" size="1">d4 + <input type="text" id="d4POrig" size="1">
+		<button id="rolld4Orig" onclick="rollSidedDice(4, Number(document.getElementById('d4POrig').value), document.getElementById('d4Orig').value, 'd4')">Roll</button><br>
+		<button id="clearChatButton" onclick="clearChat()">Clear Chat</button><br>
+	
+	
+
+	
+	
+	
+	
+	</div>
 </div>
 
 
 
-  </body>
-</html>
+
+
+
+
+<div id="CharacterSheet" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#6600cc; visibility:hidden;">
+  <p>
+	<input type="text" id="MySTR" value="20" size="3">STR<br>
+	<input type="text" id="MyDEX" value="18" size="3">DEX<br>
+	<input type="text" id="MyCON" value="16" size="3">CON<br>
+	<input type="text" id="MyINT" value="14" size="3">INT<br>
+	<input type="text" id="MyWIS" value="12" size="3">WIS<br>
+	<input type="text" id="MyCHR" value="10" size="3">CHR<br>
+	<br>
+	<input type="text" id="MyAcrobatics" value="0" size="3">Acrobatics<br>
+	<input type="text" id="MyAnimalHandling" value="0" size="3">Animal Handling<br>
+	<input type="text" id="MyArcana" value="0" size="3">Arcana<br>
+	<input type="text" id="MyAthletics" value="0" size="3">Athletics<br>
+	<input type="text" id="MyDeception" value="0" size="3">Deception<br>
+	<input type="text" id="MyHistory" value="0" size="3">History<br>
+	<input type="text" id="MyInsight" value="0" size="3">Insight<br>
+	<input type="text" id="MyIntimidation" value="0" size="3">Intimidation<br>
+	<input type="text" id="MyInvestigation" value="0" size="3">Investigation<br>
+	<input type="text" id="MyMedicine" value="0" size="3">Medicine<br>
+	<input type="text" id="MyPerception" value="0" size="3">Perception<br>
+	<input type="text" id="MyPerformance" value="0" size="3">Performance<br>
+	<input type="text" id="MyPersuasion" value="0" size="3">Persuasion<br>
+	<input type="text" id="MyReligion" value="0" size="3">Religion<br>
+	<input type="text" id="MySleightOfHand" value="0" size="3">Sleight of Hand<br>
+	<input type="text" id="MyStealth" value="0" size="3">Stealth<br>
+	<input type="text" id="MySurvival" value="0" size="3">Survival<br>
+	
+	
+	<button id="SubmitCharacterStats" onclick="SubmitCharacterStats()">Submit</button>
+  </p>
+</div>
+
+<div id="CharacterStats" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#6600cc; visibility:hidden;">
+
+</div>
+
+
+<div id="ResultListMain" style="height:100%; width:100%; background-color:#cc6600; position:absolute; top:0px; left:375px; overflow: auto;">
+		Result List Here
+</div>
+
+
+</body></html>

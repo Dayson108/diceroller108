@@ -23,8 +23,13 @@ function updateResultList(newInput){
     {
       tempOutput += "--"
     }
-    tempOutput += LocalResultList[i - 1].name + ": ";
-    tempOutput += LocalResultList[i - 1].result;
+    tempOutput += LocalResultList[i - 1].name;
+
+	if(LocalResultList[i-1].skillName != ""){
+		tempOutput += "(" + LocalResultList[i-1].skillName + ") ";
+	}
+	
+    tempOutput += ": " + LocalResultList[i - 1].result;
     if(LocalResultList[i-1].status == 1){
       tempOutput += "**"
     }

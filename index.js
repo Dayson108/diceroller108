@@ -19,13 +19,11 @@ io.on('connection', function(socket){
   });
 
   socket.on('test', function(msg){
-     console.log(msg.thing);
      //socket.broadcast.emit('test2', msg.thing);
 	io.sockets.emit('test2', msg.thing);
   });
 
 	socket.on('sidedDiceRoll', function(msg){
-		console.log(msg.name);
 		socket.broadcast.emit('sidedDiceResult', msg);
 	});
 	socket.on('20DiceRoll', function(msg){
