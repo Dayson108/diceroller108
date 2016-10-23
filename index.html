@@ -52,23 +52,23 @@ function Login(){
   <p><button id="CharacterStatsButton" onclick="showScreen('CharacterStats')" style="visibility:hidden">Stats</button></p>
 </nav>
 
-<div id="Login" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#A0F04d; visibility:visible;">
+<div id="Login" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:visible;">
     <button id="loadCharacter" onclick="loadCharacter()">Import Character(Not Working)</button><input type="text" id="loadCharacterInput" size="5"><br>
     Character Name: <input type="text" id="CharacterName" value="Bitchkylt" size="5"><br>
 	Player Name: <input type="text" id="PlayerName" value="Player Name" size="5"><br>
 	<button id="Login" onclick="Login()">Login</button>
 </div>
 
-<div id="Main" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#A0F04d; visibility:hidden;">
+<div id="Main" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
 
-	<div id="DiceMain" style="height:100%; width:300px; position:absolute; top:0px; left:0px; background-color:#6600cc; visibility:hidden;">
-		<div id="AdvDisMain" style="height:40px; width:300px; background-color:#006600; position: absolute; top:0px; left:0px; overflow: auto;">
+	<div id="DiceMain" style="height:100%; width:300px; position:absolute; top:0px; left:0px; background-color:#BEC6DD; visibility:hidden;">
+		<div id="AdvDisMain" style="height:40px; width:300px; background-color:#BEC6DD; position: absolute; top:0px; left:0px; overflow: auto;">
 			<input type="radio" name="adv" id="RadioAdv" value="Adv" checked="checked"> Advantage
 			<input type="radio" name="adv" id="RadioDis" value="Dis"> Disadvantage
 			<button id="ClearAdvDis" onclick="ClearAdvDis()">Clear</button>
 			<hr>
 		</div>
-		<div id="DiceMain" style="height:135px; width:300px; background-color#6600cc; position:absolute; top:40px; left:0px;">
+		<div id="DiceMain" style="height:135px; width:300px; background-color#BEC6DD; position:absolute; top:40px; left:0px;">
 			<input type="checkbox" id="PrivateRoll">Private<br>
 			1d20 + <input type="text" id="d20P" size="1">
 			<button id="rolld20" onclick="rollSkill(document.getElementById('d20P').value, 'd20')">Roll</button><br>
@@ -83,7 +83,7 @@ function Login(){
 			<input type="text" id="d4" size="1">d4 + <input type="text" id="d4P" size="1">
 			<button id="rolld4" onclick="rollSidedDice(4, Number(document.getElementById('d4P').value), document.getElementById('d4').value, 'd4')">Roll</button><br>
 		</div>
-		<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; background-color#6600cc; position:absolute; top:200px; left:0px; overflow:auto;">
+		<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; background-color#BEC6DD; position:absolute; top:200px; left:0px; overflow:auto;">
 			<button id="STRRoll" onclick="rollSkill(MyCharacter.STRP, 'Strength')">Strength</button><br>
 			<button id="DEXRoll" onclick="rollSkill(MyCharacter.DEXP, 'Dexterity')">Dexterity</button><br>
 			<button id="CONRoll" onclick="rollSkill(MyCharacter.CONP, 'Constitution')">Constitution</button><br>
@@ -93,7 +93,7 @@ function Login(){
 		</div>
 
 		
-		<div id="SkillButtonsMain" style="height:100%; width:150px; background-color:#6600cc; position: absolute; top:200px; left:150px; overflow: auto;">
+		<div id="SkillButtonsMain" style="height:100%; width:150px; background-color:#BEC6DD; position: absolute; top:200px; left:150px; overflow: auto;">
 			<button id="rollAcrobatics" onclick="rollSkill(MyCharacter.Acrobatics, 'Acrobatics')">Acrobatics</button><br>
 			<button id="rollAnimalHandling" onclick="rollSkill(MyCharacter.AnimalHandling, 'Animal Handling')">AnimalHandling</button><br>
 			<button id="rollArcana" onclick="rollSkill(MyCharacter.Arcana, 'Arcana')")">Arcana</button><br>
@@ -114,7 +114,7 @@ function Login(){
 		</div>
 	</div>  
 	  
-	<div id="OriginalDiceMain" style="height:100%; width:300px; background-color:#123456; position: absolute; top:0px; left:0px; overflow: auto; visibility:hidden">
+	<div id="OriginalDiceMain" style="height:100%; width:300px; background-color:#BEC6DD; position: absolute; top:0px; left:0px; overflow: auto; visibility:hidden">
 
 		<input type="checkbox" id="PrivateRoll2">Private
 		<hr>
@@ -154,7 +154,7 @@ function Login(){
 
 
 
-<div id="CharacterSheet" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#6600cc; visibility:hidden;">
+<div id="CharacterSheet" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
   <p>
 	<input type="text" id="MySTR" value="20" size="3">STR<br>
 	<input type="text" id="MyDEX" value="18" size="3">DEX<br>
@@ -186,12 +186,12 @@ function Login(){
   </p>
 </div>
 
-<div id="CharacterStats" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#6600cc; visibility:hidden;">
+<div id="CharacterStats" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
 
 </div>
 
 
-<div id="ResultListMain" style="height:100%; width:100%; background-color:#cc6600; position:absolute; top:0px; left:375px; overflow: auto;">
+<div id="ResultListMain" style="height:100%; width:100%; background-color:#006600; position:absolute; top:0px; left:375px; overflow: auto;">
 		Result List Here
 </div>
 
