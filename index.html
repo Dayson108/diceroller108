@@ -40,7 +40,19 @@ function Login(){
 	document.getElementById('CharacterSheetButton').style.visibility = 'visible';
 }
 
+function loadCharacter(){
+	MyCharacter = JSON.parse(document.getElementById('loadCharacterInput').value);
+	document.getElementById('Login').style.visibility = 'hidden';
+	showScreen('DiceMain');
+	document.getElementById('OriginalDiceScreenButton').style.visibility = 'visible';
+	document.getElementById('MainScreenButton').style.visibility = 'visible';
+	document.getElementById('CharacterSheetButton').style.visibility = 'visible';
+}
 
+function saveCharacter(){
+	console.log(JSON.stringify(MyCharacter));
+	document.getElementById('SaveString').value = JSON.stringify(MyCharacter);
+}
 </script>
 </head>
 
@@ -53,7 +65,7 @@ function Login(){
 </nav>
 
 <div id="Login" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:visible;">
-    <button id="loadCharacter" onclick="loadCharacter()">Import Character(Not Working)</button><input type="text" id="loadCharacterInput" size="5"><br>
+    <button id="loadCharacter" onclick="loadCharacter()">Import Character</button><input type="text" id="loadCharacterInput" size="5"><br>
     Character Name: <input type="text" id="CharacterName" value="Bitchkylt" size="5"><br>
 	Player Name: <input type="text" id="PlayerName" value="Player Name" size="5"><br>
 	<button id="Login" onclick="Login()">Login</button>
@@ -183,6 +195,7 @@ function Login(){
 	
 	
 	<button id="SubmitCharacterStats" onclick="SubmitCharacterStats()">Submit</button>
+	<input type="text" id="SaveString" size="20"><button id="saveCharacter" onclick="saveCharacter()">Save</button>
   </p>
 </div>
 
