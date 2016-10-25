@@ -22,8 +22,7 @@ socket.on('sidedDiceResult', function(msg){
 function hideAll(){
 	document.getElementById('Main').style.visibility = 'hidden';
 	document.getElementById('DiceMain').style.visibility = 'hidden';
-	document.getElementById('OriginalDiceMain').style.visibility = 'hidden';
-	document.getElementById('CharacterStats').style.visibility = 'hidden';
+	document.getElementById('CharacterStatsMenu').style.visibility = 'hidden';
 	document.getElementById('CharacterSheet').style.visibility = 'hidden';
 }
 function showScreen(screen){
@@ -36,7 +35,6 @@ function Login(){
 	MyCharacter.PName = document.getElementById('PlayerName').value;
 	document.getElementById('Login').style.visibility = 'hidden';
 	showScreen('CharacterSheet');
-	document.getElementById('OriginalDiceScreenButton').style.visibility = 'visible';
 	document.getElementById('CharacterSheetButton').style.visibility = 'visible';
 }
 
@@ -44,9 +42,10 @@ function loadCharacter(){
 	MyCharacter = JSON.parse(document.getElementById('loadCharacterInput').value);
 	document.getElementById('Login').style.visibility = 'hidden';
 	showScreen('DiceMain');
-	document.getElementById('OriginalDiceScreenButton').style.visibility = 'visible';
 	document.getElementById('MainScreenButton').style.visibility = 'visible';
-	document.getElementById('CharacterSheetButton').style.visibility = 'visible';
+	document.getElementById('CharacterStatsButton').style.visibility = 'visible';
+	document.getElementById('CharacterSheetButton').style.visibility = 'hidden';
+	UpdateStats();
 }
 
 function saveCharacter(){
@@ -58,13 +57,12 @@ function saveCharacter(){
 
 <body>
 <nav id="nav" style="background-color:#00004d; position:absolute; left:0px; top:0px; height:100%; width:75px; float:left;">
-  <p><button id="OriginalDiceScreenButton" onclick="showScreen('OriginalDiceMain')" style="visibility:hidden">Original</button></p>
-  <p><button id="MainScreenButton" onclick="showScreen('DiceMain')" style="visibility:hidden">New Dice</button></p>
-  <p><button id="CharacterSheetButton" onclick="showScreen('CharacterSheet')" style="visibility:hidden">CS</button></p>
-  <p><button id="CharacterStatsButton" onclick="showScreen('CharacterStats')" style="visibility:hidden">Stats</button></p>
+  <p><button id="MainScreenButton" onclick="showScreen('DiceMain')" style="visibility:hidden">Dice</button></p>
+  <p><button id="CharacterSheetButton" onclick="showScreen('CharacterSheet')" style="visibility:hidden">Character Sheet</button></p>
+  <p><button id="CharacterStatsButton" onclick="showScreen('CharacterStatsMenu')" style="visibility:hidden">Stats</button></p>
 </nav>
 
-<div id="Login" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:visible;">
+<div id="Login" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:visible;">
     <button id="loadCharacter" onclick="loadCharacter()">Import Character</button><input type="text" id="loadCharacterInput" size="5"><br>
     Character Name: <input type="text" id="CharacterName" value="Bitchkylt" size="5"><br>
 	Player Name: <input type="text" id="PlayerName" value="Player Name" size="5"><br>
@@ -75,13 +73,16 @@ function saveCharacter(){
 
 	<div id="DiceMain" style="height:100%; width:300px; position:absolute; top:0px; left:0px; background-color:#BEC6DD; visibility:hidden;">
 		<div id="AdvDisMain" style="height:40px; width:300px; background-color:#BEC6DD; position: absolute; top:0px; left:0px; overflow: auto;">
-			<input type="radio" name="adv" id="RadioAdv" value="Adv" checked="checked"> Advantage
+			<input type="radio" name="adv" id="RadioAdv" value="Adv"> Advantage
 			<input type="radio" name="adv" id="RadioDis" value="Dis"> Disadvantage
 			<button id="ClearAdvDis" onclick="ClearAdvDis()">Clear</button>
 			<hr>
 		</div>
-		<div id="DiceMain" style="height:135px; width:300px; background-color#BEC6DD; position:absolute; top:40px; left:0px;">
-			<input type="checkbox" id="PrivateRoll">Private<br>
+		<div id="DiceMod" style="height:40px; width:300px; background-color#BEC6DD; position:absolute; top:40px; left:0px;">
+		<input type="text" id="rollMod" size="1">Modifier to the Next Roll
+		<hr>
+		</div>
+		<div id="DiceMain" style="height:135px; width:300px; background-color#BEC6DD; position:absolute; top:80px; left:0px;">
 			1d20 + <input type="text" id="d20P" size="1">
 			<button id="rolld20" onclick="rollSkill(document.getElementById('d20P').value, 'd20')">Roll</button><br>
 			<input type="text" id="d12" size="1">d12 + <input type="text" id="d12P" size="1">
@@ -95,116 +96,96 @@ function saveCharacter(){
 			<input type="text" id="d4" size="1">d4 + <input type="text" id="d4P" size="1">
 			<button id="rolld4" onclick="rollSidedDice(4, Number(document.getElementById('d4P').value), document.getElementById('d4').value, 'd4')">Roll</button><br>
 		</div>
-		<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; background-color#BEC6DD; position:absolute; top:200px; left:0px; overflow:auto;">
-			<button id="STRRoll" onclick="rollSkill(MyCharacter.STRP, 'Strength')">Strength</button><br>
-			<button id="DEXRoll" onclick="rollSkill(MyCharacter.DEXP, 'Dexterity')">Dexterity</button><br>
-			<button id="CONRoll" onclick="rollSkill(MyCharacter.CONP, 'Constitution')">Constitution</button><br>
-			<button id="INTRoll" onclick="rollSkill(MyCharacter.INTP, 'Intelligence')">Intelligence</button><br>
-			<button id="WISRoll" onclick="rollSkill(MyCharacter.WISP, 'Wisdom')">Wisdom</button><br>
-			<button id="CHRRoll" onclick="rollSkill(MyCharacter.CHRP, 'Charisma')">Charisma</button><br>
+		<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; background-color#BEC6DD; position:absolute; top:265px; left:0px; overflow:auto;">
+			<button id="STRRoll" onclick="rollSkill(MyCharacter.STRP(), 'Strength')">Strength</button><br>
+			<button id="DEXRoll" onclick="rollSkill(MyCharacter.DEXP(), 'Dexterity')">Dexterity</button><br>
+			<button id="CONRoll" onclick="rollSkill(MyCharacter.CONP(), 'Constitution')">Constitution</button><br>
+			<button id="INTRoll" onclick="rollSkill(MyCharacter.INTP(), 'Intelligence')">Intelligence</button><br>
+			<button id="WISRoll" onclick="rollSkill(MyCharacter.WISP(), 'Wisdom')">Wisdom</button><br>
+			<button id="CHARoll" onclick="rollSkill(MyCharacter.CHAP(), 'Charisma')">Charisma</button><br>
 		</div>
 
-		
-		<div id="SkillButtonsMain" style="height:100%; width:150px; background-color:#BEC6DD; position: absolute; top:200px; left:150px; overflow: auto;">
-			<button id="rollAcrobatics" onclick="rollSkill(MyCharacter.Acrobatics, 'Acrobatics')">Acrobatics</button><br>
-			<button id="rollAnimalHandling" onclick="rollSkill(MyCharacter.AnimalHandling, 'Animal Handling')">AnimalHandling</button><br>
-			<button id="rollArcana" onclick="rollSkill(MyCharacter.Arcana, 'Arcana')")">Arcana</button><br>
-			<button id="rollAthletics" onclick="rollSkill(MyCharacter.Athletics, 'Athletics')">Athletics</button><br>
-			<button id="rollDeception" onclick="rollSkill(MyCharacter.Deception, 'Deception')">Deception</button><br>
-			<button id="rollHistory" onclick="rollSkill(MyCharacter.History, 'History')">History</button><br>	
-			<button id="rollInsight" onclick="rollSkill(MyCharacter.Insight, 'Insight')">Insight</button><br>			
-			<button id="rollIntimidation" onclick="rollSkill(MyCharacter.Intimidation, 'Intimidation')">Intimidation</button><br>
-			<button id="rollInvestigation" onclick="rollSkill(MyCharacter.Investigation, 'Investigation')">Investigation</button><br>
-			<button id="rollMedicine" onclick="rollSkill(MyCharacter.Medicine, 'Medicine')">Medicine</button><br>
-			<button id="rollPerception" onclick="rollSkill(MyCharacter.Perception, 'Perception')">Perception</button><br>
-			<button id="rollPerformance" onclick="rollSkill(MyCharacter.Performance, 'Performance')">Performance</button><br>
-			<button id="rollPersuasion" onclick="rollSkill(MyCharacter.Persuasion, 'Persuasion')">Persuasion</button><br>	
-			<button id="rollReligion" onclick="rollSkill(MyCharacter.Religion, 'Religion')">Religion</button><br>
-			<button id="rollSleightOfHand" onclick="rollSkill(MyCharacter.SleightOfHand, 'Sleight of Hand')">Sleight Of Hand</button><br>
-			<button id="rollStealth" onclick="rollSkill(MyCharacter.Stealth, 'Stealth')">Stealth</button><br>
-			<button id="rollSurvival" onclick="rollSkill(MyCharacter.Survival, 'Survival')">Survival</button><br>
+		<div id="SkillButtonsMain" style="height:100%; width:150px; background-color:#BEC6DD; position: absolute; top:265px; left:150px; overflow: auto;">
+			<button id="rollAcrobatics" onclick="rollSkill(MyCharacter.Acrobatics(), 'Acrobatics')">Acrobatics</button><br>
+			<button id="rollAnimalHandling" onclick="rollSkill(MyCharacter.AnimalHandling(), 'Animal Handling')">AnimalHandling</button><br>
+			<button id="rollArcana" onclick="rollSkill(MyCharacter.Arcana(), 'Arcana')")">Arcana</button><br>
+			<button id="rollAthletics" onclick="rollSkill(MyCharacter.Athletics(), 'Athletics')">Athletics</button><br>
+			<button id="rollDeception" onclick="rollSkill(MyCharacter.Deception(), 'Deception')">Deception</button><br>
+			<button id="rollHistory" onclick="rollSkill(MyCharacter.History(), 'History')">History</button><br>	
+			<button id="rollInsight" onclick="rollSkill(MyCharacter.Insight(), 'Insight')">Insight</button><br>			
+			<button id="rollIntimidation" onclick="rollSkill(MyCharacter.Intimidation(), 'Intimidation')">Intimidation</button><br>
+			<button id="rollInvestigation" onclick="rollSkill(MyCharacter.Investigation(), 'Investigation')">Investigation</button><br>
+			<button id="rollMedicine" onclick="rollSkill(MyCharacter.Medicine(), 'Medicine')">Medicine</button><br>
+			<button id="rollNature" onclick="rollSkill(MyCharacter.Nature(), 'Nature')">Natureq</button><br>
+			<button id="rollPerception" onclick="rollSkill(MyCharacter.Perception(), 'Perception')">Perception</button><br>
+			<button id="rollPerformance" onclick="rollSkill(MyCharacter.Performance(), 'Performance')">Performance</button><br>
+			<button id="rollPersuasion" onclick="rollSkill(MyCharacter.Persuasion(), 'Persuasion')">Persuasion</button><br>	
+			<button id="rollReligion" onclick="rollSkill(MyCharacter.Religion(), 'Religion')">Religion</button><br>
+			<button id="rollSleightOfHand" onclick="rollSkill(MyCharacter.SleightOfHand(), 'Sleight of Hand')">Sleight Of Hand</button><br>
+			<button id="rollStealth" onclick="rollSkill(MyCharacter.Stealth(), 'Stealth')">Stealth</button><br>
+			<button id="rollSurvival" onclick="rollSkill(MyCharacter.Survival(), 'Survival')">Survival</button><br>
 		</div>
 	</div>  
-	  
-	<div id="OriginalDiceMain" style="height:100%; width:300px; background-color:#BEC6DD; position: absolute; top:0px; left:0px; overflow: auto; visibility:hidden">
-
-		<input type="checkbox" id="PrivateRoll2">Private
-		<hr>
-		1d20 + <input type="text" id="ADd20POrig" size="1">
-		<button id="rollADd20Orig" onclick="rollADd20Orig()">Roll</button>
-		<br><input type="radio" name="adv" id="RadioAdv2" value="Adv" checked="checked"> Advantage
-		<input type="radio" name="adv" id="RadioDis2" value="Dis"> Disadvantage
-		<hr>
-
-		
-		1d20 + <input type="text" id="d20POrig" size="1">
-		<button id="rolld20Orig" onclick="rolld20Dice(Number(document.getElementById('d20P').value), 0, 'd20')">Roll</button><br>
-		<input type="text" id="d12Orig" size="1">d12 + <input type="text" id="d12POrig" size="1">
-		<button id="rolld12Orig" onclick="rollSidedDice(12, Number(document.getElementById('d12POrig').value), document.getElementById('d12Orig').value, 'd12')">Roll</button><br>
-		<input type="text" id="d10Orig" size="1">d10 + <input type="text" id="d10POrig" size="1">
-		<button id="rolld10Orig" onclick="rollSidedDice(10, Number(document.getElementById('d10POrig').value), document.getElementById('d10Orig').value, 'd10')">Roll</button><br>
-		<input type="text" id="d8Orig" size="1">d8 + <input type="text" id="d8POrig" size="1">
-		<button id="rolld8Orig" onclick="rollSidedDice(8, Number(document.getElementById('d8POrig').value), document.getElementById('d8Orig').value, 'd8')">Roll</button><br>
-		<input type="text" id="d6Orig" size="1">d6 + <input type="text" id="d6POrig" size="1">
-		<button id="rolld6" onclick="rollSidedDice(6, Number(document.getElementById('d6POrig').value), document.getElementById('d6Orig').value, 'd6')">Roll</button><br>
-		<input type="text" id="d4Orig" size="1">d4 + <input type="text" id="d4POrig" size="1">
-		<button id="rolld4Orig" onclick="rollSidedDice(4, Number(document.getElementById('d4POrig').value), document.getElementById('d4Orig').value, 'd4')">Roll</button><br>
-		<button id="clearChatButton" onclick="clearChat()">Clear Chat</button><br>
-	
-	
-
-	
-	
-	
-	
-	</div>
 </div>
-
-
-
-
 
 
 
 <div id="CharacterSheet" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
   <p>
-	<input type="text" id="MySTR" value="20" size="3">STR<br>
-	<input type="text" id="MyDEX" value="18" size="3">DEX<br>
-	<input type="text" id="MyCON" value="16" size="3">CON<br>
-	<input type="text" id="MyINT" value="14" size="3">INT<br>
-	<input type="text" id="MyWIS" value="12" size="3">WIS<br>
-	<input type="text" id="MyCHR" value="10" size="3">CHR<br>
-	<br>
-	<input type="text" id="MyAcrobatics" value="0" size="3">Acrobatics<br>
-	<input type="text" id="MyAnimalHandling" value="0" size="3">Animal Handling<br>
-	<input type="text" id="MyArcana" value="0" size="3">Arcana<br>
-	<input type="text" id="MyAthletics" value="0" size="3">Athletics<br>
-	<input type="text" id="MyDeception" value="0" size="3">Deception<br>
-	<input type="text" id="MyHistory" value="0" size="3">History<br>
-	<input type="text" id="MyInsight" value="0" size="3">Insight<br>
-	<input type="text" id="MyIntimidation" value="0" size="3">Intimidation<br>
-	<input type="text" id="MyInvestigation" value="0" size="3">Investigation<br>
-	<input type="text" id="MyMedicine" value="0" size="3">Medicine<br>
-	<input type="text" id="MyPerception" value="0" size="3">Perception<br>
-	<input type="text" id="MyPerformance" value="0" size="3">Performance<br>
-	<input type="text" id="MyPersuasion" value="0" size="3">Persuasion<br>
-	<input type="text" id="MyReligion" value="0" size="3">Religion<br>
-	<input type="text" id="MySleightOfHand" value="0" size="3">Sleight of Hand<br>
-	<input type="text" id="MyStealth" value="0" size="3">Stealth<br>
-	<input type="text" id="MySurvival" value="0" size="3">Survival<br>
+	Please Input your character's stats.<br>
+	If you are proficient in a skill, select the checkbox next to it.
+	<hr>
+	<input type="text" id="MyLevel" value="5" style="width: 30px">Character Level<br>	
+	<hr>
+	Input your character's core stats (not the +bonus)<br>
+	<input type="text" id="MySTR" value="20" style="width: 30px"><input type="checkbox" id="STRProfCheck">STR<br>
+	<input type="text" id="MyDEX" value="18" style="width: 30px"><input type="checkbox" id="DEXProfCheck">DEX<br>
+	<input type="text" id="MyCON" value="16" style="width: 30px"><input type="checkbox" id="CONProfCheck">CON<br>
+	<input type="text" id="MyINT" value="14" style="width: 30px"><input type="checkbox" id="INTProfCheck">INT<br>
+	<input type="text" id="MyWIS" value="12" style="width: 30px"><input type="checkbox" id="WISProfCheck">WIS<br>
+	<input type="text" id="MyCHA" value="10" style="width: 30px"><input type="checkbox" id="CHAProfCheck">CHA
+	<hr>
 	
 	
-	<button id="SubmitCharacterStats" onclick="SubmitCharacterStats()">Submit</button>
-	<input type="text" id="SaveString" size="20"><button id="saveCharacter" onclick="saveCharacter()">Save</button>
+	<input type="checkbox" id="AcrobaticsProfCheck">Acrobatics<br>
+	<input type="checkbox" id="AnimalHandlingProfCheck">Animal Handling<br>
+	<input type="checkbox" id="ArcanaProfCheck">Arcana<br>
+	<input type="checkbox" id="AthleticsProfCheck">Athletics<br>
+	<input type="checkbox" id="DeceptionProfCheck">Deception<br>
+	<input type="checkbox" id="HistoryProfCheck">History<br>
+	<input type="checkbox" id="InsightProfCheck">Insight<br>
+	<input type="checkbox" id="IntimidationProfCheck">Intimidation<br>
+	<input type="checkbox" id="InvestigationProfCheck">Investigation<br>
+	<input type="checkbox" id="MedicineProfCheck">Medicine<br>
+	<input type="checkbox" id="NatureProfCheck">Nature<br>
+	<input type="checkbox" id="PerceptionProfCheck">Perception<br>
+	<input type="checkbox" id="PerformanceProfCheck">Performance<br>
+	<input type="checkbox" id="PersuasionProfCheck">Persuasion<br>
+	<input type="checkbox" id="ReligionProfCheck">Religion<br>
+	<input type="checkbox" id="SleightOfHandProfCheck">Sleight Of Hand<br>
+	<input type="checkbox" id="StealthProfCheck">Stealth<br>
+	<input type="checkbox" id="SurvivalProfCheck">Survival<hr>
+	<button id="SubmitCharacterStats" onclick="SubmitCharacterStats()">Submit</button><br>
+	
   </p>
 </div>
 
-<div id="CharacterStats" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+<div id="CharacterStatsMenu" style="height:100%; width:100%; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+	<p id="CharacterStats"></p>
+	<input type="text" id="SaveString" size="20"><button id="saveCharacter" onclick="saveCharacter()">Save</button><br>
+	<button id="resetStats" onclick="resetStats()">Reset Stats</button>
+</div>
 
+<div id="Line1" style="height:100%; width:5px; background-color:#000000; position:absolute; top:0px; left:375px;">
 </div>
 
 
-<div id="ResultListMain" style="height:100%; width:100%; background-color:#006600; position:absolute; top:0px; left:375px; overflow: auto;">
+
+<div id="ResultListButtons" style="height:30px; width:100%; background-color:#BEC6DD; position:absolute; top:0px; left:380px;">
+		<input type="checkbox" id="PrivateRoll">Private<button id="clearChatButton" onclick="clearChat()">Clear Chat</button><br>
+</div>
+
+<div id="ResultListMain" style="height:100%; width:100%; background-color:#BEC6DD; padding:5px; position:absolute; top:30px; left:380px; overflow: auto;">
 		Result List Here
 </div>
 

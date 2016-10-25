@@ -21,6 +21,8 @@ function mainAdvCheck(){
 
 function rollSkill(Plus, skillName){
 	var adv = mainAdvCheck();
+	Plus = Plus + Number(document.getElementById('rollMod').value);
+	document.getElementById('rollMod').value = "";
 	rolld20Dice(Number(Plus), adv, skillName);
 }
 
