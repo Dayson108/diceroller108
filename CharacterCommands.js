@@ -1,8 +1,16 @@
 var MyCharacter = {
 		CName: '',
 		PName: '',
+		Class: '',
+		playerID: '',
 		CharacterLevel: 0,
 		ProfBonus: 0,
+		BaseAC: 0,
+		ACMod: 0,
+		HPMax: 0,
+		HPCurrent: 0,
+		TempHPMax: 0,
+		TempHPCurrent: 0,
 		STR: 0,
     	DEX: 0,
     	CON: 0,
@@ -61,7 +69,7 @@ var MyCharacter = {
 			if(this.profDeception){
 				return (this.ProfBonus + this.CHAP());
 			}
-			return(this.DEXP());
+			return(this.CHAP());
 		},
 		History: function(){
 			if(this.profHistory){
@@ -119,9 +127,9 @@ var MyCharacter = {
 		},
 		Religion: function(){
 			if(this.profSleightOfHand){
-				return (this.ProfBonus + this.DEXP());
+				return (this.ProfBonus + this.INTP());
 			}
-			return(this.DEXP());
+			return(this.INTP());
 		},
 		SleightOfHand: function(){
 			if(this.profSleightOfHand){
@@ -137,44 +145,26 @@ var MyCharacter = {
 		},
 		Survival: function(){
 			if(this.profSurvival){
-				return (this.ProfBonus + this.DEXP());
+				return (this.ProfBonus + this.WISP());
 			}
-			return(this.DEXP());
+			return(this.WISP());
 		},
 		STRP: function(){
-			if(this.profSTR){
-				return (this.ProfBonus + calcStatBonus(this.STR));
-			}
 			return(calcStatBonus(this.STR));
 		},
 		DEXP: function(){
-			if(this.profDEX){
-				return (this.ProfBonus + calcStatBonus(this.DEX));
-			}
 			return(calcStatBonus(this.DEX));
 		},
 		CONP: function(){
-			if(this.profCON){
-				return (this.ProfBonus + calcStatBonus(this.CON));
-			}
 			return(calcStatBonus(this.CON));
 		},
 		INTP: function(){
-			if(this.profINT){
-				return (this.ProfBonus + calcStatBonus(this.INT));
-			}
 			return(calcStatBonus(this.INT));
 		},
 		WISP: function(){
-			if(this.profWIS){
-				return (this.ProfBonus + calcStatBonus(this.WIS));
-			}
 			return(calcStatBonus(this.WIS));
 		},
 		CHAP: function(){
-			if(this.profCHA){
-				return (this.ProfBonus + calcStatBonus(this.CHA));
-			}
 			return(calcStatBonus(this.CHA));
 		}
 };
@@ -191,8 +181,16 @@ function resetStats(){
 }
 
 function SubmitCharacterStats(){
+	MyCharacter.CName = document.getElementById('CharacterName').value;
 	MyCharacter.CharacterLevel = Number(document.getElementById('MyLevel').value);
 	MyCharacter.ProfBonus = Math.ceil(1+(MyCharacter.CharacterLevel / 4));
+	MyCharacter.Class = document.getElementById('MyClass').value;
+	MyCharacter.BaseAC = Number(document.getElementById('MyBaseAC').value);
+	MyCharacter.HPMax = Number(document.getElementById('MyHPMax').value);
+	MyCharacter.HPCurrent = MyCharacter.HPMax;
+	MyCharacter.TempHPMax = 0;
+	MyCharacter.TempHPCurrent = 0;
+	MyCharacter.ACMod = 0;
 	MyCharacter.profSTR = document.getElementById("STRProfCheck").checked;
 	MyCharacter.profDEX = document.getElementById("DEXProfCheck").checked;
 	MyCharacter.profCON = document.getElementById("CONProfCheck").checked;
@@ -227,10 +225,13 @@ function SubmitCharacterStats(){
 	document.getElementById('CharacterStatsButton').style.visibility = 'visible';
 	document.getElementById('CharacterSheetButton').style.visibility = 'hidden';
 	document.getElementById('MainScreenButton').style.visibility = 'visible';
+	document.getElementById('initbutton').style.visibility = 'visible';
 	skillButtonNameChange();
-	showScreen('DiceMain');
 	UpdateStats();
-	
+	updatePlayerStatsMenu();
+	showPlayerScreens();
+	submitChar();
+	socket.emit('AddPlayer', MyCharacter);
 }
 
 function plusMinusString(number){
@@ -242,15 +243,39 @@ function plusMinusString(number){
 }
 
 function skillButtonNameChange(){
-	document.getElementById('STRRoll').innerHTML = 'STR(' + plusMinusString(MyCharacter.STRP()) + ')';
-	document.getElementById('DEXRoll').innerHTML = 'DEX(' + plusMinusString(MyCharacter.DEXP()) + ')';
-	document.getElementById('CONRoll').innerHTML = 'CON(' + plusMinusString(MyCharacter.CONP()) + ')';
-	document.getElementById('INTRoll').innerHTML = 'INT(' + plusMinusString(MyCharacter.INTP()) + ')';
-	document.getElementById('WISRoll').innerHTML = 'WIS(' + plusMinusString(MyCharacter.WISP()) + ')';
-	document.getElementById('CHARoll').innerHTML = 'CHA(' + plusMinusString(MyCharacter.CHAP()) + ')';
+	var strP = 0;
+	var dexP = 0;
+	var conP = 0;
+	var intP = 0;
+	var wisP = 0;
+	var chaP = 0;
+	if(MyCharacter.profSTR){
+		strP = MyCharacter.ProfBonus;
+	}
+	if(MyCharacter.profDEX){
+		dexP = MyCharacter.ProfBonus;
+	}
+	if(MyCharacter.profCON){
+		conP = MyCharacter.ProfBonus;
+	}
+	if(MyCharacter.profINT){
+		intP = MyCharacter.ProfBonus;
+	}
+	if(MyCharacter.profWIS){
+		wisP = MyCharacter.ProfBonus;
+	}
+	if(MyCharacter.profCHA){
+		chaP = MyCharacter.ProfBonus;
+	}
+	document.getElementById('STRRoll').innerHTML = 'STR(' + plusMinusString(strP + MyCharacter.STRP()) + ')';
+	document.getElementById('DEXRoll').innerHTML = 'DEX(' + plusMinusString(dexP + MyCharacter.DEXP()) + ')';
+	document.getElementById('CONRoll').innerHTML = 'CON(' + plusMinusString(conP + MyCharacter.CONP()) + ')';
+	document.getElementById('INTRoll').innerHTML = 'INT(' + plusMinusString(intP + MyCharacter.INTP()) + ')';
+	document.getElementById('WISRoll').innerHTML = 'WIS(' + plusMinusString(wisP + MyCharacter.WISP()) + ')';
+	document.getElementById('CHARoll').innerHTML = 'CHA(' + plusMinusString(chaP + MyCharacter.CHAP()) + ')';
 	
 	document.getElementById('rollAcrobatics').innerHTML = 'Acrobatics(' + plusMinusString(MyCharacter.Acrobatics()) + ')';
-	document.getElementById('rollAnimalHandling').innerHTML = 'AnimalHandling(' + plusMinusString(MyCharacter.AnimalHandling()) + ')';
+	document.getElementById('rollAnimalHandling').innerHTML = 'Animal Handling(' + plusMinusString(MyCharacter.AnimalHandling()) + ')';
 	document.getElementById('rollArcana').innerHTML = 'Arcana(' + plusMinusString(MyCharacter.Arcana()) + ')';
 	document.getElementById('rollAthletics').innerHTML = 'Athletics(' + plusMinusString(MyCharacter.Athletics()) + ')';
 	document.getElementById('rollDeception').innerHTML = 'Deception(' + plusMinusString(MyCharacter.Deception()) + ')';
@@ -311,4 +336,142 @@ function UpdateStats(){
 	tempString += "Survival Skill: " + MyCharacter.Survival() + "<br>";
 	
 	document.getElementById('CharacterStats').innerHTML = tempString;
+}
+
+
+
+function loadCharacter(){
+	if(document.getElementById('loadCharacterInput').value == "IAMDEV"){
+		document.getElementById('DeveloperScreenButton').style.visibility = 'visible'
+	}
+	
+	MyCharacterInput = JSON.parse(document.getElementById('loadCharacterInput').value);
+	MyCharacter.CName = MyCharacterInput.CName;
+	MyCharacter.PName = MyCharacterInput.PName;
+	MyCharacter.CharacterLevel = MyCharacterInput.CharacterLevel;
+	MyCharacter.ProfBonus = MyCharacterInput.ProfBonus;
+		
+		
+		
+	MyCharacter.Class = MyCharacterInput.Class;
+	MyCharacter.BaseAC = MyCharacterInput.BaseAC
+	MyCharacter.HPMax = MyCharacterInput.HPMax;
+	MyCharacter.HPCurrent = MyCharacterInput.HPMax;
+		
+	MyCharacter.TempHPMax = 0;
+	MyCharacter.TempHPCurrent = 0;
+	MyCharacter.ACMod = 0;
+	
+	
+	
+	MyCharacter.STR = MyCharacterInput.STR;
+	MyCharacter.DEX = MyCharacterInput.DEX;
+	MyCharacter.CON = MyCharacterInput.CON;
+	MyCharacter.INT = MyCharacterInput.INT;
+	MyCharacter.WIS = MyCharacterInput.WIS;
+	MyCharacter.CHA = MyCharacterInput.CHA;
+	
+	MyCharacter.profSTR = MyCharacterInput.profSTR;
+	MyCharacter.profDEX = MyCharacterInput.profDEX;
+	MyCharacter.profCON = MyCharacterInput.profCON;
+	MyCharacter.profINT = MyCharacterInput.profINT;
+	MyCharacter.profWIS = MyCharacterInput.profWIS;
+	MyCharacter.profCHA = MyCharacterInput.profCHA;
+	MyCharacter.profAcrobatics = MyCharacterInput.profAcrobatics;
+	MyCharacter.profAnimalHandling = MyCharacterInput.profAnimalHandling;
+	MyCharacter.profArcana = MyCharacterInput.profArcana;
+	MyCharacter.profAthletics = MyCharacterInput.profAthletics;
+	MyCharacter.profDeception = MyCharacterInput.profDeception;
+	MyCharacter.profHistory = MyCharacterInput.profHistory;
+	MyCharacter.profInsight = MyCharacterInput.profInsight;
+	MyCharacter.profIntimidation = MyCharacterInput.profIntimidation;
+	MyCharacter.profInvestigation = MyCharacterInput.profInvestigation;
+	MyCharacter.profMedicine = MyCharacterInput.profMedicine;
+	MyCharacter.profNature = MyCharacterInput.profNature;
+	MyCharacter.profPerception = MyCharacterInput.profPerception;
+	MyCharacter.profPerformance = MyCharacterInput.profPerformance;
+	MyCharacter.profPersuasion = MyCharacterInput.profPersuasion;
+	MyCharacter.profReligion = MyCharacterInput.profReligion;
+	MyCharacter.profSleightOfHand = MyCharacterInput.profSleightOfHand;
+	MyCharacter.profStealth = MyCharacterInput.profStealth;
+	MyCharacter.profSurvival = MyCharacterInput.profSurvival;
+
+	recheckBoxes();
+	document.getElementById('MainScreenButton').style.visibility = 'visible';
+	document.getElementById('CharacterStatsButton').style.visibility = 'visible';
+	document.getElementById('CharacterSheetButton').style.visibility = 'hidden';
+	UpdateStats();
+	var msg = {
+		CName: MyCharacter.CName,
+		PName: MyCharacter.PName
+	};
+	socket.emit('playerSubmitted', msg);
+	skillButtonNameChange();
+	document.getElementById('NotesScreenButton').style.visibility = 'visible';
+	document.getElementById('CommentsScreenButton').style.visibility = 'visible';
+	document.getElementById('initbutton').style.visibility = 'visible';
+	showScreen('Main');
+}
+function recheckBoxes(){
+	document.getElementById("MySTR").value = MyCharacter.STR;
+	document.getElementById("MyDEX").value = MyCharacter.DEX;
+	document.getElementById("MyCON").value = MyCharacter.CON;
+	document.getElementById("MyINT").value = MyCharacter.INT;
+	document.getElementById("MyWIS").value = MyCharacter.WIS;
+	document.getElementById("MyCHA").value = MyCharacter.CHA;
+		
+	if(MyCharacter.profSTR){document.getElementById("STRProfCheck").checked = true}
+	if(MyCharacter.profDEX){document.getElementById("DEXProfCheck").checked = true}
+	if(MyCharacter.profCON){document.getElementById("CONProfCheck").checked = true}
+	if(MyCharacter.profINT){document.getElementById("INTProfCheck").checked = true}
+	if(MyCharacter.profWIS){document.getElementById("WISProfCheck").checked = true}
+	if(MyCharacter.profCHA){document.getElementById("CHAProfCheck").checked = true}
+	
+	
+	if(MyCharacter.profAcrobatics){document.getElementById("AcrobaticsProfCheck").checked = true}
+	if(MyCharacter.profAnimalHandling){document.getElementById("AnimalHandlingProfCheck").checked = true}
+	if(MyCharacter.profArcana){document.getElementById("ArcanaProfCheck").checked = true}
+	if(MyCharacter.profAthletics){document.getElementById("AthleticsProfCheck").checked = true}
+	if(MyCharacter.profDeception){document.getElementById("DeceptionProfCheck").checked = true}
+	if(MyCharacter.profHistory){document.getElementById("HistoryProfCheck").checked = true}
+	if(MyCharacter.profInsight){document.getElementById("InsightProfCheck").checked = true}
+	if(MyCharacter.profIntimidation){document.getElementById("IntimidationProfCheck").checked = true}
+	if(MyCharacter.profInvestigation){document.getElementById("InvestigationProfCheck").checked = true}
+	if(MyCharacter.profMedicine){document.getElementById("MedicineProfCheck").checked = true}
+	if(MyCharacter.profNature){document.getElementById("NatureProfCheck").checked = true}
+	if(MyCharacter.profPerception){document.getElementById("PerceptionProfCheck").checked = true}
+	if(MyCharacter.profPerformance){document.getElementById("PerformanceProfCheck").checked = true}
+	if(MyCharacter.profPersuasion){document.getElementById("PersuasionProfCheck").checked = true}
+	if(MyCharacter.profReligion){document.getElementById("ReligionProfCheck").checked = true}
+	if(MyCharacter.profSleightOfHand){document.getElementById("SleightOfHandProfCheck").checked = true}
+	if(MyCharacter.profStealth){document.getElementById("StealthProfCheck").checked = true}
+	if(MyCharacter.profSurvival){document.getElementById("SurvivalProfCheck").checked = true}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+function saveCharacter(){
+	document.getElementById('SaveString').value = JSON.stringify(MyCharacter);
+}
+
+
+function submitChar(){
+	var msg = {
+		CName: MyCharacter.CName,
+		PName: MyCharacter.PName
+	};
+	socket.emit('playerSubmitted', msg);
+	
 }

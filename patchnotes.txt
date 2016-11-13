@@ -1,0 +1,13 @@
+	Patch Notes
+		3.01 - 3.05
+			- Fixed formatting errors
+		3.05
+			- Added Comment Section
+		3.06
+			-fixed errors with wrong stat modifiers in macros(religion and survival)</li>
+			-when reseting stats, primary stats always reverted to the 'default'<li>
+			-Report/Comments now correctly showing after importing</li>
+		3.07
+			-Init Button Mission on Import Fixed</li>
+			-Restored Error Reporting, however still limited by server reset
+			-DM Can now correctly roll multiple dice</li>
