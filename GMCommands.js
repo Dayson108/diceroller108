@@ -1,5 +1,5 @@
 function claimGMStatus(){
-	MyCharacter.PName = document.getElementById('GMName').value;
+	MyCharacter.PName = document.getElementById('PlayerName').value;
 	//if(MyCharacter.PName != ""){
 	if(MyCharacter.PName){
 		
@@ -17,28 +17,34 @@ function claimGMStatus(){
 		socket.emit('GMSubmitted', msg);
 	}
 	else{
-		document.getElementById('GMName').style.backgroundColor = "red";
+		document.getElementById('PlayerName').style.backgroundColor = "red";
 		setTimeout(flashWhite, 1000);
 	}
 }
 
 
-function rollGMDice(sides, plus, diceNum){
-	var tempName = MyCharacter.CName;
-	MyCharacter.CName = document.getElementById('GMRollName').value;
-	if(MyCharacter.CName == ""){MyCharacter.CName = 'Dungeon Master'};
-	var skillNameTemp;
-	if(sides == 20){
-		var adv = GMAdvCheck();
-		skillNameTemp = document.getElementById('GMRollType').value;
-		if(skillNameTemp == ""){ skillNameTemp = 'd20'};
-		rolld20Dice(plus, adv, skillNameTemp)
-	
-	}else{
-		skillNameTemp = 'd' + sides;
-		rollSidedDice(sides, plus, diceNum, skillNameTemp);	
+function GMUpdatePlayerStats(iPlayers){
+	var tempOutput = "";
+	for(var i = 0; i < iPlayers.length; i++){
+		var AC = Number(iPlayers[i].BaseAC) + Number(iPlayers[i].ACMod);
+		
+		var percep = 10 + calcStatBonus(iPlayers[i].WIS);
+		if(iPlayers[i].profPerception){
+			percep = percep + iPlayers[i].ProfBonus;
+		}
+		
+
+		tempOutput += iPlayers[i].CName + ' - ' + iPlayers[i].CharacterLevel + " " +iPlayers[i].Class + '<br>';
+		tempOutput += 'HP: ' + iPlayers[i].HPCurrent + " / " + iPlayers[i].HPMax + '<br>';
+		if(iPlayers[i].TempHPMax > 0){
+			tempOutput += 'Temp HP: ' + iPlayers[i].TempHPCurrent + " / " + iPlayers[i].TempHPMax + '<br>';
+		}
+		tempOutput += 'AC: ' + AC + '<br>';
+		tempOutput += 'Passive Perception: ' + percep + '<hr>';
+		
+		//Current AC
+		//Passiv Perception/Insight
 	}
 	
-	MyCharacter.CName = tempName;
+	document.getElementById('GMPlayerStatsSide').innerHTML = tempOutput;
 }
-

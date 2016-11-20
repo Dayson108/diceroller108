@@ -1,90 +1,74 @@
-
-
 function ClearAdvDis(){
-		document.getElementById('RadioAdv').checked = false;
-		document.getElementById('RadioDis').checked = false;
-		document.getElementById('RadioAdvGM').checked = false;
-		document.getElementById('RadioDisGM').checked = false;
+	document.getElementById('RadioAdv').checked = false;
+	document.getElementById('RadioDis').checked = false;
+	document.getElementById('RadioAdvGM').checked = false;
+	document.getElementById('RadioDisGM').checked = false;
 }
 
-function GMAdvCheck(){
-	if(document.getElementById('RadioAdvGM').checked){
-		ClearAdvDis();
-		return 1;
-	}
-	else if(document.getElementById('RadioDisGM').checked){
-		ClearAdvDis();
-		return -1;
-	}
-	else{
-		return 0;
-	}
-}
 
-function mainAdvCheck(){
-	//RadioAdvGM
-	//RadioDisGM
-	if(document.getElementById('RadioAdv').checked){
-		ClearAdvDis();
-		return 1;
+function rollStatThrow(Plus, Skill, SaveCheck, SaveProf){
+	if(document.getElementById(SaveCheck).checked){
+		Skill = Skill + " Save";
+		if(SaveProf){
+			console.log('prof save');
+			Plus += MyCharacter.ProfBonus;	
+		}
+		else{
+			console.log('non prof');
+		}
 	}
-	else if(document.getElementById('RadioDis').checked){
-		ClearAdvDis();
-		return -1;
-	}
-	else{
-		return 0;
-	}
-}
-
-function rollSkill(Plus, skillName){
-	var adv = mainAdvCheck();
-	Plus = Plus + Number(document.getElementById('rollMod').value);
-	document.getElementById('rollMod').value = "";
-	rolld20Dice(Number(Plus), adv, skillName);
-}
-
-function rollStat(Plus, skillName, statProf){
-	var adv = mainAdvCheck();
-	if(statProf){
-		Plus = Plus + MyCharacter.ProfBonus;
-		
-	}
-	Plus = Plus + Number(document.getElementById('rollMod').value);
-	document.getElementById('rollMod').value = "";
-	rolld20Dice(Number(Plus), adv, skillName);
-}
-
-function rollADd20Orig(){
-	var adv;
-	if(document.getElementById('RadioAdv2').checked == true){
-		adv = 1;
-	}
-	else if(document.getElementById('RadioDis2').checked == true){
-		adv = -1;
-	}
-	else{
-		adv = 0;
-	}
-	rolld20Dice(Number(document.getElementById('ADd20POrig').value), adv, 'd20');
+	rolld20(Plus, Skill)
 	
 }
 
-function rolld20Dice(Plus, adv, skillNameTemp){
-	var dice;
-	var dice1 = Math.floor((Math.random() * 20) + 1);
-	var dice2 = Math.floor((Math.random() * 20) + 1);
-	var tempResult;
-	var tempStatus = 0;
-	var output;  
-	if(adv == 1){
+
+function rollGMDice(sides, plus, diceNum){
+console.log('sides: ' + sides);
+console.log('plus: ' + plus);
+console.log('diceNum: ' + diceNum);
+
+	var tempName = MyCharacter.CName;
+	MyCharacter.CName = document.getElementById('GMRollName').value;
+	if(MyCharacter.CName == ""){MyCharacter.CName = tempName};
+	//var skillNameTemp;
+	if(sides == 20){
+		rolld20(plus, document.getElementById('GMRollType').value);
+
+	}else{
+	
+		rollSidedDice(diceNum, sides, plus);
+	}
+	
+	MyCharacter.CName = tempName;
+}
+
+
+
+function mainAdvCheck(){
+	if(document.getElementById('RadioAdv').checked || document.getElementById('RadioAdvGM').checked){
+		ClearAdvDis();console.log('adv!!');
+		return 1;
+	}
+	else if(document.getElementById('RadioDis').checked || document.getElementById('RadioDisGM').checked){
+		ClearAdvDis();
+		return -1;
+	}
+	else{
+		return 0;
+	}
+}
+
+
+function diceAdvCalc(adv, dice1, dice2){
+	var dice = 0;
+	if(adv == 1){	
 		if(dice1 >= dice2){
 			dice = dice1;
 		}
 		else{
 			dice = dice2;
 		}
-		tempResult = "[" + dice1 + "][" + dice2 + "]-->[";
+		return dice;
 	}else if(adv == -1){
 		if(dice1 <= dice2){
 			dice = dice1;
@@ -92,76 +76,56 @@ function rolld20Dice(Plus, adv, skillNameTemp){
 		else{
 			dice = dice2;
 		}
-		tempResult = "[" + dice1 + "][" + dice2 + "]-->[";
+		return dice;
 	}else{
-		dice = dice1;
-		tempResult = "[";	
+		return dice1;
 	}
-	tempResult += dice + "] + {" + Plus + "} = " + (dice + Plus);
-	if(dice == 20)
-	{
-		tempStatus = 1;
-	}
-	else if(dice == 1){
-		tempStatus = -1;
-	}
-	
-	
-	
-	if(document.getElementById("PrivateRoll").checked == true){
-		output = {result: tempResult, name: "Private Roll", status: 1, natStatus: tempStatus, skillName: skillNameTemp};
-		updateResultList(output);
-	}
-	else if(document.getElementById("PrivateMessage").checked == true){
-		output = {result: tempResult, name: MyCharacter.CName, status: 5, skillName: skillNameTemp, msgToId: "", msgToName: "", msgFrom: "", natStatus: tempStatus}; 
-		sendPrivateMessage(output);
-		output.status = 6;
-		updateResultList(output);
-	}else{
-    output = {result: tempResult, name: MyCharacter.CName, status:1, natStatus: tempStatus, skillName: skillNameTemp}; 
-    updateResultList(output);
-    socket.emit('20DiceRoll', output);
-	}
-	
-	
-	
 }
 
-function rollSidedDice(sides, plus, diceNum, skillNameTemp){
-  var dice = 0;
-  var i = 0;
-  var tempResult = "";
-  var tempNum;
-  if(diceNum > 0){
-    diceNum -= 1;
-  }
-  for(i = 0; i < diceNum; ++i){
-    tempNum = Math.floor((Math.random() * sides) + 1);
-    tempResult += "[" + tempNum + "] + ";
-    dice += tempNum;
-  }
-  tempNum = Math.floor((Math.random() * sides) + 1);
-  tempResult += "[" + tempNum + "]";
-  dice += tempNum;
-  tempResult += " + {" + plus + "} = " + (dice + plus);
-  
-  var output; 
+function rolld20(Plus, skill){
+	Plus = Plus + Number(document.getElementById('rollMod').value);
+	document.getElementById('rollMod').value = "";
+	var adv = mainAdvCheck();
+	var dice = 0;
+	var dice1 = Math.floor((Math.random() * 20) + 1);
+	var dice2 = Math.floor((Math.random() * 20) + 1);
+	var dice = diceAdvCalc(adv, dice1, dice2);
+	console.log('dice: ' + dice);
+	var mark = "";
+	
+	if(dice == 20){
+		mark = '**';
+	}else if(dice == 1){
+		mark = '--';
+	}
+	
+	var center; 
+	if(adv == 0){
+		center = MyCharacter.CName + "(" + skill + '):[' + dice + '] + {' + Plus + '} = ' + (dice+Plus);
+	
+	}else if(adv == 1 || adv == -1){
+		center = MyCharacter.CName + "(" + skill + '):[' + dice1 + '][' + dice2 + ']: [' + dice + '] + {' + Plus + '} = ' + (dice+Plus);
+	}
+	
+	sendMessage(mark+center+mark);
+	
+}//end rolld20
 
-  
-	if(document.getElementById("PrivateRoll").checked == true){
-		output = {result: tempResult, name: "Private Roll", status: 0, skillName: skillNameTemp};
-		updateResultList(output);
+function rollSidedDice(diceNum, diceSides, Plus){
+	var Output = "";
+	var result = 0;
+	var temp = 0;
+	
+	Output += MyCharacter.CName + "(" + diceNum + 'd' + diceSides + '+' + Plus + '): ';
+	for(var i = 1; i <= diceNum; i++){
+		temp = Math.floor((Math.random() * diceSides) + 1);
+		result += temp;
+		Output += "[" + temp + "]";
 	}
-	else if(document.getElementById("PrivateMessage").checked == true){
-		output = {result: tempResult, name: MyCharacter.CName, status: 5, skillName: skillNameTemp, msgToId: "", msgToName: "", msgFrom: ""}; 
-		sendPrivateMessage(output);
-		output.status = 6;
-		updateResultList(output);
-	}else{
-		output = {result: tempResult, name: MyCharacter.CName, status: 0, skillName: skillNameTemp}; 
-		updateResultList(output);
-		socket.emit('sidedDiceRoll', output);
-	}
-}//rollSidedDice
+	Output += " + {" + Plus + "} = " + (result + Plus);
+	
+	sendMessage(Output);
+	
+}
 
 

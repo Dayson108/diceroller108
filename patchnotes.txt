@@ -1,13 +1,25 @@
-	Patch Notes
-		3.01 - 3.05
-			- Fixed formatting errors
-		3.05
-			- Added Comment Section
-		3.06
-			-fixed errors with wrong stat modifiers in macros(religion and survival)</li>
-			-when reseting stats, primary stats always reverted to the 'default'<li>
-			-Report/Comments now correctly showing after importing</li>
-		3.07
-			-Init Button Mission on Import Fixed</li>
-			-Restored Error Reporting, however still limited by server reset
-			-DM Can now correctly roll multiple dice</li>
+Patch Notes
+	3.10
+		- Removed Patch Notes from app prefer major notes only
+	3.09
+		Added GM/Player Status
+	3.07
+		-Init Button Mission on Import Fixed</li>
+		-Restored Error Reporting, however still limited by server reset
+		-DM Can now correctly roll multiple dice</li>
+	3.06
+		-fixed errors with wrong stat modifiers in macros(religion and survival)
+		-when reseting stats, primary stats always reverted to the 'default'
+		-Report/Comments now correctly showing after importing
+	3.01 - 3.05
+		-Fixed formatting errors
+		-Added Comment Section
+	3.00
+		-Added Player List
+		-Added Private Chat
+		-Added Init List
+		-Macros now show their + bonuses
+		-Added Save/Load Character
+		-Added GM as roll
+		-Added GM Feature
+		-Init List Controls

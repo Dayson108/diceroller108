@@ -144,10 +144,11 @@ io.on('connection', function(socket){
 		//console.log('Testing...');
 	});
 	
-	socket.on('SendPvtMsg', function(msg){
-		io.to(msg.msgToId).emit('PvtMsgRcv', msg);
+	socket.on('SendPvtMsg', function(msgToId, msg){
+		io.to(msgToId).emit('PvtMsgRcv', msg);
 	});
 	
+
 	
 	
 	socket.on('InitRoll', function(input){
@@ -158,6 +159,10 @@ io.on('connection', function(socket){
 	socket.on('ClearInit', function(){
 		InitList = [];
 		io.sockets.emit('ClearInitRecieved');
+	});	
+	
+	socket.on('ChatMsgSend', function(msg){
+		io.sockets.emit('ChatMsgRcv', msg);
 	});
 
 

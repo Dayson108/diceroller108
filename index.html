@@ -1,6 +1,6 @@
 <html>
   <head>
-<title>D&D 5e App v3.08</title>
+<title>D&D 5e</title>
 <script src="/socket.io/socket.io.js"></script>
 <script src="CreatedSockets.js"></script>
 <script src="dicerolls.js"></script>
@@ -9,15 +9,19 @@
 <script src="GMCommands.js"></script>
 <script src="InitFunctions.js"></script>
 <script src="DevFunctions.js"></script>
+<script src="Macro.js"></script>
 <script>
-var versionNumber = 3.09;
+var versionNumber = 3.11;
 console.log("API Ready v" + versionNumber)
 
 var LocalResultList = [];
 var LocalPlayerList = [];
 var privateMsgTable = [];
 
-var Players = [];
+var ChatMessages = [];
+var PrivateMessageIDList = [];
+
+//var Players = [];
 var privateLink = {
 	name: "",
 	id: ""
@@ -30,17 +34,46 @@ var GMData = {
 
 };
 
-
 //Test Functions Only
-function test(){
+function test(input){
 	//socket.emit('Test');
-	GMUpdatePlayerStats(Players);
+
 }
 function test2(){
 	//socket.emit('Test');
-	document.getElementById('bacon').innerHTML = 'hidden';
+	
 	
 }
+
+function updateChat(input){
+	ChatMessages.push(input);
+	var Output = "";
+	for(var i = ChatMessages.length-1; i >= 0; i--){
+		Output += ChatMessages[i] + '<hr>';
+	}
+	document.getElementById('ResultListMain').innerHTML = Output;
+}
+
+
+function sendMessage(msg){
+	if(document.getElementById("PrivateRoll").checked){
+		msg = "Private Message <br>" + msg;
+		updateChat(msg);
+	}else if(document.getElementById("PrivateMessage").checked){
+		var temp = "Private Message from " + MyCharacter.CName + ": ";
+		socket.emit('SendPvtMsg', privateMsg[document.getElementById('privateMsg').selectedIndex].id , (temp+msg));
+		
+		var tempName = 'lemon'
+		temp = "Private Message to " + privateMsg[document.getElementById('privateMsg').selectedIndex].innerHTML + ": ";
+		console.log();
+		updateChat(temp + msg);
+	}else{
+		socket.emit('ChatMsgSend', msg);
+	}
+}
+
+
+
 
 function hideAll(){
 	document.getElementById('Main').style.visibility = 'hidden';
@@ -95,111 +128,35 @@ function flashWhite(){
 	document.getElementById('GMInitName').style.backgroundColor = "white";
 	document.getElementById('CharacterName').style.backgroundColor = "white";
 	document.getElementById('PlayerName').style.backgroundColor = "white";
-	document.getElementById('GMName').style.backgroundColor = "white";
 	document.getElementById('GMInitNamePrivate').style.backgroundColor = "white";
 }
 
-function GMUpdatePlayerStats(iPlayers){
-	var tempOutput = "";
-	for(var i = 0; i < iPlayers.length; i++){
-		var AC = Number(iPlayers[i].BaseAC) + Number(iPlayers[i].ACMod);
-		
-		var percep = 10 + calcStatBonus(iPlayers[i].WIS);
-		if(iPlayers[i].profPerception){
-			percep = percep + iPlayers[i].ProfBonus;
-		}
-		
 
-		tempOutput += iPlayers[i].CName + ' - ' + iPlayers[i].CharacterLevel + " " +iPlayers[i].Class + '<br>';
-		tempOutput += 'HP: ' + iPlayers[i].HPCurrent + " / " + iPlayers[i].HPMax + '<br>';
-		if(iPlayers[i].TempHPMax > 0){
-			tempOutput += 'Temp HP: ' + iPlayers[i].TempHPCurrent + " / " + iPlayers[i].TempHPMax + '<br>';
-		}
-		tempOutput += 'AC: ' + AC + '<br>';
-		tempOutput += 'Passive Perception: ' + percep + '<hr>';
-		
-		//Current AC
-		//Passiv Perception/Insight
-	}
-	
-	document.getElementById('GMPlayerStatsSide').innerHTML = tempOutput;
-}
 
-function submitPlayerStats(){
-	MyCharacter.HPCurrent = document.getElementById('PlayerStatusCurrentHP').value;
-	MyCharacter.TempHPCurrent = document.getElementById('PlayerStatusTempHP').value;
-	MyCharacter.TempHPMax = document.getElementById('PlayerStatusTempMaxHP').value;
-	MyCharacter.ACMod = document.getElementById('PlayerStatusACMod').value;
-	socket.emit('UpdatePlayer', MyCharacter);
-}
 
-function updatePlayerStatsMenu(){
-	var tempOutput = "";
-	tempOutput += 'HP: <input type="text" id="PlayerStatusCurrentHP" size="1" value="' + MyCharacter.HPCurrent + '"> / ' + MyCharacter.HPMax + ' <br>';
-	tempOutput += 'Temp HP: <input type="text" id="PlayerStatusTempHP" size="1" value="' + MyCharacter.TempHPCurrent + '"> / <input type="text" id="PlayerStatusTempMaxHP" size="1" value="' + MyCharacter.TempHPMax + '"> <br>';
-	tempOutput += 'Current AC: ' + MyCharacter.BaseAC + ' + <input type="text" id="PlayerStatusACMod" size="1" value="' + MyCharacter.ACMod + '"><br>';
-	tempOutput += '<button id="SubmitStatUpdate" onclick="submitPlayerStats()">Submit</button><hr>';
-	document.getElementById('PlayerStats').innerHTML = tempOutput;
-	
-}
 
 </script>
 </head>
 
-<body>
-<div id="Notes" style="height:100%; width:500px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+<body bgcolor="#BEC6DD">
+
+<div id="Notes" style="height:100%; width:500px; position:absolute; top:0px; left:75px; visibility:hidden;">
 	D&D App 5e App<br>
-	V. 3.01<br>
+	V. 3.12<br>
 	<hr>
 	KNOWN BUGS:<br>
 		<ul>
-			<li>If two players have the same Player and Character Name private message doesn't work correctly</li>
 			<li>Most places that require numbers, don't check if they recieve letters.  This causes glitches in some areas, but ill fix those later.  Just keep your letters and numbers where they belong</li>
 			<li>Server will reset after 30 min of iniactivity (Free user limitation, not glitch)
 				<ul>
 					<li>(In Progress) moving server storage to cookies/permanant storage</li>
 				</ul>
 			</li>
+			<li>Private Messaging Currently Broken</li>
 		</ul>
 	<hr>
 	
-	Version 3.0 Update Major Notes<br>
-	<ul>
-		<li>Added Player List</li>
-		<li>Added Private Chat</li>
-		<li>Added Init List</li>
-		<li>Macros now show their + bonuses</li>
-		<li>Added Save/Load Character</li>
-		<li>Added GM as roll</li>
-		<li>Added GM Feature
-			<ul>
-				<li>-Init List Controls</li>
-			</ul>
-		</li>
-	</ul>
-	<hr>
-	Possible Future Uprgrade Ideas<br>
-	(Let me know if any of these are high interest to anyone)<br>
-	<ul>
-		<li>Update Save/Load
-			<ul>Either Saving to some kind of file or possibly saving as a browser cookie</ul>
-		</li>
-			
-		<li>Send Private Messages(not just rolls)</li>
-		<li>Finish GM Inspiration system</li>
-		<li>GM Seeing Character Stats</li>
-			<ul><li>Passive Perception/Insight</li>
-				<li>Armor Classes</li>
-				<li>Health Tracker</li>
-				<li>Player Save DCs</li>
-			</ul>
-		<li>Weapon Macros</li>
-		<li>Spell Macros</li>
-		<li>Spell System (spellbook tab basically)</li>
-		<li>Personal Macros</li>
-		<li>Some kind of Inventory</li>
-		<li>replace [2] type dice with better images</li>
-	</ul>
+
 </div>
 
 
@@ -213,44 +170,32 @@ function updatePlayerStatsMenu(){
 	<p><button id="NotesScreenButton" onclick="showScreen('Notes')" style="visibility:hidden">Version Notes</button></p>
 	<p><button id="CommentsScreenButton" onclick="showScreen('CommentFrame')" style="visibility:hidden">Report Issue</button></p>
 	<p><button id="DeveloperScreenButton" onclick="showScreen('Developer')" style="visibility:hidden">Developer</button></p>
-	<button id="testbutton2" onclick="test()" style="visibility:hidden">test</button><br>
+	<button id="testbutton2" onclick="test()" style="visibility:visible">test</button><br>
 	<button id="testbutton4" onclick="test2()" style="visibility:hidden">test2</button><br>
 </nav>
 
-<div id="Login" style="height:100%; width:500px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:visible;">
+<div id="Login" style="height:100%; width:500px; position:absolute; top:0px; left:75px; visibility:visible;">
 	<br><br>
     Player Name: <input type="text" id="PlayerName" size="5"><br>
 	
-	<button id="Login" onclick="Login()">Create Character</button>
-	<hr>
-	<p id="GMLogin">
-		Dungeon Master<br>
-		Name: <input type="text" id="GMName" size="5">
-		<button id="ClaimGMButton" onclick="claimGMStatus()">Claim Dungeon Master Status</button>	
-	</p>
-	
-	<hr><br><br><br><br>
+	<button id="Login" onclick="Login()">Create Character</button><button id="ClaimGMButton" onclick="claimGMStatus()">Claim Dungeon Master Status</button>
+	<hr><br><br>
 
 	Caution: The Import Feature is currently in beta.
 	<br>Please be careful of your copy/pasting <br>
 	<button id="loadCharacter" onclick="loadCharacter()">Import Character</button><input type="text" id="loadCharacterInput" size="5"><hr>
 </div>
 
-
-
-
-
-
-<div id="GMFunScreen" style="height:100%; width:300px; position:absolute; top:0px; left:275px; background-color:#FBE272; visibility:hidden">
+<div id="GMFunScreen" style="height:100%; width:300px; position:absolute; top:0px; left:275px; visibility:hidden">
 	<button id="GMShowInspiration" onclick="GMShowScreen('Inspiration')">Inspiration</button>
 		
 </div>
 
-<div id="GMPlayerList" style="height:100%; width:400px; background-color:#AAAAAA; padding:5px; position:absolute; top:0px; left:580px;">
+<div id="GMPlayerList" style="height:100%; width:400px; padding:5px; position:absolute; top:0px; left:580px;">
 ooga
 </div>
 
-<div id="GMScreen" style="height:100%; width:500px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+<div id="GMScreen" style="height:100%; width:500px; position:absolute; top:0px; left:75px;  visibility:hidden;">
 	<div id="GMPlayerStatsSide" style="height:100%; width:195px; position:absolute; top:0px; left:0px; border-right-style:solid; border-right-width:5px;">
 
 	</div>
@@ -265,22 +210,22 @@ ooga
 		<button id="ClearAdvDis" onclick="ClearAdvDis()">Clear</button>
 		<hr>
 	</div>
-	<div id="DiceGM" style="height:135px; width:300px; position:absolute; top:80px; left:200px;">
+	<div id="DiceGM" style="height:130px; width:300px; position:absolute; top:80px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
 		1d20 + <input type="text" id="GMd20P" size="1"> Skill Name<input type="text" id="GMRollType" size="3">
 		<button id="rolld20GM" onclick="rollGMDice('20', Number(document.getElementById('GMd20P').value)), 1">Roll</button><br>
 		<input type="text" id="GMd12" size="1">d12 + <input type="text" id="GMd12P" size="1">
-		<button id="rolld12GM" onclick="rollGMDice('12', Number(document.getElementById('GMd12P').value), document.getElementById('GMd12').value)">Roll</button><br>
+		<button id="rolld12GM" onclick="rollGMDice('12', Number(document.getElementById('GMd12P').value), Number(document.getElementById('GMd12').value))">Roll</button><br>
 		<input type="text" id="GMd10" size="1">d10 + <input type="text" id="GMd10P" size="1">
-		<button id="rolld10GM" onclick="rollGMDice('10', Number(document.getElementById('GMd10P').value), document.getElementById('GMd10').value)">Roll</button><br>
+		<button id="rolld10GM" onclick="rollGMDice('10', Number(document.getElementById('GMd10P').value), Number(document.getElementById('GMd10').value))">Roll</button><br>
 		<input type="text" id="GMd8" size="1">d8 + <input type="text" id="GMd8P" size="1">
-		<button id="rolld8GM" onclick="rollGMDice('8', Number(document.getElementById('GMd8P').value), document.getElementById('GMd8').value)">Roll</button><br>
+		<button id="rolld8GM" onclick="rollGMDice('8', Number(document.getElementById('GMd8P').value), Number(document.getElementById('GMd8').value))">Roll</button><br>
 		<input type="text" id="GMd6" size="1">d6 + <input type="text" id="GMd6P" size="1">
-		<button id="rolld6GM" onclick="rollGMDice('6', Number(document.getElementById('GMd6P').value), document.getElementById('GMd6').value)">Roll</button><br>
+		<button id="rolld6GM" onclick="rollGMDice('6', Number(document.getElementById('GMd6P').value), Number(document.getElementById('GMd6').value))">Roll</button><br>
 		<input type="text" id="GMd4" size="1">d4 + <input type="text" id="GMd4P" size="1">
-		<button id="rolld4GM" onclick="rollGMDice('4', Number(document.getElementById('GMd4P').value), document.getElementById('GMd4').value)">Roll</button><br>
-		<hr>
+		<button id="rolld4GM" onclick="rollGMDice('4', Number(document.getElementById('GMd4P').value), Number(document.getElementById('GMd4').value))">Roll</button><br>
+
 	</div>
-	<div id="GMAddInitMenu" style="height:80px; width:300px; position: absolute; top:215px; left:200px;">
+	<div id="GMAddInitMenu" style="height:143px; width:300px; position: absolute; top:215px; left:200px;border-bottom-style:solid; border-bottom-width:6px;">
 		Add to <b>Public</b> Init List<br>
 		<form style="margin-bottom:0px"> 
 		<input type="radio" name="adv" id="GMRollInit" checked="checked">d20+<input type="text" id="GMAddInitPlus" size="1">
@@ -297,77 +242,117 @@ ooga
 		</form>
 		Name: <input type="text" id="GMInitNamePrivate" size="3">
 		<button id="GMAddInitButtonPrivate" onclick="GMAddToPrivateInit()">Add</button>
-		<hr>	
+	</div>
+	<div id="DMMacros" style="height:200px; width:300px; position:absolute; top:365px; left:200px;">
+		<input type="checkbox" id="DMMacroSuppressDice">Check this to hide dice
+		<hr>
+		Macro1:<br>
+		Character Name: <input type="text" id="DM1Name" style="width:100px;"">
+		<input type="text" id="DM1" style="width:250px;"><button id="DM1B" onclick="DMmacro('DM1', 'DM1Name')">Send</button><hr>
+
+		Macro2:<br>
+		Character Name: <input type="text" id="DM2Name" style="width:100px;">
+		<input type="text" id="DM2" style="width:250px;"><button id="DM2B" onclick="DMmacro('DM2', 'DM2Name')">Send</button><hr>
+		
+		Macro3:<br>
+		Character Name: <input type="text" id="DM3Name" style="width:100px;">
+		<input type="text" id="DM3" style="width:250px;"><button id="DM3B" onclick="DMmacro('DM3', 'DM3Name')">Send</button><hr>
+		
+				Macro4:<br>
+		Character Name: <input type="text" id="DM4Name" style="width:100px;">
+		<input type="text" id="DM4" style="width:250px;"><button id="DM4B" onclick="DMmacro('DM4', 'DM4Name')">Send</button><hr>
+		
+				Macro5:<br>
+		Character Name: <input type="text" id="DM5Name" style="width:100px;">
+		<input type="text" id="DM5" style="width:250px;"><button id="DM5B" onclick="DMmacro('DM5', 'DM5Name')">Send</button><hr>
+		
+		
 	</div>
 </div>
 
-<div id="Main" style="height:100%; width:500px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+
+
+<div id="Main" style="height:100%; width:500px; position:absolute; top:0px; left:75px; visibility:hidden;">
 	<div id="PlayerStats" style="height:100%; width:195px; position:absolute; top:0px; left:0px;border-right-style:solid; border-right-width:6px;">
 
 	</div>
-	<div id="AdvDisMain" style="height:40px; width:300px; position: absolute; top:0px; left:200px;">
+	<div id="AdvDisMain" style="height:30px; width:300px; position: absolute; top:0px; left:200px;border-bottom-style:solid; border-bottom-width:6px;">
 		<input type="radio" name="adv" id="RadioAdv" value="Adv"> Advantage
 		<input type="radio" name="adv" id="RadioDis" value="Dis"> Disadvantage
 		<button id="ClearAdvDis" onclick="ClearAdvDis()">Clear</button>
-		<hr>
+		
 	</div>
-	<div id="DiceMod" style="height:40px; width:300px; position:absolute; top:40px; left:200px;">
-		<input type="text" id="rollMod" size="1">+/- Roll Mod&nbsp&nbsp&nbsp&nbsp<img src="Images/inspired.png" style="height:20px; "><input type="checkbox" id="InspiredCheck" style="visibility:hidden"><hr>
-	</div>
-	<div id="DiceMain" style="height:135px; width:300px; position:absolute; top:85px; left:200px;">
+	
+
+	<div id="DiceMain" style="height:130px; width:300px; position:absolute; top:40px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
 		1d20 + <input type="text" id="d20P" size="1">
-		<button id="rolld20" onclick="rollSkill(Number(document.getElementById('d20P').value), 'd20')">Roll</button><br>
+		<button id="rolld20" onclick="rolld20(Number(document.getElementById('d20P').value), 'd20')">Roll</button><br>
 		<input type="text" id="d12" size="1">d12 + <input type="text" id="d12P" size="1">
-		<button id="rolld12" onclick="rollSidedDice(12, Number(document.getElementById('d12P').value), document.getElementById('d12').value, 'd12')">Roll</button><br>
+		<button id="rolld12" onclick="rollSidedDice(Number(document.getElementById('d12').value),12,Number(document.getElementById('d12P').value))">Roll</button><br>
 		<input type="text" id="d10" size="1">d10 + <input type="text" id="d10P" size="1">
-		<button id="rolld10" onclick="rollSidedDice(10, Number(document.getElementById('d10P').value), document.getElementById('d10').value, 'd10')">Roll</button><br>
+		<button id="rolld10" onclick="rollSidedDice(Number(document.getElementById('d10').value),10,Number(document.getElementById('d10P').value))">Roll</button><br>
 		<input type="text" id="d8" size="1">d8 + <input type="text" id="d8P" size="1">
-		<button id="rolld8" onclick="rollSidedDice(8, Number(document.getElementById('d8P').value), document.getElementById('d8').value, 'd8')">Roll</button><br>
+		<button id="rolld8" onclick="rollSidedDice(Number(document.getElementById('d8').value),8,Number(document.getElementById('d8P').value))">Roll</button><br>
 		<input type="text" id="d6" size="1">d6 + <input type="text" id="d6P" size="1">
-		<button id="rolld6" onclick="rollSidedDice(6, Number(document.getElementById('d6P').value), document.getElementById('d6').value, 'd6')">Roll</button><br>
+		<button id="rolld6" onclick="rollSidedDice(Number(document.getElementById('d6').value),6,Number(document.getElementById('d6P').value))">Roll</button><br>
 		<input type="text" id="d4" size="1">d4 + <input type="text" id="d4P" size="1">
-		<button id="rolld4" onclick="rollSidedDice(4, Number(document.getElementById('d4P').value), document.getElementById('d4').value, 'd4')">Roll</button><br>
-		<hr>
+		<button id="rolld4" onclick="rollSidedDice(Number(document.getElementById('d4').value),4,Number(document.getElementById('d4P').value))">Roll</button><br>
+
 	</div>
 
-	<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; position:absolute; top:230px; left:200px; overflow:auto;">
-		<button id="STRRoll" onclick="rollStat(MyCharacter.STRP(), 'Strength', MyCharacter.profSTR)">Strength</button><br>
-		<button id="DEXRoll" onclick="rollStat(MyCharacter.DEXP(), 'Dexterity', MyCharacter.profDEX)">Dexterity</button><br>
-		<button id="CONRoll" onclick="rollStat(MyCharacter.CONP(), 'Constitution', MyCharacter.profCON)">Constitution</button><br>
-		<button id="INTRoll" onclick="rollStat(MyCharacter.INTP(), 'Intelligence', MyCharacter.profINT)">Intelligence</button><br>
-		<button id="WISRoll" onclick="rollStat(MyCharacter.WISP(), 'Wisdom'), MyCharacter.profWIS">Wisdom</button><br>
-		<button id="CHARoll" onclick="rollStat(MyCharacter.CHAP(), 'Charisma'), MyCharacter.profCHA">Charisma</button><br>
+	<div id="PlayerMacros" style="height:110; width:300px; position:absolute; top:180px; left:200px; overflow:auto; border-bottom-style:solid; border-bottom-width:6px;">
+		M1 : <input type="text" id="QM1" style="width:200px;" value="[3d12+8]"><button id="MQ1B" onclick="macro('QM1')">Send</button><br>
+		M2 : <input type="text" id="QM2" style="width:200px;" value="[3d12+8]"><button id="MQ2B" onclick="macro('QM2')">Send</button><br>
+		M3 : <input type="text" id="QM3" style="width:200px;" value="[3d12+8]"><button id="MQ3B" onclick="macro('QM3')">Send</button><br>
+		M4 : <input type="text" id="QM4" style="width:200px;" value="[3d12+8]"><button id="MQ4B" onclick="macro('QM4')">Send</button><br>
+		M5 : <input type="text" id="QM5" style="width:200px;" value="[3d12+8]"><button id="MQ5B" onclick="macro('QM5')">Send</button>
+	</div>
+	
+	<div id="DiceMod" style="height:40px; width:300px; position:absolute; top:300px; left:200px;">
+		<input type="text" id="rollMod" size="1">+/- to Rolls Below This Section<hr>
+	</div>
+	<div id="SavingThrowsButtonsMain" style="height:100%; width:150px; position:absolute; top:340px; left:205px; overflow:auto;">
+		Click Button for Stat Roll.  Add Checkbox for saving throw.
+		<br>
+		<button id="STRRoll" onclick="rollStatThrow(MyCharacter.STRP(), 'Strength', 'STRSave', MyCharacter.profSaveSTR)">Strength</button><input type="checkbox" id="STRSave"><br>
+		<button id="DEXRoll" onclick="rollStatThrow(MyCharacter.DEXP(), 'Dexterity', 'DEXSave', MyCharacter.profSaveDEX)">Dexterity</button><input type="checkbox" id="DEXSave"><br>
+		<button id="CONRoll" onclick="rollStatThrow(MyCharacter.CONP(), 'Constitution', 'CONSave', MyCharacter.profSaveCON)">Constitution</button><input type="checkbox" id="CONSave"><br>
+		<button id="INTRoll" onclick="rollStatThrow(MyCharacter.INTP(), 'Intelligence', 'INTSave', MyCharacter.profSaveINT)">Intelligence</button><input type="checkbox" id="INTSave"><br>
+		<button id="WISRoll" onclick="rollStatThrow(MyCharacter.WISP(), 'Wisdom', 'WISSave', MyCharacter.profSaveWIS)">Wisdom</button><input type="checkbox" id="WISSave"><br>
+		<button id="CHARoll" onclick="rollStatThrow(MyCharacter.CHAP(), 'Charisma', 'CHASave', MyCharacter.profSaveCHA)">Charisma</button><input type="checkbox" id="CHASave"><br>
 	</div>
 
-	<div id="SkillButtonsMain" style="height:100%; width:150px; position: absolute; top:230px; left:350px; overflow: auto;">
-		<button id="rollAcrobatics" onclick="rollSkill(MyCharacter.Acrobatics(), 'Acrobatics')">Acrobatics</button><br>
-		<button id="rollAnimalHandling" onclick="rollSkill(MyCharacter.AnimalHandling(), 'Animal Handling')">AnimalHandling</button><br>
-		<button id="rollArcana" onclick="rollSkill(MyCharacter.Arcana(), 'Arcana')">Arcana</button><br>
-		<button id="rollAthletics" onclick="rollSkill(MyCharacter.Athletics(), 'Athletics')">Athletics</button><br>
-		<button id="rollDeception" onclick="rollSkill(MyCharacter.Deception(), 'Deception')">Deception</button><br>
-		<button id="rollHistory" onclick="rollSkill(MyCharacter.History(), 'History')">History</button><br>	
-		<button id="rollInsight" onclick="rollSkill(MyCharacter.Insight(), 'Insight')">Insight</button><br>			
-		<button id="rollIntimidation" onclick="rollSkill(MyCharacter.Intimidation(), 'Intimidation')">Intimidation</button><br>
-		<button id="rollInvestigation" onclick="rollSkill(MyCharacter.Investigation(), 'Investigation')">Investigation</button><br>
-		<button id="rollMedicine" onclick="rollSkill(MyCharacter.Medicine(), 'Medicine')">Medicine</button><br>
-		<button id="rollNature" onclick="rollSkill(MyCharacter.Nature(), 'Nature')">Natureq</button><br>
-		<button id="rollPerception" onclick="rollSkill(MyCharacter.Perception(), 'Perception')">Perception</button><br>
-		<button id="rollPerformance" onclick="rollSkill(MyCharacter.Performance(), 'Performance')">Performance</button><br>
-		<button id="rollPersuasion" onclick="rollSkill(MyCharacter.Persuasion(), 'Persuasion')">Persuasion</button><br>	
-		<button id="rollReligion" onclick="rollSkill(MyCharacter.Religion(), 'Religion')">Religion</button><br>
-		<button id="rollSleightOfHand" onclick="rollSkill(MyCharacter.SleightOfHand(), 'Sleight of Hand')">Sleight Of Hand</button><br>
-		<button id="rollStealth" onclick="rollSkill(MyCharacter.Stealth(), 'Stealth')">Stealth</button><br>
-		<button id="rollSurvival" onclick="rollSkill(MyCharacter.Survival(), 'Survival')">Survival</button><br>
+	
+	<div id="SkillButtonsMain" style="height:100%; width:150px; position: absolute; top:340px; left:350px; overflow: auto;">
+		Skill:<br>
+		<button id="rollAcrobatics" onclick="rolld20(MyCharacter.Acrobatics(), 'Acrobatics')">Acrobatics</button><br>
+		<button id="rollAnimalHandling" onclick="rolld20(MyCharacter.AnimalHandling(), 'Animal Handling')">AnimalHandling</button><br>
+		<button id="rollArcana" onclick="rolld20(MyCharacter.Arcana(), 'Arcana')">Arcana</button><br>
+		<button id="rollAthletics" onclick="rolld20(MyCharacter.Athletics(), 'Athletics')">Athletics</button><br>
+		<button id="rollDeception" onclick="rolld20(MyCharacter.Deception(), 'Deception')">Deception</button><br>
+		<button id="rollHistory" onclick="rolld20(MyCharacter.History(), 'History')">History</button><br>	
+		<button id="rollInsight" onclick="rolld20(MyCharacter.Insight(), 'Insight')">Insight</button><br>			
+		<button id="rollIntimidation" onclick="rolld20(MyCharacter.Intimidation(), 'Intimidation')">Intimidation</button><br>
+		<button id="rollInvestigation" onclick="rolld20(MyCharacter.Investigation(), 'Investigation')">Investigation</button><br>
+		<button id="rollMedicine" onclick="rolld20(MyCharacter.Medicine(), 'Medicine')">Medicine</button><br>
+		<button id="rollNature" onclick="rolld20(MyCharacter.Nature(), 'Nature')">Nature</button><br>
+		<button id="rollPerception" onclick="rolld20(MyCharacter.Perception(), 'Perception')">Perception</button><br>
+		<button id="rollPerformance" onclick="rolld20(MyCharacter.Performance(), 'Performance')">Performance</button><br>
+		<button id="rollPersuasion" onclick="rolld20(MyCharacter.Persuasion(), 'Persuasion')">Persuasion</button><br>	
+		<button id="rollReligion" onclick="rolld20(MyCharacter.Religion(), 'Religion')">Religion</button><br>
+		<button id="rollSleightOfHand" onclick="rolld20(MyCharacter.SleightOfHand(), 'Sleight of Hand')">Sleight Of Hand</button><br>
+		<button id="rollStealth" onclick="rolld20(MyCharacter.Stealth(), 'Stealth')">Stealth</button><br>
+		<button id="rollSurvival" onclick="rolld20(MyCharacter.Survival(), 'Survival')">Survival</button><br>
 	</div>
 </div>
 
-<div id="CharacterSheet" style="height:100%; width:500px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+<div id="CharacterSheet" style="height:100%; width:500px; position:absolute; top:0px; left:75px; visibility:hidden;">
   
 	Please Input your character's stats.<br>
 	If you are proficient in a skill or saving throw, select the checkbox next to it.
 	<hr>
 	Character Name: <input type="text" id="CharacterName" size="5"><br>
-	Character Level:<input type="text" id="MyLevel" style="width:30px">    Class:<input type="text" id="MyClass" style="width:60px" value="Druid"><br>
+	Character Level:<input type="text" id="MyLevel" style="width:30px">    Class:<input type="text" id="MyClass" style="width:60px"><br>
 	Armor Class: <input type="text" id="MyBaseAC" style="width:30px"><br>
 	Hit Point Max<input type="text" id="MyHPMax" style="width:30px">
 	<hr>
@@ -416,7 +401,7 @@ ooga
 
 </div>
 
-<div id="CharacterStatsMenu" style="height:100%; width:500px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+<div id="CharacterStatsMenu" style="height:100%; width:500px; position:absolute; top:0px; left:75px; visibility:hidden;">
 	<p id="CharacterStats"></p>
 	To save character click the button, then copy and save the created text.  Paste into the import box at the login screen.
 	<button id="saveCharacter" onclick="saveCharacter()">Create Save</button><input type="text" id="SaveString" size="20"><br>
@@ -425,25 +410,24 @@ ooga
 
 
 
-<div id="ResultListButtons" style="height:60px; width:400px; background-color:#BEC6DD;padding:5px; position:absolute; top:0px; left:575px; border-left-style:solid; border-left-width:6px;">
+<div id="ResultListButtons" style="height:45px; width:400px; padding:5px; position:absolute; top:0px; left:575px; border-left-style:solid; border-left-width:6px;border-bottom-style:solid; border-bottom-width:6px;">
 		<button id="clearChatButton" onclick="clearChat()">Clear Chat</button><input type="checkbox" id="PrivateRoll">Private(self)
 		<br>
 		<input type="checkbox" id="PrivateMessage">Private to:
 		<select id="privateMsg"></select>
-		
-		<hr>
+	
 </div>
 
-<div id="ResultListMain" style="height:100%; width:400px; background-color:#BEC6DD; padding:5px; position:absolute; top:60px; left:575px; overflow: auto; border-left-style:solid; border-left-width:6px;">
+<div id="ResultListMain" style="height:100%; width:400px; padding:5px; position:absolute; top:60px; left:575px; overflow: auto; border-left-style:solid; border-left-width:6px;">
 		Result List Here
 </div>
 
 
 
-<div id="PlayerLists" style="height:100%; width:200px; padding:5px; position:absolute; top:0px; left:990px; border-left-style:solid; border-left-width:6px;">
-	<div id="PlayerList" style="height:250px; width:200px; background-color:#BEC6DD; padding:5px; position:absolute; top:0px; left:0px; overflow: auto; border-bottom-style:solid; border-bottom-width:6px;">
+<div id="PlayerLists" style=" height:100%; width:200px; padding:5px; position:absolute; top:0px; left:990px; border-left-style:solid; border-left-width:6px;border-right-style:solid; border-right-width:6px;">
+	<div id="PlayerList" style="height:250px; width:200px;  padding:5px; position:absolute; top:0px; left:0px; overflow: auto; border-bottom-style:solid; border-bottom-width:6px;">
 	</div>
-	<div id="InitListMenu" style="height:100%; width:200px; background-color:#BEC6DD; padding:5px; position:absolute; top:265px; left:0px; overflow: auto;">
+	<div id="InitListMenu" style="height:100%; width:200px; padding:5px; position:absolute; top:265px; left:0px; overflow: auto;">
 		<button id="initbutton" onclick="rollInit()" style="visibility:hidden">Roll Init</button>
 		<button id="clearInitButton" onclick="clearInit()" style="visibility:hidden">Clear Init</button><hr>
 		<p id="initList"></p>
@@ -454,13 +438,13 @@ ooga
 
 
 
-<iframe src="html/Comment.html" id="CommentFrame" style="height:100%; width:500px;  position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden">
+<iframe src="html/Comment.html" id="CommentFrame" style="height:100%; width:500px;  position:absolute; top:0px; left:75px; visibility:hidden">
 	
 </iframe>
 
 
 
-<div id="Developer" style="height:100%; width:300px; position:absolute; top:0px; left:75px; background-color:#BEC6DD; visibility:hidden;">
+<div id="Developer" style="height:100%; width:300px; position:absolute; top:0px; left:75px; visibility:hidden;">
 <textarea id="rcvComments" rows="10" cols"35"></textarea>
 <br>
 	<button id="getCommentsButton" onclick="getComments()">Get</button><button id="clearCommentsButton" onclick="clearComments()">Clear</button>

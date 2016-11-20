@@ -17,12 +17,12 @@ var MyCharacter = {
 		INT: 0,
     	WIS: 0,
     	CHA: 0,
-		profSTR: false,
-		profDEX: false,
-		profCON: false,
-		profINT: false,
-		profWIS: false,
-		profCHA: false,
+		profSaveSTR: false,
+		profSaveDEX: false,
+		profSaveCON: false,
+		profSaveINT: false,
+		profSaveWIS: false,
+		profSaveCHA: false,
 		profAcrobatics: false,
 		profAnimalHandling: false,
 		profArcana: false,
@@ -191,12 +191,12 @@ function SubmitCharacterStats(){
 	MyCharacter.TempHPMax = 0;
 	MyCharacter.TempHPCurrent = 0;
 	MyCharacter.ACMod = 0;
-	MyCharacter.profSTR = document.getElementById("STRProfCheck").checked;
-	MyCharacter.profDEX = document.getElementById("DEXProfCheck").checked;
-	MyCharacter.profCON = document.getElementById("CONProfCheck").checked;
-	MyCharacter.profINT = document.getElementById("INTProfCheck").checked;
-	MyCharacter.profWIS = document.getElementById("WISProfCheck").checked;
-	MyCharacter.profCHA = document.getElementById("CHAProfCheck").checked;
+	MyCharacter.profSaveSTR = document.getElementById("STRProfCheck").checked;
+	MyCharacter.profSaveDEX = document.getElementById("DEXProfCheck").checked;
+	MyCharacter.profSaveCON = document.getElementById("CONProfCheck").checked;
+	MyCharacter.profSaveINT = document.getElementById("INTProfCheck").checked;
+	MyCharacter.profSaveWIS = document.getElementById("WISProfCheck").checked;
+	MyCharacter.profSaveCHA = document.getElementById("CHAProfCheck").checked;
 	MyCharacter.STR = Number(document.getElementById('MySTR').value);
 	MyCharacter.DEX = Number(document.getElementById('MyDEX').value);
 	MyCharacter.CON = Number(document.getElementById('MyCON').value);
@@ -371,12 +371,12 @@ function loadCharacter(){
 	MyCharacter.WIS = MyCharacterInput.WIS;
 	MyCharacter.CHA = MyCharacterInput.CHA;
 	
-	MyCharacter.profSTR = MyCharacterInput.profSTR;
-	MyCharacter.profDEX = MyCharacterInput.profDEX;
-	MyCharacter.profCON = MyCharacterInput.profCON;
-	MyCharacter.profINT = MyCharacterInput.profINT;
-	MyCharacter.profWIS = MyCharacterInput.profWIS;
-	MyCharacter.profCHA = MyCharacterInput.profCHA;
+	MyCharacter.profSaveSTR = MyCharacterInput.profSaveSTR;
+	MyCharacter.profSaveDEX = MyCharacterInput.profSaveDEX;
+	MyCharacter.profSaveCON = MyCharacterInput.profSaveCON;
+	MyCharacter.profSaveINT = MyCharacterInput.profSaveINT;
+	MyCharacter.profSaveWIS = MyCharacterInput.profSaveWIS;
+	MyCharacter.profSaveCHA = MyCharacterInput.profSaveCHA;
 	MyCharacter.profAcrobatics = MyCharacterInput.profAcrobatics;
 	MyCharacter.profAnimalHandling = MyCharacterInput.profAnimalHandling;
 	MyCharacter.profArcana = MyCharacterInput.profArcana;
