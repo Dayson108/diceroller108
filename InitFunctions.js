@@ -1,13 +1,13 @@
 //socket for starting data will need updating
 
-var GMPrivateInit = [];
-var GMInitSave = [];
-function GMAddToPrivateInit(){
+var DMPrivateInit = [];
+var DMInitSave = [];
+function DMAddToPrivateInit(){
 	var i = 0;
-	if (document.getElementById('GMInitNamePrivate').value != ""){
+	if (document.getElementById('DMInitNamePrivate').value != ""){
 		var init;
 		var myStatus = 0;
-		if(document.getElementById('GMRollPrivateInit').checked){
+		if(document.getElementById('DMRollPrivateInit').checked){
 			init = Math.floor((Math.random() * 20) + 1); 
 			if(init == 20){
 				myStatus = 1;
@@ -15,33 +15,33 @@ function GMAddToPrivateInit(){
 			else if(init == 1){
 				myStatus = -1;
 			}
-			init = Number(document.getElementById('GMAddInitPlusPrivate').value) + init;
+			init = Number(document.getElementById('DMAddInitPlusPrivate').value) + init;
 			
 		}
-		else if(document.getElementById('GMAddPrivateInit').checked){
-			init = Number(document.getElementById('GMAddInitPrivate').value);
+		else if(document.getElementById('DMAddPrivateInit').checked){
+			init = Number(document.getElementById('DMAddInitPrivate').value);
 		}
 		var initRoll = {
 			roll: init,
 			status: myStatus,
-			name: document.getElementById('GMInitNamePrivate').value
+			name: document.getElementById('DMInitNamePrivate').value
 		};
 			
-		GMPrivateInit.push(initRoll);
-		updateInitList(GMInitSave);
+		DMPrivateInit.push(initRoll);
+		updateInitList(DMInitSave);
 		
 	}
 	else{
-		document.getElementById('GMInitNamePrivate').style.backgroundColor = "red";
+		document.getElementById('DMInitNamePrivate').style.backgroundColor = "red";
 		setTimeout(flashWhite, 1000);
 	}
 }
 		
-function GMAddToInit(){
-	if (document.getElementById('GMInitName').value != ""){
+function DMAddToInit(){
+	if (document.getElementById('DMInitName').value != ""){
 		var init;
 		var myStatus = 0;
-		if(document.getElementById('GMRollInit').checked){
+		if(document.getElementById('DMRollInit').checked){
 			init = Math.floor((Math.random() * 20) + 1); 
 			if(init == 20){
 				myStatus = 1;
@@ -49,21 +49,21 @@ function GMAddToInit(){
 			else if(init == 1){
 				myStatus = -1;
 			}
-			init = Number(document.getElementById('GMAddInitPlus').value) + init;
+			init = Number(document.getElementById('DMAddInitPlus').value) + init;
 		}
-		else if(document.getElementById('GMAddInit').checked){
-			init = Number(document.getElementById('GMAddInitValue').value);
+		else if(document.getElementById('DMAddInit').checked){
+			init = Number(document.getElementById('DMAddInitValue').value);
 		}
 		var initRoll = {
 			roll: init,
 			status: myStatus,
-			name: document.getElementById('GMInitName').value
+			name: document.getElementById('DMInitName').value
 		};
 		socket.emit('InitRoll', initRoll);
 		
 	}
 	else{
-		document.getElementById('GMInitName').style.backgroundColor = "red";
+		document.getElementById('DMInitName').style.backgroundColor = "red";
 		setTimeout(flashWhite, 1000);
 	}
 }
@@ -71,7 +71,7 @@ function GMAddToInit(){
 
 function updateInitList(ServerInitList){
 	var list = [];
-	GMInitSave = [];
+	DMInitSave = [];
 	
 	for(var i = 0; i < ServerInitList.length; i++){
 		var tempInit ={
@@ -85,13 +85,13 @@ function updateInitList(ServerInitList){
 			name: ServerInitList[i].name
 		};
 		list.push(tempInit);
-		GMInitSave.push(tempInit3);
+		DMInitSave.push(tempInit3);
 	}
-	for(var i = 0; i < GMPrivateInit.length; i++){
+	for(var i = 0; i < DMPrivateInit.length; i++){
 		var tempInit = {
-			roll: GMPrivateInit[i].roll,
-			status: GMPrivateInit[i].status,
-			name: GMPrivateInit[i].name
+			roll: DMPrivateInit[i].roll,
+			status: DMPrivateInit[i].status,
+			name: DMPrivateInit[i].name
 		}
 		list.push(tempInit)
 	}
@@ -168,7 +168,7 @@ socket.on('ClearInitRecieved', function(){
 });
 
 function clearInit(){
-	GMPrivateInit = [];
-	GMInitSave = [];
+	DMPrivateInit = [];
+	DMInitSave = [];
 	socket.emit('ClearInit');
 }

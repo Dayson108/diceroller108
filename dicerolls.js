@@ -1,8 +1,8 @@
 function ClearAdvDis(){
 	document.getElementById('RadioAdv').checked = false;
 	document.getElementById('RadioDis').checked = false;
-	document.getElementById('RadioAdvGM').checked = false;
-	document.getElementById('RadioDisGM').checked = false;
+	document.getElementById('RadioAdvDM').checked = false;
+	document.getElementById('RadioDisDM').checked = false;
 }
 
 
@@ -10,11 +10,7 @@ function rollStatThrow(Plus, Skill, SaveCheck, SaveProf){
 	if(document.getElementById(SaveCheck).checked){
 		Skill = Skill + " Save";
 		if(SaveProf){
-			console.log('prof save');
 			Plus += MyCharacter.ProfBonus;	
-		}
-		else{
-			console.log('non prof');
 		}
 	}
 	rolld20(Plus, Skill)
@@ -22,17 +18,17 @@ function rollStatThrow(Plus, Skill, SaveCheck, SaveProf){
 }
 
 
-function rollGMDice(sides, plus, diceNum){
+function rollDMDice(sides, plus, diceNum){
 console.log('sides: ' + sides);
 console.log('plus: ' + plus);
 console.log('diceNum: ' + diceNum);
 
 	var tempName = MyCharacter.CName;
-	MyCharacter.CName = document.getElementById('GMRollName').value;
+	MyCharacter.CName = document.getElementById('DMRollName').value;
 	if(MyCharacter.CName == ""){MyCharacter.CName = tempName};
 	//var skillNameTemp;
 	if(sides == 20){
-		rolld20(plus, document.getElementById('GMRollType').value);
+		rolld20(plus, document.getElementById('DMRollType').value);
 
 	}else{
 	
@@ -45,11 +41,11 @@ console.log('diceNum: ' + diceNum);
 
 
 function mainAdvCheck(){
-	if(document.getElementById('RadioAdv').checked || document.getElementById('RadioAdvGM').checked){
+	if(document.getElementById('RadioAdv').checked || document.getElementById('RadioAdvDM').checked){
 		ClearAdvDis();console.log('adv!!');
 		return 1;
 	}
-	else if(document.getElementById('RadioDis').checked || document.getElementById('RadioDisGM').checked){
+	else if(document.getElementById('RadioDis').checked || document.getElementById('RadioDisDM').checked){
 		ClearAdvDis();
 		return -1;
 	}

@@ -1,172 +1,172 @@
 var MyCharacter = {
-		CName: '',
-		PName: '',
-		Class: '',
-		playerID: '',
-		CharacterLevel: 0,
-		ProfBonus: 0,
-		BaseAC: 0,
-		ACMod: 0,
-		HPMax: 0,
-		HPCurrent: 0,
-		TempHPMax: 0,
-		TempHPCurrent: 0,
-		STR: 0,
-    	DEX: 0,
-    	CON: 0,
-		INT: 0,
-    	WIS: 0,
-    	CHA: 0,
-		profSaveSTR: false,
-		profSaveDEX: false,
-		profSaveCON: false,
-		profSaveINT: false,
-		profSaveWIS: false,
-		profSaveCHA: false,
-		profAcrobatics: false,
-		profAnimalHandling: false,
-		profArcana: false,
-		profAthletics: false,
-		profDeception: false,
-		profHistory: false,
-		profInsight: false,
-		profIntimidation: false,
-		profInvestigation: false,
-		profMedicine: false,
-		profNature: false,
-		profPerception: false,
-		profPerformance: false,
-		profPersuasion: false,
-		profReligion: false,
-		profSleightOfHand: false,
-		profStealth: false,
-		profSurvival: false,
-		Acrobatics: function(){
-			if(this.profAcrobatics){
-				return (this.ProfBonus + this.DEXP());
-			}
-			return(this.DEXP());
-		},
-		AnimalHandling: function(){
-			if(this.profAnimalHandling){
-				return (this.ProfBonus + this.WISP());
-			}
-			return(this.WISP());
-		},
-		Arcana: function(){
-			if(this.profArcana){
-				return (this.ProfBonus + this.INTP());
-			}
-			return(this.INTP());
-		},
-		Athletics: function(){
-			if(this.profAthletics){
-				return (this.ProfBonus + this.STRP());
-			}
-			return(this.STRP());
-		},
-		Deception: function(){
-			if(this.profDeception){
-				return (this.ProfBonus + this.CHAP());
-			}
-			return(this.CHAP());
-		},
-		History: function(){
-			if(this.profHistory){
-				return (this.ProfBonus + this.INTP());
-			}
-			return(this.INTP());
-		},
-		Insight: function(){
-			if(this.profInsight){
-				return (this.ProfBonus + this.WISP());
-			}
-			return(this.WISP());
-		},
-		Intimidation: function(){
-			if(this.profIntimidation){
-				return (this.ProfBonus + this.CHAP());
-			}
-			return(this.CHAP());
-		},
-		Investigation: function(){
-			if(this.profInvestigation){
-				return (this.ProfBonus + this.INTP());
-			}
-			return(this.INTP());
-		},
-		Medicine: function(){
-			if(this.profMedicine){
-				return (this.ProfBonus + this.WISP());
-			}
-			return(this.WISP());
-		},
-		Nature: function(){
-			if(this.profNature){
-				return (this.ProfBonus + this.INTP());
-			}
-			return(this.INTP());
-		},
-		Perception: function(){
-			if(this.profPerception){
-				return (this.ProfBonus + this.WISP());
-			}
-			return(this.WISP());
-		},
-		Performance: function(){
-			if(this.profPerformance){
-				return (this.ProfBonus + this.CHAP());
-			}
-			return(this.CHAP());
-		},
-		Persuasion: function(){
-			if(this.profPersuasion){
-				return (this.ProfBonus + this.CHAP());
-			}
-			return(this.CHAP());
-		},
-		Religion: function(){
-			if(this.profSleightOfHand){
-				return (this.ProfBonus + this.INTP());
-			}
-			return(this.INTP());
-		},
-		SleightOfHand: function(){
-			if(this.profSleightOfHand){
-				return (this.ProfBonus + this.DEXP());
-			}
-			return(this.DEXP());
-		},
-		Stealth: function(){
-			if(this.profStealth){
-				return (this.ProfBonus + this.DEXP());
-			}
-			return(this.DEXP());
-		},
-		Survival: function(){
-			if(this.profSurvival){
-				return (this.ProfBonus + this.WISP());
-			}
-			return(this.WISP());
-		},
-		STRP: function(){
-			return(calcStatBonus(this.STR));
-		},
-		DEXP: function(){
-			return(calcStatBonus(this.DEX));
-		},
-		CONP: function(){
-			return(calcStatBonus(this.CON));
-		},
-		INTP: function(){
-			return(calcStatBonus(this.INT));
-		},
-		WISP: function(){
-			return(calcStatBonus(this.WIS));
-		},
-		CHAP: function(){
-			return(calcStatBonus(this.CHA));
+	CName: '',
+	PName: '',
+	Class: '',
+	playerID: '',
+	CharacterLevel: 0,
+	ProfBonus: 0,
+	BaseAC: 0,
+	ACMod: 0,
+	HPMax: 0,
+	HPCurrent: 0,
+	TempHPMax: 0,
+	TempHPCurrent: 0,
+	STR: 0,
+	DEX: 0,
+	CON: 0,
+	INT: 0,
+	WIS: 0,
+	CHA: 0,
+	profSaveSTR: false,
+	profSaveDEX: false,
+	profSaveCON: false,
+	profSaveINT: false,
+	profSaveWIS: false,
+	profSaveCHA: false,
+	profAcrobatics: false,
+	profAnimalHandling: false,
+	profArcana: false,
+	profAthletics: false,
+	profDeception: false,
+	profHistory: false,
+	profInsight: false,
+	profIntimidation: false,
+	profInvestigation: false,
+	profMedicine: false,
+	profNature: false,
+	profPerception: false,
+	profPerformance: false,
+	profPersuasion: false,
+	profReligion: false,
+	profSleightOfHand: false,
+	profStealth: false,
+	profSurvival: false,
+	Acrobatics: function(){
+		if(this.profAcrobatics){
+			return (this.ProfBonus + this.DEXP());
 		}
+		return(this.DEXP());
+	},
+	AnimalHandling: function(){
+		if(this.profAnimalHandling){
+			return (this.ProfBonus + this.WISP());
+		}
+		return(this.WISP());
+	},
+	Arcana: function(){
+		if(this.profArcana){
+			return (this.ProfBonus + this.INTP());
+		}
+		return(this.INTP());
+	},
+	Athletics: function(){
+		if(this.profAthletics){
+			return (this.ProfBonus + this.STRP());
+		}
+		return(this.STRP());
+	},
+	Deception: function(){
+		if(this.profDeception){
+			return (this.ProfBonus + this.CHAP());
+		}
+		return(this.CHAP());
+	},
+	History: function(){
+		if(this.profHistory){
+			return (this.ProfBonus + this.INTP());
+		}
+		return(this.INTP());
+	},
+	Insight: function(){
+		if(this.profInsight){
+			return (this.ProfBonus + this.WISP());
+		}
+		return(this.WISP());
+	},
+	Intimidation: function(){
+		if(this.profIntimidation){
+			return (this.ProfBonus + this.CHAP());
+		}
+		return(this.CHAP());
+	},
+	Investigation: function(){
+		if(this.profInvestigation){
+			return (this.ProfBonus + this.INTP());
+		}
+		return(this.INTP());
+	},
+	Medicine: function(){
+		if(this.profMedicine){
+			return (this.ProfBonus + this.WISP());
+		}
+		return(this.WISP());
+	},
+	Nature: function(){
+		if(this.profNature){
+			return (this.ProfBonus + this.INTP());
+		}
+		return(this.INTP());
+	},
+	Perception: function(){
+		if(this.profPerception){
+			return (this.ProfBonus + this.WISP());
+		}
+		return(this.WISP());
+	},
+	Performance: function(){
+		if(this.profPerformance){
+			return (this.ProfBonus + this.CHAP());
+		}
+		return(this.CHAP());
+	},
+	Persuasion: function(){
+		if(this.profPersuasion){
+			return (this.ProfBonus + this.CHAP());
+		}
+		return(this.CHAP());
+	},
+	Religion: function(){
+		if(this.profSleightOfHand){
+			return (this.ProfBonus + this.INTP());
+		}
+		return(this.INTP());
+	},
+	SleightOfHand: function(){
+		if(this.profSleightOfHand){
+			return (this.ProfBonus + this.DEXP());
+		}
+		return(this.DEXP());
+	},
+	Stealth: function(){
+		if(this.profStealth){
+			return (this.ProfBonus + this.DEXP());
+		}
+		return(this.DEXP());
+	},
+	Survival: function(){
+		if(this.profSurvival){
+			return (this.ProfBonus + this.WISP());
+		}
+		return(this.WISP());
+	},
+	STRP: function(){
+		return(calcStatBonus(this.STR));
+	},
+	DEXP: function(){
+		return(calcStatBonus(this.DEX));
+	},
+	CONP: function(){
+		return(calcStatBonus(this.CON));
+	},
+	INTP: function(){
+		return(calcStatBonus(this.INT));
+	},
+	WISP: function(){
+		return(calcStatBonus(this.WIS));
+	},
+	CHAP: function(){
+		return(calcStatBonus(this.CHA));
+	}
 };
 
 function calcStatBonus(stat){
@@ -229,7 +229,8 @@ function SubmitCharacterStats(){
 	skillButtonNameChange();
 	UpdateStats();
 	updatePlayerStatsMenu();
-	showPlayerScreens();
+	//showPlayerScreens();
+	showMainScreen('PlayerMain');
 	submitChar();
 	socket.emit('AddPlayer', MyCharacter);
 }
@@ -345,6 +346,7 @@ function loadCharacter(){
 		document.getElementById('DeveloperScreenButton').style.visibility = 'visible'
 	}
 	
+	/*
 	MyCharacterInput = JSON.parse(document.getElementById('loadCharacterInput').value);
 	MyCharacter.CName = MyCharacterInput.CName;
 	MyCharacter.PName = MyCharacterInput.PName;
@@ -411,6 +413,7 @@ function loadCharacter(){
 	document.getElementById('CommentsScreenButton').style.visibility = 'visible';
 	document.getElementById('initbutton').style.visibility = 'visible';
 	showScreen('Main');
+	*/
 }
 function recheckBoxes(){
 	document.getElementById("MySTR").value = MyCharacter.STR;

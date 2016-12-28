@@ -5,19 +5,19 @@ var socket = io.connect();
 
 
 	
-socket.on('RcvGMData', function(iPlayers){
-	GMUpdatePlayerStats(iPlayers);
+socket.on('RcvDMData', function(iPlayers){
+	DMUpdatePlayerStats(iPlayers);
 });
 
 
-socket.on('UpdateGM', function(GMInput){
-	GMData.ID = GMInput.ID;
-	GMData.PName = GMInput.PName;
-	GMData.CName = GMInput.CName;
+socket.on('UpdateDM', function(DMInput){
+	DMData.ID = DMInput.ID;
+	DMData.PName = DMInput.PName;
+	DMData.CName = DMInput.CName;
 	updatePlayerList();
 	//updatePrivateMsgList();
-	if(GMData.ID){
-		document.getElementById('ClaimGMButton').style.visibility = 'hidden';
+	if(DMData.ID){
+		document.getElementById('ClaimDMButton').style.visibility = 'hidden';
 	}
 });
 
@@ -27,19 +27,19 @@ socket.on('UpdatePlayerList', function(ServerPlayerList){
 	//updatePrivateMsgList();
 });
 
-socket.on('SendStartingData', function(IDNum, GMDataRecieved, ServerPlayerList, ServerInitList){
+socket.on('SendStartingData', function(IDNum, DMDataRecieved, ServerPlayerList, ServerInitList){
 	LocalPlayerList = ServerPlayerList;
 	MyCharacter.playerID = IDNum;
-	GMData = GMDataRecieved;
-	if(GMData.ID){
-		document.getElementById('ClaimGMButton').style.visibility = 'hidden';
+	DMData = DMDataRecieved;
+	if(DMData.ID){
+		document.getElementById('ClaimDMButton').style.visibility = 'hidden';
 	}
 	updateInitList(ServerInitList);
 });
 
-socket.on('ClearGM', function(GMDataRecieved){
-	GMData = GMDataRecieved;
-	document.getElementById('ClaimGMButton').style.visibility = 'visible';
+socket.on('ClearDM', function(DMDataRecieved){
+	DMData = DMDataRecieved;
+	document.getElementById('ClaimDMButton').style.visibility = 'visible';
 });
 
 socket.on('PvtMsgRcv', function(msg){

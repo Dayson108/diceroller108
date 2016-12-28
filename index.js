@@ -14,15 +14,18 @@ var PlayerIndex = 0;
 
 
 var InitList = [];
-var GMData = {
+var DMData = {
 	CName: "",
 	PName: "",
 	ID: ""
 };
 
 
+//drd108's database
+//mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds147797.mlab.com:47797/heroku_8xmzgt7g', function(err, database){
 
-mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds147797.mlab.com:47797/heroku_8xmzgt7g', function(err, database){
+//diceroller108's database
+mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
 	server.listen(process.env.PORT || 3000);
 	console.log("listening");
 	
@@ -52,7 +55,7 @@ function findPlayersIndex(socket){
 
 
 io.on('connection', function(socket){
-	io.to(socket.id).emit('SendStartingData', socket.id, GMData, PlayerList, InitList);
+	io.to(socket.id).emit('SendStartingData', socket.id, DMData, PlayerList, InitList);
 	//Recieved by everyone EXCEPT sender 
 	//socket.broadcast.emit('', msg);
 	
@@ -62,19 +65,19 @@ io.on('connection', function(socket){
 	//io.to(socketid).emit('message', 'for your eyes only');
 		
 	socket.on('disconnect', function(){
-		if(socket.id != GMData.ID){
+		if(socket.id != DMData.ID){
 			var rmvIndex = findPlayersIndex(socket.id);
 			Players.splice(rmvIndex, 1);
-			io.to(GMData.ID).emit('RcvGMData', Players);
+			io.to(DMData.ID).emit('RcvDMData', Players);
 		}
 		
 		
 		//Removes from the player list*******
-		if(socket.id == GMData.ID){
-			GMData.CName = "";
-			GMData.PName = "";
-			GMData.ID = "";
-			io.sockets.emit('ClearGM', GMData); 
+		if(socket.id == DMData.ID){
+			DMData.CName = "";
+			DMData.PName = "";
+			DMData.ID = "";
+			io.sockets.emit('ClearDM', DMData); 
 		}
 		else{
 			var i = 0;
@@ -97,7 +100,7 @@ io.on('connection', function(socket){
 	socket.on('UpdatePlayer', function(iChar){
 		var index = findPlayersIndex(socket.id);
 		Players[index] = iChar;
-		io.to(GMData.ID).emit('RcvGMData', Players);
+		io.to(DMData.ID).emit('RcvDMData', Players);
 	});
 		
 		
@@ -109,20 +112,20 @@ io.on('connection', function(socket){
 		socket.broadcast.emit('20DiceResult', msg);
 	});
 	
-	socket.on('GMSubmitted', function(msg){
-		GMData.CName = msg.CName;
-		GMData.PName = msg.PName;
-		GMData.ID = socket.id;
-		io.sockets.emit('UpdateGM', GMData, PlayerList);
-		io.to(GMData.ID).emit('RcvGMData', Players);
+	socket.on('DMSubmitted', function(msg){
+		DMData.CName = msg.CName;
+		DMData.PName = msg.PName;
+		DMData.ID = socket.id;
+		io.sockets.emit('UpdateDM', DMData, PlayerList);
+		io.to(DMData.ID).emit('RcvDMData', Players);
 	});
 	
 	socket.on('AddPlayer', function(msg){
 		var temp = msg;
 		Players.push(msg);
-		if(GMData.ID){
-			io.to(GMData.ID).emit('UpdatePlayerStats', Players);
-			io.to(GMData.ID).emit('RcvGMData', Players);
+		if(DMData.ID){
+			io.to(DMData.ID).emit('UpdatePlayerStats', Players);
+			io.to(DMData.ID).emit('RcvDMData', Players);
 		}	
 	});
 

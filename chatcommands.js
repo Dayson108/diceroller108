@@ -9,9 +9,9 @@ function updatePlayerList(){
 	var PlayerListOutput = "";
 	var PrivateMsgList = ""
 	var id = 0;
-	if(GMData.ID != ""){
-		PlayerListOutput += GMData.CName +" - " + GMData.PName + '<hr>';
-		PrivateMsgList += '<option id="'+ GMData.ID + '">' + GMData.CName + ' - ' + GMData.PName + '</option>';
+	if(DMData.ID != ""){
+		PlayerListOutput += DMData.CName +" - " + DMData.PName + '<hr>';
+		PrivateMsgList += '<option id="'+ DMData.ID + '">' + DMData.CName + ' - ' + DMData.PName + '</option>';
 		id+= 1;
 	}
 	var i = 0;
