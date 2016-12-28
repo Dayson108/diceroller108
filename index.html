@@ -12,7 +12,7 @@
 <script src="Macro.js"></script>
 <script src="Spell.js"></script>
 <script>
-var versionNumber = 3.11;
+var versionNumber = 3.12;
 console.log("API Ready v" + versionNumber)
 
 var LocalResultList = [];
@@ -108,7 +108,6 @@ function showSpellbook(){
 
 
 function showSpell(iSpell){
-	console.log('start');
 	var tempOutput;
 	
 	tempOutput = "<h1>" + iSpell.Name;
@@ -394,11 +393,11 @@ function flashWhite(){
 		<p><button id="WarlockSpellsButton" onclick="showWarlockSpells()">Warlock</button></p>
 		<p><button id="WizardSpellsButton" onclick="showWizardSpells()">Wizard</button></p>
 	</nav>
-	<div id="SpellbookCover" style="background-color:#BBBBBB; padding:5px; height:100%; width:250px; position:absolute; top:-20px; left:80px; border-right-style:solid; border-right-width:3px;">		
+	<div id="SpellbookCover" style="padding:5px; height:100%; width:250px; position:absolute; top:-20px; left:80px; border-right-style:solid; border-right-width:3px;">		
 	Woof
 	</div>
-	<div id="SpellbookPage" style="background-color:#666699; padding:5px; height:100%; width:550px; position:absolute; top:0px; left:345px; border-right-style:solid; border-right-width:3px;">		
-	Meow
+	<div id="SpellbookPage" style="padding:5px; height:100%; width:550px; position:absolute; top:0px; left:345px;">		
+	
 	</div>
 
 
