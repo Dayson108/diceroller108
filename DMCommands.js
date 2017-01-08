@@ -3,7 +3,8 @@ function claimDMStatus(){
 	//if(MyCharacter.PName != ""){
 	if(MyCharacter.PName){
 		
-		showScreen('DMMain');
+		//showScreen('DMMain');
+		showDMScreen('DMMain');
 		document.getElementById('DMScreenButton').style.visibility = 'visible';
 		document.getElementById('clearInitButton').style.visibility = 'visible';
 		document.getElementById('NotesScreenButton').style.visibility = 'visible';

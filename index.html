@@ -22,7 +22,7 @@
 
 <script src="ShowSpells.js"></script>
 <script>
-var versionNumber = 4.2;
+var versionNumber = 4.3;
 console.log("API Ready v" + versionNumber)
 
 var LocalResultList = [];
@@ -86,6 +86,8 @@ function sendMessage(msg){
 
 
 function showMainScreen(screen){
+
+document.getElementById('DMPlayerStatsSide').style.visibility = 'hidden';
 	//hideAll();
 	document.getElementById('ResultListButtons').style.visibility = 'visible';
 	document.getElementById('ResultListMain').style.visibility = 'visible';
@@ -98,6 +100,26 @@ function showMainScreen(screen){
 	document.getElementById('Developer').style.visibility = 'hidden';
 	document.getElementById('Spellbook').style.visibility = 'hidden';
 	document.getElementById('DMMain').style.visibility = 'hidden';
+	document.getElementById(screen).style.visibility = 'visible';
+}
+
+
+function showDMScreen(screen){
+
+	document.getElementById('ResultListButtons').style.visibility = 'visible';
+	document.getElementById('ResultListMain').style.visibility = 'visible';
+	document.getElementById('Login').style.visibility = 'hidden';
+	document.getElementById('PlayerMain').style.visibility = 'hidden';
+	document.getElementById('CharacterSheet').style.visibility = 'hidden';
+	document.getElementById('CharacterStatsMenu').style.visibility = 'hidden';
+	document.getElementById('Notes').style.visibility = 'hidden';
+	document.getElementById('CommentFrame').style.visibility = 'hidden';
+	document.getElementById('Developer').style.visibility = 'hidden';
+	document.getElementById('Spellbook').style.visibility = 'hidden';
+	document.getElementById('DMMain').style.visibility = 'hidden';
+
+
+document.getElementById('DMPlayerStatsSide').style.visibility = 'visible';
 	document.getElementById(screen).style.visibility = 'visible';
 }
 
