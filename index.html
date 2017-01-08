@@ -22,7 +22,7 @@
 
 <script src="ShowSpells.js"></script>
 <script>
-var versionNumber = 4.0;
+var versionNumber = 4.2;
 console.log("API Ready v" + versionNumber)
 
 var LocalResultList = [];
@@ -259,6 +259,12 @@ function flashWhite(){
 		<button id="CHARoll" onclick="rollStatThrow(MyCharacter.CHAP(), 'Charisma', 'CHASave', MyCharacter.profSaveCHA)">Charisma</button><input type="checkbox" id="CHASave"><br>
 	</div>
 
+	
+	<div id="CharacterStatsMenu" style="height:100%; width:500px; position:absolute; top:0px; left:0px; visibility:hidden;">
+	<p id="CharacterStats"></p>
+	
+</div>
+	
 	
 	<div id="SkillButtonsMain" style="height:100%; width:150px; position: absolute; top:340px; left:350px; overflow: auto;">
 		Skill:<br>
