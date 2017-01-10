@@ -1009,7 +1009,24 @@ function showWizardSpells(){
 
 
 
-
+function showMainSpells(){
+	
+	var tempOutput = '<h2>Cantrips</h2><ul>';
+	for(i = 0; i < Spell.length; i++){
+		if(Spell[i].Level == 0){
+			tempOutput += '<li onclick="showSpell(Spell[' + i + '])">'
+			tempOutput += '<a href="#Top">' + Spell[i].Name;
+			if(Spell[i].Ritual){tempOutput += " (R)";}
+			if(Spell[i].Concentration){tempOutput += "(C)";}
+			if(Spell[i].HigherLevels){tempOutput += "(+)";}
+			tempOutput += '</a></li>';
+		}
+	}
+	tempOutput += '</ul><hr>';
+	
+	document.getElementById('SpellbookCover').innerHTML = tempOutput;
+	
+}
 
 
 
