@@ -3840,7 +3840,7 @@ Spell.push(new newSpell(tempName, tempRitual, tempLevel, tempSchool, tempBard, t
 tempName = "Find Familiar";
 tempRitual = false;
 tempLevel = 1;
-tempSchool = "Conjuration;
+tempSchool = "Conjuration";
 tempBard = false; 
 tempCleric = false;
 tempDruid = false;
@@ -5207,7 +5207,7 @@ Spell.push(new newSpell(tempName, tempRitual, tempLevel, tempSchool, tempBard, t
 tempName = "Hex";
 tempRitual = false;
 tempLevel = 1;
-tempSchool = Enchantment
+tempSchool = "Enchantment";
 tempBard = false; 
 tempCleric = false;
 tempDruid = false;
