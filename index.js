@@ -25,7 +25,8 @@ var DMData = {
 //mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds147797.mlab.com:47797/heroku_8xmzgt7g', function(err, database){
 
 //diceroller108's database
-mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
+//mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database){
 	server.listen(process.env.PORT || 3000);
 	console.log("listening");
 	

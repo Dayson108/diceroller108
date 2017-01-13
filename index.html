@@ -22,7 +22,7 @@ new
 
 <script src="ShowSpells.js"></script>
 <script>
-var versionNumber = 4.5;
+var versionNumber = 4.51;
 console.log("API Ready v" + versionNumber)
 
 var LocalResultList = [];
@@ -140,8 +140,13 @@ function showSpellbook(){
 
 
 
-
-
+function ShowClassSpecific(){
+console.log("test: " + document.getElementById('CharCreateClass').value)
+	document.getElementById('CharClassSpecific').innerHTML = 'Bugs';
+	
+	
+	//if(document.getElementById(ÇharClassSpecific')'.value ==
+}
 
 
 
@@ -208,8 +213,14 @@ function flashWhite(){
     Player Name: <input type="text" id="PlayerName" size="5"  value="DefaultPlayer"><br>
 	
 	<button id="Login" onclick="Login()">Create Character</button><button id="ClaimDMButton" onclick="claimDMStatus()">Claim Dungeon Master Status</button>
-	<hr><br><br>
-
+	<hr>
+	Notes:<br>
+	Spellbook is now complete and error checked. <br><br>
+	
+	If any errors, typos, or problems are found please private message me on skype or use the Report Issue 
+	function
+	
+	
 </div>
 
 <div id="Spellbook" style="height:100%; width:500px; position:absolute; top:0px; left:80px; visibility:hidden;">
@@ -410,7 +421,8 @@ function flashWhite(){
 		<option value="Half-Orf">Half-Orc</option>
 		<option value="Tiefling">Tiefling</option>
 	</select>	
-	Class:<select id="MyClass">
+
+	Class:<select id=CharCreateClass" onchange="ShowClassSpecific()";>
 		<option value="Barbarian">Barbarian</option>
 		<option value="Bard">Bard</option>
 		<option value="Cleric">Cleric</option>
@@ -469,9 +481,12 @@ function flashWhite(){
 		</tr>
 	</table>
 	<hr>
+	<div id="CharClassSpecific">
+	</div>
 	<button id="SubmitCharacterStats" onclick="SubmitCharacterStats()">Submit</button><br>
 
 </div>
+
 <div id="ResultList">
 	<div id="ResultListButtons" style="height:45px; width:400px; padding:5px; position:absolute; top:0px; left:580px; border-left-style:solid; border-left-width:6px;border-bottom-style:solid; border-bottom-width:6px;">
 			<button id="clearChatButton" onclick="clearChat()">Clear Chat</button><input type="checkbox" id="PrivateRoll">Private(self)

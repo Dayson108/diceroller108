@@ -1011,9 +1011,9 @@ function showWizardSpells(){
 
 function showMainSpells(){
 	
-	var tempOutput = '<h2>Cantrips</h2><ul>';
+	var tempOutput = '<h2>Level (</h2><ul>';
 	for(i = 0; i < Spell.length; i++){
-		if(Spell[i].Level == 0){
+		if(Spell[i].Level == 9){
 			tempOutput += '<li onclick="showSpell(Spell[' + i + '])">'
 			tempOutput += '<a href="#Top">' + Spell[i].Name;
 			if(Spell[i].Ritual){tempOutput += " (R)";}

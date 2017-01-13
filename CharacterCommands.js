@@ -184,7 +184,7 @@ function SubmitCharacterStats(){
 	MyCharacter.CName = document.getElementById('CharacterName').value;
 	MyCharacter.CharacterLevel = Number(document.getElementById('MyLevel').value);
 	MyCharacter.ProfBonus = Math.ceil(1+(MyCharacter.CharacterLevel / 4));
-	MyCharacter.Class = document.getElementById('MyClass').value;
+	MyCharacter.Class = document.getElementById('CharCreateClass').value;
 	MyCharacter.BaseAC = Number(document.getElementById('MyBaseAC').value);
 	MyCharacter.HPMax = Number(document.getElementById('MyHPMax').value);
 	MyCharacter.HPCurrent = MyCharacter.HPMax;
