@@ -26,7 +26,7 @@ var DMData = {
 
 //diceroller108's database
 //mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database){
+mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
 	server.listen(process.env.PORT || 3000);
 	console.log("listening");
 	
