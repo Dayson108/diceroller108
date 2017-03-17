@@ -20,7 +20,7 @@ var DMData = {
 	ID: ""
 };
 
- 
+
 //drd108's database
 //mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds147797.mlab.com:47797/heroku_8xmzgt7g', function(err, database){
 
@@ -39,7 +39,9 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tar
 	});
 });
 
-
+app.get('/test', function(req, res){
+  res.sendFile(__dirname + '/html/Comment.html');
+});
 app.get('/', function(req, res){
 		console.log("Dirname: " + __dirname);
   res.sendFile(__dirname + '/index.html');
@@ -172,3 +174,4 @@ io.on('connection', function(socket){
 
 
 });
+
