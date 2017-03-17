@@ -1,0 +1,262 @@
+<html>
+  <head>
+<title>CharacterScreen</title>
+
+<script>
+
+var CharacterArray;
+var PlayerName
+var username;
+
+function ModCharacter(){
+	var radioElements = document.getElementsByName("CharSelect");
+    for(var i=0; i < radioElements.length; i++)
+    {
+        if(radioElements[i].checked) 
+        {
+			var Character = CharacterArray[i];
+			break;
+        }
+    }
+	
+	document.getElementById("NewCharacterSheet").style.visibility = "visible";
+	document.getElementById("CharacterSheet").action = "/EditCharacter"
+
+	document.getElementById("CharacterSheet").innerHTML += '<input type="hidden" id="charID" name="charID" value="' + Character._id + '"/>';
+
+}
+
+function submitCharacter(){
+	var radioElements = document.getElementsByName("CharSelect");
+    for(var i=0; i < radioElements.length; i++)
+    {
+        if(radioElements[i].checked) 
+        {
+			console.log(CharacterArray[i].CharacterName);
+			sessionStorage.setItem('DnDToolCharacter', JSON.stringify(CharacterArray[i]));
+			break;
+        }
+    }
+}
+
+
+function pageLoad(){
+	CharacterArray = <%- Characters %>;
+	PlayerName = <%- iPlayerName %>;
+	if(CharacterArray.length > 0){
+		var tempCharacterList = '<form action="/DnDTool" method="POST" onsubmit="submitCharacter()"><ul>';
+		tempCharacterList += '<li><input type="radio" name="CharSelect" value="' + 0 + '" checked>' + CharacterArray[0].CharacterName + "</li>";
+		for(var i = 1; i < CharacterArray.length; i++){
+			tempCharacterList += "<li>" + '<input type="radio" name="CharSelect" value="' + i + '">' + CharacterArray[i].CharacterName + "</li>";
+		}
+		tempCharacterList += '</ul><button type="submit">Load</button><button id="ModCharButton" type="button" onclick="ModCharacter()">Edit</button></form><br>';
+		document.getElementById('CharacterList').innerHTML = tempCharacterList;
+	}	
+
+	username = sessionStorage.username;
+	document.getElementById('Welcome').innerHTML = "Welcome " + PlayerName;
+	document.getElementById('SumbitUsername').value = username;
+	document.getElementById('SumbitUsername').value = username;
+}
+
+
+function characterCleanup(){
+	if(document.getElementById('CharacterName').value == ""){ document.getElementById('CharacterName').value = "Unnamed"}
+	if(document.getElementById('Level').value == ""){ document.getElementById('Level').value = "1"}
+	if(document.getElementById('BaseAC').value == ""){ document.getElementById('CharacterName').value = "10"}
+	if(document.getElementById('HPMax').value == ""){ document.getElementById('HPMax').value = "1"}
+	if(document.getElementById('CharSTR').value == ""){ document.getElementById('CharSTR').value = "10"}
+	if(document.getElementById('CharDEX').value == ""){ document.getElementById('CharDEX').value = "10"}
+	if(document.getElementById('CharCON').value == ""){ document.getElementById('CharCON').value = "10"}
+	if(document.getElementById('CharINT').value == ""){ document.getElementById('CharINT').value = "10"}
+	if(document.getElementById('CharWIS').value == ""){ document.getElementById('CharWIS').value = "10"}
+	if(document.getElementById('CharCHA').value == ""){ document.getElementById('CharCHA').value = "10"}
+
+	document.getElementById("AcrobaticsProf").value = document.getElementById("AcrobaticsProfCheck").checked;
+	document.getElementById("InsightProf").value = document.getElementById("InsightProfCheck").checked;
+	document.getElementById("PerformanceProf").value = document.getElementById("PerformanceProfCheck").checked;
+	document.getElementById("AnimalHandlingProf").value = document.getElementById("AnimalHandlingProfCheck").checked;
+	document.getElementById("IntimidationProf").value = document.getElementById("IntimidationProfCheck").checked;
+	document.getElementById("PersuasionProf").value = document.getElementById("PersuasionProfCheck").checked;
+	document.getElementById("ArcanaProf").value = document.getElementById("ArcanaProfCheck").checked;
+	document.getElementById("InvestigationProf").value = document.getElementById("InvestigationProfCheck").checked;
+	document.getElementById("ReligionProf").value = document.getElementById("ReligionProfCheck").checked;
+	document.getElementById("AthleticsProf").value = document.getElementById("AthleticsProfCheck").checked;
+	document.getElementById("MedicineProf").value = document.getElementById("MedicineProfCheck").checked;
+	document.getElementById("SleightOfHandProf").value = document.getElementById("SleightOfHandProfCheck").checked;
+	document.getElementById("DeceptionProf").value = document.getElementById("DeceptionProfCheck").checked;
+	document.getElementById("NatureProf").value = document.getElementById("NatureProfCheck").checked;
+	document.getElementById("StealthProf").value = document.getElementById("StealthProfCheck").checked;
+	document.getElementById("HistoryProf").value = document.getElementById("HistoryProfCheck").checked;
+	document.getElementById("PerceptionProf").value = document.getElementById("PerceptionProfCheck").checked;
+	document.getElementById("SurvivalProf").value = document.getElementById("SurvivalProfCheck").checked;
+	document.getElementById("STRProf").value = document.getElementById("STRProfCheck").checked;
+	document.getElementById("DEXProf").value = document.getElementById("DEXProfCheck").checked;
+	document.getElementById("CONProf").value = document.getElementById("CONProfCheck").checked;
+	document.getElementById("INTProf").value = document.getElementById("INTProfCheck").checked;
+	document.getElementById("WISProf").value = document.getElementById("WISProfCheck").checked;
+	document.getElementById("CHAProf").value = document.getElementById("CHAProfCheck").checked;
+	document.getElementById("ProfBonus").value = Math.ceil(1+(Number(document.getElementById("Level").value) / 4));
+	document.getElementById("iPlayerName").value = PlayerName;
+
+}
+
+
+</script>
+</head>
+
+<body bgcolor="#BEC6DD" onload="pageLoad()">
+<div id="MainScreen" style="position:absolute; top:0px; left:0px;">
+	<p id="Welcome"></p>
+
+	<hr>
+		
+	<div id="CharacterList">
+			
+	</div>
+	<hr>
+
+
+	<br>
+	<button onclick='document.getElementById("NewCharacterSheet").style.visibility = "visible"; document.getElementById("CharacterSheet").action = "/SaveCharacter";'>Create New Character</button>
+	
+	<div id="NewCharacterSheet" style="visibility:hidden;">
+		New Character:<br>
+		<form id="CharacterSheet" action="/SaveCharacter" method="POST" onsubmit="characterCleanup()">
+			<input type="hidden" id="SumbitUsername" name="username" />
+			Please Input your character's stats.<br>
+			If you are proficient in a skill or saving throw, select the checkbox next to it.<hr>
+			
+			Character Name: <textarea type="text" id="CharacterName" name="CharacterName" rows="1" cols="20">Name</textarea><br>
+			Level:<textarea id="Level" name="Level" rows="1" cols="10">1</textarea><br>
+
+			Race:<select id="Race" name="Race">
+				<option value ="Aarakocra" selected>Aarakocra</option>SpellbookScreenButton
+				<option value="Deep Gnome">Deep Gnome</option>
+				<option value="Dwarf">Dwarf</option>
+				<option value="Elf">Elf</option>
+				<option value="Air Genasi">Genasi(Air)</option>
+				<option value="Earth Genasi">Genasi(Earth)</option>
+				<option value="Fire Genasi">Genasi(Fire)</option>
+				<option value="Water Genasi">Genasi(Water)</option>
+				<option value="Goliath">Goliath</option>
+				<option value="halfling">Halfling</option>
+				<option value="Human">Human</option>
+				<option value="Dragonborn">Dragonborn</option>
+				<option value="Gnome">Gnome</option>
+				<option value="Half-Elf">Half-Elf</option>
+				<option value="Half-Orf">Half-Orc</option>
+				<option value="Tiefling">Tiefling</option>
+			</select>	
+
+			Class:<select id="Class" name="Class" onchange="ShowClassSpecific()";>
+				<option value="Barbarian" selected>Barbarian</option>
+				<option value="Bard">Bard</option>
+				<option value="Cleric">Cleric</option>
+				<option value="Druid">Druid</option>
+				<option value="Fighter">Fighter</option>
+				<option value="Monk">Monk</option>
+				<option value="Paladin">Paladin</option>
+				<option value="Ranger">Ranger</option>
+				<option value="Rogue">Rogue</option>
+				<option value="Sorcerer">Sorcerer</option>
+				<option value="Warlock">Warlock</option>
+				<option value="Wizard">Wizard</option>
+			</select><br>
+
+			Armor Class: <input type="text" id="BaseAC" name="AC" style="width:30px" value="10"><br>
+			Hit Point Max<input type="text" id="HPMax" name="MaxHP" style="width:30px" value="10">
+			<hr>
+			
+			Saving Throws<br>
+			Input your character's core stats (not the +bonus)<br>
+			<input type="text" id="CharSTR" name="STR" style="width: 30px"  value="10"><input type="checkbox" id="STRProfCheck">STR<br>
+			<input type="text" id="CharDEX" name="DEX" style="width: 30px" value="10"><input type="checkbox" id="DEXProfCheck">DEX<br>
+			<input type="text" id="CharCON" name="CON" style="width: 30px" value="10"><input type="checkbox" id="CONProfCheck">CON<br>
+			<input type="text" id="CharINT" name="INT" style="width: 30px" value="10"><input type="checkbox" id="INTProfCheck">INT<br>
+			<input type="text" id="CharWIS" name="WIS" style="width: 30px" value="10"><input type="checkbox" id="WISProfCheck">WIS<br>
+			<input type="text" id="CharCHA" name="CHA" style="width: 30px" value="10"><input type="checkbox" id="CHAProfCheck">CHA
+			<hr>
+			
+			Skills<br>
+			<table>
+				<tr>
+					<td><input type="checkbox" id="AcrobaticsProfCheck">Acrobatics</td>
+					<td><input type="checkbox" id="InsightProfCheck">Insight</td>
+					<td><input type="checkbox" id="PerformanceProfCheck">Performance</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="AnimalHandlingProfCheck">Animal Handling</td>
+					<td><input type="checkbox" id="IntimidationProfCheck">Intimidation</td>
+					<td><input type="checkbox" id="PersuasionProfCheck">Persuasion</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="ArcanaProfCheck">Arcana</td>
+					<td><input type="checkbox" id="InvestigationProfCheck">Investigation</td>
+					<td><input type="checkbox" id="ReligionProfCheck">Religion</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="AthleticsProfCheck">Athletics</td>
+					<td><input type="checkbox" id="MedicineProfCheck">Medicine</td>
+					<td><input type="checkbox" id="SleightOfHandProfCheck">Sleight Of Hand</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="DeceptionProfCheck">Deception</td>
+					<td><input type="checkbox" id="NatureProfCheck">Nature</td>
+					<td><input type="checkbox" id="StealthProfCheck">Stealth</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="HistoryProfCheck">History</td>
+					<td><input type="checkbox" id="PerceptionProfCheck">Perception</td>
+					<td><input type="checkbox" id="SurvivalProfCheck">Survival</td>
+				</tr>
+			</table>
+			<hr>
+			<input type="hidden" id="AcrobaticsProf" name="AcrobaticsProf" value="false"/>
+			<input type="hidden" id="InsightProf" name="InsightProf" value="false"/>
+			<input type="hidden" id="PerformanceProf" name="PerformanceProf" value="false"/>
+			
+			<input type="hidden" id="AnimalHandlingProf" name="AnimalHandlingProf" value="false"/>
+			<input type="hidden" id="IntimidationProf" name="IntimidationProf" value="false"/>
+			<input type="hidden" id="PersuasionProf" name="PersuasionProf" value="false"/>
+			
+			<input type="hidden" id="ArcanaProf" name="ArcanaProf" value="false"/>
+			<input type="hidden" id="InvestigationProf" name="InvestigationProf" value="false"/>
+			<input type="hidden" id="ReligionProf" name="ReligionProf" value="false"/>
+			
+			<input type="hidden" id="AthleticsProf" name="AthleticsProf" value="false"/>
+			<input type="hidden" id="MedicineProf" name="MedicineProf" value="false"/>
+			<input type="hidden" id="SleightOfHandProf" name="SleightOfHandProf" value="false"/>
+			
+			<input type="hidden" id="DeceptionProf" name="DeceptionProf" value="false"/>
+			<input type="hidden" id="NatureProf" name="NatureProf" value="false"/>
+			<input type="hidden" id="StealthProf" name="StealthProf" value="false"/>
+			
+			<input type="hidden" id="HistoryProf" name="HistoryProf" value="false"/>
+			<input type="hidden" id="PerceptionProf" name="PerceptionProf" value="false"/>
+			<input type="hidden" id="SurvivalProf" name="SurvivalProf" value="false"/>
+			
+			<input type="hidden" id="STRProf" name="STRProf" value="false"/>
+			<input type="hidden" id="DEXProf" name="DEXProf" value="false"/>
+			<input type="hidden" id="CONProf" name="CONProf" value="false"/>
+			<input type="hidden" id="INTProf" name="INTProf" value="false"/>
+			<input type="hidden" id="WISProf" name="WISProf" value="false"/>
+			<input type="hidden" id="CHAProf" name="CHAProf" value="false"/>
+			
+			
+			
+			<input type="hidden" id="ProfBonus" name="ProfBonus" value="0"/>
+		
+			<input type="hidden" id="iPlayerName" name="PlayerName" value=""/>
+			
+			<button type="submit">Submit</button>
+			<button type="submit" onclick="return registerCharacter()">Create</button>
+		</form>
+	</div>
+
+	
+</div>
+<div id="ModCharacterScreen" style="position:absolute; top:0px; left:0px; visibility:hidden;">
+
+</div>
+</body></html>
