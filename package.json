@@ -1,14 +1,14 @@
 {
   "name": "DnD Tool",
-  "version": "0.0.1",
-  "description": "my first socket.io app",
+  "version": "1",
+  "description": "For DnD 5e",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
-    "ejs": "^2.5.5",
+	"ejs": "^2.5.5",
     "express": "^4.10.2",
     "mongodb": "^2.2.11",
     "socket.io": "^1.5.0"
