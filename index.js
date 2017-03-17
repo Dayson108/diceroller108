@@ -26,11 +26,11 @@ var SocketAddressBook = [];
 
 
 
-mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
-	console.log("DB connected ");
-	db = database;
-});
+//app.get('/', function(req, res){
+//  res.sendFile(__dirname + '/Views/Main.html');
+//});
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/Views/Main.html');
+		console.log("Dirname: " + __dirname);
+  res.sendFile(__dirname + '/index.html');
 });
