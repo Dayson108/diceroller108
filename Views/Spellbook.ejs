@@ -1,0 +1,1740 @@
+<html><head>
+<title>Spellbook</title>
+<script>
+
+function toggleCleric(status){
+	if(status == 0){
+		document.getElementById('ClericSpells').style.visibility = 'visible';
+		document.getElementById('ClericDomains').style.visibility = 'hidden';
+	}else if(status == 1){
+		document.getElementById('ClericSpells').style.visibility = 'hidden';
+		document.getElementById('ClericDomains').style.visibility = 'visible';
+	}
+}
+	
+function showSpellSelection(screen){
+	document.getElementById('BardSpellList').style.visibility = "hidden"
+	document.getElementById('ClericSpellList').style.visibility = "hidden"
+	document.getElementById('DruidSpellList').style.visibility = "hidden"
+	document.getElementById('PaladinSpellList').style.visibility = "hidden"
+	document.getElementById('RangerSpellList').style.visibility = "hidden"
+	document.getElementById('SorcererSpellList').style.visibility = "hidden"
+	document.getElementById('WarlockSpellList').style.visibility = "hidden"
+	document.getElementById('WizardSpellList').style.visibility = "hidden"
+	document.getElementById('AllSpellList').style.visibility = "hidden"
+	document.getElementById(screen).style.visibility = "visible"
+}
+</script>
+
+</head>
+
+<body>
+	<div id="SpellButtons" style="height:30px; width:300px; position:absolute; top:0px; left:0px;">
+		Dungeons and Dragons 5e Spellbook<br>
+		<button onclick='showSpellSelection("BardSpellList")'>Bard</button>
+		<button onclick='showSpellSelection("ClericSpellList")'>Clerc</button>
+		<button onclick='showSpellSelection("DruidSpellList")'>Druid</button>
+		<button onclick='showSpellSelection("PaladinSpellList")'>Paladin</button>
+		<button onclick='showSpellSelection("RangerSpellList")'>Ranger</button>
+		<button onclick='showSpellSelection("RangerSpellList")'>Ranger</button>
+		<button onclick='showSpellSelection("SorcererSpellList")'>Sorcerer</button>
+		<button onclick='showSpellSelection("WarlockSpellList")'>Warlock</button>
+		<button onclick='showSpellSelection("WizardSpellList")'>Wizard</button>
+		<button onclick='showSpellSelection("AllSpellList")'>All</button><hr>
+	</div>
+	<iframe id="SpellpageFrame" name="SpellpageFrame" style="background-color:#BEC6DD; height:100%; width:600px;  position:absolute; top:0px; left:600px; border:0px; visibility:visible;">
+	</iframe>
+	
+<div id="BardSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Bard</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Blade_Ward" target="SpellpageFrame">Blade Ward</a></li>
+			<li><a href="/Spells/Dancing_Lights" target="SpellpageFrame">Dancing Lights</a></li>
+			<li><a href="/Spells/Friends" target="SpellpageFrame">Friends</a></li>
+			<li><a href="/Spells/Light" target="SpellpageFrame">Light</a></li>
+			<li><a href="/Spells/Mage_Hand" target="SpellpageFrame">Mage Hand</a></li>
+			<li><a href="/Spells/Mending" target="SpellpageFrame">Mending</a></li>
+			<li><a href="/Spells/Message" target="SpellpageFrame">Message</a></li>
+			<li><a href="/Spells/Minor_Illusion" target="SpellpageFrame">Minor Illusion</a></li>
+			<li><a href="/Spells/Prestidigitation" target="SpellpageFrame">Prestidigitation</a></li>
+			<li><a href="/Spells/Thunderclap" target="SpellpageFrame">Thunderclap</a></li>
+			<li><a href="/Spells/True_Strike" target="SpellpageFrame">True Strike</a></li>
+			<li><a href="/Spells/Vicious_Mockery" target="SpellpageFrame">Vicious Mockery</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Animal_Friendship" target="SpellpageFrame">Animal Friendship</a></li>
+			<li><a href="/Spells/Bane" target="SpellpageFrame">Bane</a></li>
+			<li><a href="/Spells/Charm_Person" target="SpellpageFrame">Charm Person</a></li>
+			<li><a href="/Spells/Comprehend_Languages" target="SpellpageFrame">Comprehend Languages</a></li>
+			<li><a href="/Spells/Cure_Wounds" target="SpellpageFrame">Cure Wounds</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Disguise_Self" target="SpellpageFrame">Disguise Self</a></li>
+			<li><a href="/Spells/Dissonant_Whispers" target="SpellpageFrame">Dissonant Whispers</a></li>
+			<li><a href="/Spells/Earth_Tremor" target="SpellpageFrame">Earth Tremor</a></li>
+			<li><a href="/Spells/Faerie_Fire" target="SpellpageFrame">Faerie Fire</a></li>
+			<li><a href="/Spells/Feather_Fall" target="SpellpageFrame">Feather Fall</a></li>
+			<li><a href="/Spells/Healing_Word" target="SpellpageFrame">Healing Word</a></li>
+			<li><a href="/Spells/Heroism" target="SpellpageFrame">Heroism</a></li>
+			<li><a href="/Spells/Identify" target="SpellpageFrame">Identify</a></li>
+			<li><a href="/Spells/Illusory_Script" target="SpellpageFrame">Illusory Script</a></li>
+			<li><a href="/Spells/Longstrider" target="SpellpageFrame">Longstrider</a></li>
+			<li><a href="/Spells/Silent_Image" target="SpellpageFrame">Silent Image</a></li>
+			<li><a href="/Spells/Sleep" target="SpellpageFrame">Sleep</a></li>
+			<li><a href="/Spells/Speak_with_Animals" target="SpellpageFrame">Speak with Animals</a></li>
+			<li><a href="/Spells/Tashas_Hideous_Laughter" target="SpellpageFrame">Tasha’s Hideous Laughter</a></li>
+			<li><a href="/Spells/Thunderwave" target="SpellpageFrame">Thunderwave</a></li>
+			<li><a href="/Spells/Unseen_Servant" target="SpellpageFrame">Unseen Servant</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Animal_Messenger" target="SpellpageFrame">Animal Messenger</a></li>
+			<li><a href="/Spells/BlindnessDeafness" target="SpellpageFrame">Blindness/Deafness</a></li>
+			<li><a href="/Spells/Calm_Emotions" target="SpellpageFrame">Calm Emotions</a></li>
+			<li><a href="/Spells/Cloud_of_Daggers" target="SpellpageFrame">Cloud of Daggers</a></li>
+			<li><a href="/Spells/Detect_Thoughts" target="SpellpageFrame">Detect Thoughts</a></li>
+			<li><a href="/Spells/Enhance_Ability" target="SpellpageFrame">Enhance Ability</a></li>
+			<li><a href="/Spells/Enthrall" target="SpellpageFrame">Enthrall</a></li>
+			<li><a href="/Spells/Heat_Metal" target="SpellpageFrame">Heat Metal</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Invisibility" target="SpellpageFrame">Invisibility</a></li>
+			<li><a href="/Spells/Knock" target="SpellpageFrame">Knock</a></li>
+			<li><a href="/Spells/Lesser_Restoration" target="SpellpageFrame">Lesser Restoration</a></li>
+			<li><a href="/Spells/Locate_Animals_or_Plants" target="SpellpageFrame">Locate Animals or Plants</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Magic_Mouth" target="SpellpageFrame">Magic Mouth</a></li>
+			<li><a href="/Spells/Phantasmal_Force" target="SpellpageFrame">Phantasmal Force</a></li>
+			<li><a href="/Spells/Pyrotechnics" target="SpellpageFrame">Pyrotechnics</a></li>
+			<li><a href="/Spells/See_Invisibility" target="SpellpageFrame">See Invisibility</a></li>
+			<li><a href="/Spells/Shatter" target="SpellpageFrame">Shatter</a></li>
+			<li><a href="/Spells/Silence" target="SpellpageFrame">Silence</a></li>
+			<li><a href="/Spells/Skywrite" target="SpellpageFrame">Skywrite</a></li>
+			<li><a href="/Spells/Suggestion" target="SpellpageFrame">Suggestion</a></li>
+			<li><a href="/Spells/Warding_Wind" target="SpellpageFrame">Warding Wind</a></li>
+			<li><a href="/Spells/Zone_of_Truth" target="SpellpageFrame">Zone of Truth</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Bestow_Curse" target="SpellpageFrame">Bestow Curse</a></li>
+			<li><a href="/Spells/Clairvoyance" target="SpellpageFrame">Clairvoyance</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Fear" target="SpellpageFrame">Fear</a></li>
+			<li><a href="/Spells/Feign_Death" target="SpellpageFrame">Feign Death</a></li>
+			<li><a href="/Spells/Glyph_of_Warding" target="SpellpageFrame">Glyph of Warding</a></li>
+			<li><a href="/Spells/Hypnotic_Pattern" target="SpellpageFrame">Hypnotic Pattern</a></li>
+			<li><a href="/Spells/Leomunds_Tiny_Hut" target="SpellpageFrame">Leomund’s Tiny Hut</a></li>
+			<li><a href="/Spells/Major_Image" target="SpellpageFrame">Major Image</a></li>
+			<li><a href="/Spells/Nondetection" target="SpellpageFrame">Nondetection</a></li>
+			<li><a href="/Spells/Plant_Growth" target="SpellpageFrame">Plant Growth</a></li>
+			<li><a href="/Spells/Sending" target="SpellpageFrame">Sending</a></li>
+			<li><a href="/Spells/Speak_with_Dead" target="SpellpageFrame">Speak with Dead</a></li>
+			<li><a href="/Spells/Speak_with_Plants" target="SpellpageFrame">Speak with Plants</a></li>
+			<li><a href="/Spells/Stinking_Cloud" target="SpellpageFrame">Stinking Cloud</a></li>
+			<li><a href="/Spells/Tongues" target="SpellpageFrame">Tongues</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Compulsion" target="SpellpageFrame">Compulsion</a></li>
+			<li><a href="/Spells/Confusion" target="SpellpageFrame">Confusion</a></li>
+			<li><a href="/Spells/Dimension_Door" target="SpellpageFrame">Dimension Door</a></li>
+			<li><a href="/Spells/Freedom_of_Movement" target="SpellpageFrame">Freedom of Movement</a></li>
+			<li><a href="/Spells/Greater_Invisibility" target="SpellpageFrame">Greater Invisibility</a></li>
+			<li><a href="/Spells/Hallucinatory_Terrain" target="SpellpageFrame">Hallucinatory Terrain</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Polymorph" target="SpellpageFrame">Polymorph</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Animate_Objects" target="SpellpageFrame">Animate Objects</a></li>
+			<li><a href="/Spells/Awaken" target="SpellpageFrame">Awaken</a></li>
+			<li><a href="/Spells/Dominate_Person" target="SpellpageFrame">Dominate Person</a></li>
+			<li><a href="/Spells/Dream" target="SpellpageFrame">Dream</a></li>
+			<li><a href="/Spells/Geas" target="SpellpageFrame">Geas</a></li>
+			<li><a href="/Spells/Greater_Restoration" target="SpellpageFrame">Greater Restoration</a></li>
+			<li><a href="/Spells/Hold_Monster" target="SpellpageFrame">Hold Monster</a></li>
+			<li><a href="/Spells/Legend_Lore" target="SpellpageFrame">Legend Lore</a></li>
+			<li><a href="/Spells/Mass_Cure_Wounds" target="SpellpageFrame">Mass Cure Wounds</a></li>
+			<li><a href="/Spells/Mislead" target="SpellpageFrame">Mislead</a></li>
+			<li><a href="/Spells/Modify_Memory" target="SpellpageFrame">Modify Memory</a></li>
+			<li><a href="/Spells/Planar_Binding" target="SpellpageFrame">Planar Binding</a></li>
+			<li><a href="/Spells/Raise_Dead" target="SpellpageFrame">Raise Dead</a></li>
+			<li><a href="/Spells/Scrying" target="SpellpageFrame">Scrying</a></li>
+			<li><a href="/Spells/Seeming" target="SpellpageFrame">Seeming</a></li>
+			<li><a href="/Spells/Teleportation_Circle" target="SpellpageFrame">Teleportation Circle</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Eyebite" target="SpellpageFrame">Eyebite</a></li>
+			<li><a href="/Spells/Find_the_Path" target="SpellpageFrame">Find the Path</a></li>
+			<li><a href="/Spells/Guards_and_Wards" target="SpellpageFrame">Guards and Wards</a></li>
+			<li><a href="/Spells/Mass_Suggestion" target="SpellpageFrame">Mass Suggestion</a></li>
+			<li><a href="/Spells/Ottos_Irresistible_Dance" target="SpellpageFrame">Otto’s Irresistible Dance</a></li>
+			<li><a href="/Spells/Programmed_Illusion" target="SpellpageFrame">Programmed Illusion</a></li>
+			<li><a href="/Spells/True_Seeing" target="SpellpageFrame">True Seeing</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Etherealness" target="SpellpageFrame">Etherealness</a></li>
+			<li><a href="/Spells/Forcecage" target="SpellpageFrame">Forcecage</a></li>
+			<li><a href="/Spells/Mirage_Arcane" target="SpellpageFrame">Mirage Arcane</a></li>
+			<li><a href="/Spells/Mordenkainens_Magnificent_Mansion" target="SpellpageFrame">Mordenkainen’s Magnificent Mansion</a></li>
+			<li><a href="/Spells/Mordenkainens_Sword" target="SpellpageFrame">Mordenkainen’s Sword</a></li>
+			<li><a href="/Spells/Project_Image" target="SpellpageFrame">Project Image</a></li>
+			<li><a href="/Spells/Regenerate" target="SpellpageFrame">Regenerate</a></li>
+			<li><a href="/Spells/Resurrection" target="SpellpageFrame">Resurrection</a></li>
+			<li><a href="/Spells/Symbol" target="SpellpageFrame">Symbol</a></li>
+			<li><a href="/Spells/Teleport" target="SpellpageFrame">Teleport</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/Dominate_Monster" target="SpellpageFrame">Dominate Monster</a></li>
+			<li><a href="/Spells/Feeblemind" target="SpellpageFrame">Feeblemind</a></li>
+			<li><a href="/Spells/Glibness" target="SpellpageFrame">Glibness</a></li>
+			<li><a href="/Spells/Mind_Blank" target="SpellpageFrame">Mind Blank</a></li>
+			<li><a href="/Spells/Power_Word_Stun" target="SpellpageFrame">Power Word Stun</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Foresight" target="SpellpageFrame">Foresight</a></li>
+			<li><a href="/Spells/Power_Word_Heal" target="SpellpageFrame">Power Word Heal</a></li>
+			<li><a href="/Spells/Power_Word_Kill" target="SpellpageFrame">Power Word Kill</a></li>
+			<li><a href="/Spells/True_Polymorph" target="SpellpageFrame">True Polymorph</a></li>
+		</ul>
+</div>
+
+<div id="ClericSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Cleric</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Guidance" target="SpellpageFrame">Guidance</a></li>
+			<li><a href="/Spells/Light" target="SpellpageFrame">Light</a></li>
+			<li><a href="/Spells/Mending" target="SpellpageFrame">Mending</a></li>
+			<li><a href="/Spells/Resistance" target="SpellpageFrame">Resistance</a></li>
+			<li><a href="/Spells/Sacred_Flame" target="SpellpageFrame">Sacred Flame</a></li>
+			<li><a href="/Spells/Spare_the_Dying" target="SpellpageFrame">Spare the Dying</a></li>
+			<li><a href="/Spells/Thaumaturgy" target="SpellpageFrame">Thaumaturgy</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Bane" target="SpellpageFrame">Bane</a></li>
+			<li><a href="/Spells/Bless" target="SpellpageFrame">Bless</a></li>
+			<li><a href="/Spells/Command" target="SpellpageFrame">Command</a></li>
+			<li><a href="/Spells/Create_or_Destroy_Water" target="SpellpageFrame">Create or Destroy Water</a></li>
+			<li><a href="/Spells/Cure_Wounds" target="SpellpageFrame">Cure Wounds</a></li>
+			<li><a href="/Spells/Detect_Evil_and_Good" target="SpellpageFrame">Detect Evil and Good</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Detect_Poison_and_Disease" target="SpellpageFrame">Detect Poison and Disease</a></li>
+			<li><a href="/Spells/Guiding_Bolt" target="SpellpageFrame">Guiding Bolt</a></li>
+			<li><a href="/Spells/Healing_Word" target="SpellpageFrame">Healing Word</a></li>
+			<li><a href="/Spells/Inflict_Wounds" target="SpellpageFrame">Inflict Wounds</a></li>
+			<li><a href="/Spells/Protection_from_Evil_and_Good" target="SpellpageFrame">Protection from Evil and Good</a></li>
+			<li><a href="/Spells/Purify_Food_and_Drink" target="SpellpageFrame">Purify Food and Drink</a></li>
+			<li><a href="/Spells/Sanctuary" target="SpellpageFrame">Sanctuary</a></li>
+			<li><a href="/Spells/Shield_of_Faith" target="SpellpageFrame">Shield of Faith</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Aid" target="SpellpageFrame">Aid</a></li>
+			<li><a href="/Spells/Augury" target="SpellpageFrame">Augury</a></li>
+			<li><a href="/Spells/BlindnessDeafness" target="SpellpageFrame">Blindness/Deafness</a></li>
+			<li><a href="/Spells/Calm_Emotions" target="SpellpageFrame">Calm Emotions</a></li>
+			<li><a href="/Spells/Continual_Flame" target="SpellpageFrame">Continual Flame</a></li>
+			<li><a href="/Spells/Enhance_Ability" target="SpellpageFrame">Enhance Ability</a></li>
+			<li><a href="/Spells/Find_Traps" target="SpellpageFrame">Find Traps</a></li>
+			<li><a href="/Spells/Gentle_Repose" target="SpellpageFrame">Gentle Repose</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Lesser_Restoration" target="SpellpageFrame">Lesser Restoration</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Prayer_of_Healing" target="SpellpageFrame">Prayer of Healing</a></li>
+			<li><a href="/Spells/Protection_from_Poison" target="SpellpageFrame">Protection from Poison</a></li>
+			<li><a href="/Spells/Silence" target="SpellpageFrame">Silence</a></li>
+			<li><a href="/Spells/Spiritual_Weapon" target="SpellpageFrame">Spiritual Weapon</a></li>
+			<li><a href="/Spells/Warding_Bond" target="SpellpageFrame">Warding Bond</a></li>
+			<li><a href="/Spells/Zone_of_Truth" target="SpellpageFrame">Zone of Truth</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Animate_Dead" target="SpellpageFrame">Animate Dead</a></li>
+			<li><a href="/Spells/Beacon_of_Hope" target="SpellpageFrame">Beacon of Hope</a></li>
+			<li><a href="/Spells/Bestow_Curse" target="SpellpageFrame">Bestow Curse</a></li>
+			<li><a href="/Spells/Clairvoyance" target="SpellpageFrame">Clairvoyance</a></li>
+			<li><a href="/Spells/Create_Food_and_Water" target="SpellpageFrame">Create Food and Water</a></li>
+			<li><a href="/Spells/Daylight" target="SpellpageFrame">Daylight</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Feign_Death" target="SpellpageFrame">Feign Death</a></li>
+			<li><a href="/Spells/Glyph_of_Warding" target="SpellpageFrame">Glyph of Warding</a></li>
+			<li><a href="/Spells/Magic_Circle" target="SpellpageFrame">Magic Circle</a></li>
+			<li><a href="/Spells/Mass_Healing_Word" target="SpellpageFrame">Mass Healing Word</a></li>
+			<li><a href="/Spells/Meld_into_Stone" target="SpellpageFrame">Meld into Stone</a></li>
+			<li><a href="/Spells/Protection_from_Energy" target="SpellpageFrame">Protection from Energy</a></li>
+			<li><a href="/Spells/Remove_Curse" target="SpellpageFrame">Remove Curse</a></li>
+			<li><a href="/Spells/Revivify" target="SpellpageFrame">Revivify</a></li>
+			<li><a href="/Spells/Sending" target="SpellpageFrame">Sending</a></li>
+			<li><a href="/Spells/Speak_with_Dead" target="SpellpageFrame">Speak with Dead</a></li>
+			<li><a href="/Spells/Spirit_Guardians" target="SpellpageFrame">Spirit Guardians</a></li>
+			<li><a href="/Spells/Tongues" target="SpellpageFrame">Tongues</a></li>
+			<li><a href="/Spells/Water_Walk" target="SpellpageFrame">Water Walk</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Banishment" target="SpellpageFrame">Banishment</a></li>
+			<li><a href="/Spells/Control_Water" target="SpellpageFrame">Control Water</a></li>
+			<li><a href="/Spells/Death_Ward" target="SpellpageFrame">Death Ward</a></li>
+			<li><a href="/Spells/Divination" target="SpellpageFrame">Divination</a></li>
+			<li><a href="/Spells/Freedom_of_Movement" target="SpellpageFrame">Freedom of Movement</a></li>
+			<li><a href="/Spells/Guardian_of_Faith" target="SpellpageFrame">Guardian of Faith</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Stone_Shape" target="SpellpageFrame">Stone Shape</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Commune" target="SpellpageFrame">Commune</a></li>
+			<li><a href="/Spells/Contagion" target="SpellpageFrame">Contagion</a></li>
+			<li><a href="/Spells/Dispel_Evil_and_Good" target="SpellpageFrame">Dispel Evil and Good</a></li>
+			<li><a href="/Spells/Flame_Strike" target="SpellpageFrame">Flame Strike</a></li>
+			<li><a href="/Spells/Geas" target="SpellpageFrame">Geas</a></li>
+			<li><a href="/Spells/Greater_Restoration" target="SpellpageFrame">Greater Restoration</a></li>
+			<li><a href="/Spells/Hallow" target="SpellpageFrame">Hallow</a></li>
+			<li><a href="/Spells/Insect_Plague" target="SpellpageFrame">Insect Plague</a></li>
+			<li><a href="/Spells/Legend_Lore" target="SpellpageFrame">Legend Lore</a></li>
+			<li><a href="/Spells/Mass_Cure_Wounds" target="SpellpageFrame">Mass Cure Wounds</a></li>
+			<li><a href="/Spells/Planar_Binding" target="SpellpageFrame">Planar Binding</a></li>
+			<li><a href="/Spells/Raise_Dead" target="SpellpageFrame">Raise Dead</a></li>
+			<li><a href="/Spells/Scrying" target="SpellpageFrame">Scrying</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Blade_Barrier" target="SpellpageFrame">Blade Barrier</a></li>
+			<li><a href="/Spells/Create_Undead" target="SpellpageFrame">Create Undead</a></li>
+			<li><a href="/Spells/Find_the_Path" target="SpellpageFrame">Find the Path</a></li>
+			<li><a href="/Spells/Forbiddance" target="SpellpageFrame">Forbiddance</a></li>
+			<li><a href="/Spells/Harm" target="SpellpageFrame">Harm</a></li>
+			<li><a href="/Spells/Heal" target="SpellpageFrame">Heal</a></li>
+			<li><a href="/Spells/Heroes_Feast" target="SpellpageFrame">Heroes’ Feast</a></li>
+			<li><a href="/Spells/Planar_Ally" target="SpellpageFrame">Planar Ally</a></li>
+			<li><a href="/Spells/True_Seeing" target="SpellpageFrame">True Seeing</a></li>
+			<li><a href="/Spells/Word_of_Recall" target="SpellpageFrame">Word of Recall</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Conjure_Celestial" target="SpellpageFrame">Conjure Celestial</a></li>
+			<li><a href="/Spells/Divine_Word" target="SpellpageFrame">Divine Word</a></li>
+			<li><a href="/Spells/Etherealness" target="SpellpageFrame">Etherealness</a></li>
+			<li><a href="/Spells/Fire_Storm" target="SpellpageFrame">Fire Storm</a></li>
+			<li><a href="/Spells/Plane_Shift" target="SpellpageFrame">Plane Shift</a></li>
+			<li><a href="/Spells/Regenerate" target="SpellpageFrame">Regenerate</a></li>
+			<li><a href="/Spells/Resurrection" target="SpellpageFrame">Resurrection</a></li>
+			<li><a href="/Spells/Symbol" target="SpellpageFrame">Symbol</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/Antimagic_Field" target="SpellpageFrame">Antimagic Field</a></li>
+			<li><a href="/Spells/Control_Weather" target="SpellpageFrame">Control Weather</a></li>
+			<li><a href="/Spells/Earthquake" target="SpellpageFrame">Earthquake</a></li>
+			<li><a href="/Spells/Holy_Aura" target="SpellpageFrame">Holy Aura</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Astral_Projection" target="SpellpageFrame">Astral Projection</a></li>
+			<li><a href="/Spells/Gate" target="SpellpageFrame">Gate</a></li>
+			<li><a href="/Spells/Mass_Heal" target="SpellpageFrame">Mass Heal</a></li>
+			<li><a href="/Spells/True_Resurrection" target="SpellpageFrame">True Resurrection</a></li>
+		</ul>
+</div>
+
+<div id="DruidSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Druid</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Control_Flames" target="SpellpageFrame">Control Flames</a></li>
+			<li><a href="/Spells/Create_Bonfire" target="SpellpageFrame">Create Bonfire</a></li>
+			<li><a href="/Spells/Druidcraft" target="SpellpageFrame">Druidcraft</a></li>
+			<li><a href="/Spells/Frostbite" target="SpellpageFrame">Frostbite</a></li>
+			<li><a href="/Spells/Guidance" target="SpellpageFrame">Guidance</a></li>
+			<li><a href="/Spells/Gust" target="SpellpageFrame">Gust</a></li>
+			<li><a href="/Spells/Magic_Stone" target="SpellpageFrame">Magic Stone</a></li>
+			<li><a href="/Spells/Mending" target="SpellpageFrame">Mending</a></li>
+			<li><a href="/Spells/Mold_Earth" target="SpellpageFrame">Mold Earth</a></li>
+			<li><a href="/Spells/Poison_Spray" target="SpellpageFrame">Poison Spray</a></li>
+			<li><a href="/Spells/Produce_Flame" target="SpellpageFrame">Produce Flame</a></li>
+			<li><a href="/Spells/Resistance" target="SpellpageFrame">Resistance</a></li>
+			<li><a href="/Spells/Shape_Water" target="SpellpageFrame">Shape Water</a></li>
+			<li><a href="/Spells/Shillelagh" target="SpellpageFrame">Shillelagh</a></li>
+			<li><a href="/Spells/Thorn_Whip" target="SpellpageFrame">Thorn Whip</a></li>
+			<li><a href="/Spells/Thunderclap" target="SpellpageFrame">Thunderclap</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Absorb_Elements" target="SpellpageFrame">Absorb Elements</a></li>
+			<li><a href="/Spells/Animal_Friendship" target="SpellpageFrame">Animal Friendship</a></li>
+			<li><a href="/Spells/Beast_Bond" target="SpellpageFrame">Beast Bond</a></li>
+			<li><a href="/Spells/Charm_Person" target="SpellpageFrame">Charm Person</a></li>
+			<li><a href="/Spells/Create_or_Destroy_Water" target="SpellpageFrame">Create or Destroy Water</a></li>
+			<li><a href="/Spells/Cure_Wounds" target="SpellpageFrame">Cure Wounds</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Detect_Poison_and_Disease" target="SpellpageFrame">Detect Poison and Disease</a></li>
+			<li><a href="/Spells/Earth_Tremor" target="SpellpageFrame">Earth Tremor</a></li>
+			<li><a href="/Spells/Entangle" target="SpellpageFrame">Entangle</a></li>
+			<li><a href="/Spells/Faerie_Fire" target="SpellpageFrame">Faerie Fire</a></li>
+			<li><a href="/Spells/Fog_Cloud" target="SpellpageFrame">Fog Cloud</a></li>
+			<li><a href="/Spells/Goodberry" target="SpellpageFrame">Goodberry</a></li>
+			<li><a href="/Spells/Healing_Word" target="SpellpageFrame">Healing Word</a></li>
+			<li><a href="/Spells/Ice_Knife" target="SpellpageFrame">Ice Knife</a></li>
+			<li><a href="/Spells/Jump" target="SpellpageFrame">Jump</a></li>
+			<li><a href="/Spells/Longstrider" target="SpellpageFrame">Longstrider</a></li>
+			<li><a href="/Spells/Purify_Food_and_Drink" target="SpellpageFrame">Purify Food and Drink</a></li>
+			<li><a href="/Spells/Speak_with_Animals" target="SpellpageFrame">Speak with Animals</a></li>
+			<li><a href="/Spells/Thunderwave" target="SpellpageFrame">Thunderwave</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Animal_Messenger" target="SpellpageFrame">Animal Messenger</a></li>
+			<li><a href="/Spells/Barkskin" target="SpellpageFrame">Barkskin</a></li>
+			<li><a href="/Spells/Beast_Sense" target="SpellpageFrame">Beast Sense</a></li>
+			<li><a href="/Spells/Darkvision" target="SpellpageFrame">Darkvision</a></li>
+			<li><a href="/Spells/Dust_Devil" target="SpellpageFrame">Dust Devil</a></li>
+			<li><a href="/Spells/Earthbind" target="SpellpageFrame">Earthbind</a></li>
+			<li><a href="/Spells/Enhance_Ability" target="SpellpageFrame">Enhance Ability</a></li>
+			<li><a href="/Spells/Find_Traps" target="SpellpageFrame">Find Traps</a></li>
+			<li><a href="/Spells/Flame_Blade" target="SpellpageFrame">Flame Blade</a></li>
+			<li><a href="/Spells/Flaming_Sphere" target="SpellpageFrame">Flaming Sphere</a></li>
+			<li><a href="/Spells/Gust_of_Wind" target="SpellpageFrame">Gust of Wind</a></li>
+			<li><a href="/Spells/Heat_Metal" target="SpellpageFrame">Heat Metal</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Lesser_Restoration" target="SpellpageFrame">Lesser Restoration</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Moonbeam" target="SpellpageFrame">Moonbeam</a></li>
+			<li><a href="/Spells/Pass_Without_Trace" target="SpellpageFrame">Pass Without Trace</a></li>
+			<li><a href="/Spells/Protection_from_Poison" target="SpellpageFrame">Protection from Poison</a></li>
+			<li><a href="/Spells/Skywrite" target="SpellpageFrame">Skywrite</a></li>
+			<li><a href="/Spells/Spike_Growth" target="SpellpageFrame">Spike Growth</a></li>
+			<li><a href="/Spells/Warding_Wind" target="SpellpageFrame">Warding Wind</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Call_Lightning" target="SpellpageFrame">Call Lightning</a></li>
+			<li><a href="/Spells/Conjure_Animals" target="SpellpageFrame">Conjure Animals</a></li>
+			<li><a href="/Spells/Daylight" target="SpellpageFrame">Daylight</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Erupting_Earth" target="SpellpageFrame">Erupting Earth</a></li>
+			<li><a href="/Spells/Feign_Death" target="SpellpageFrame">Feign Death</a></li>
+			<li><a href="/Spells/Flame_Arrows" target="SpellpageFrame">Flame Arrows</a></li>
+			<li><a href="/Spells/Meld_into_Stone" target="SpellpageFrame">Meld into Stone</a></li>
+			<li><a href="/Spells/Plant_Growth" target="SpellpageFrame">Plant Growth</a></li>
+			<li><a href="/Spells/Protection_from_Energy" target="SpellpageFrame">Protection from Energy</a></li>
+			<li><a href="/Spells/Sleet_Storm" target="SpellpageFrame">Sleet Storm</a></li>
+			<li><a href="/Spells/Speak_with_Plants" target="SpellpageFrame">Speak with Plants</a></li>
+			<li><a href="/Spells/Tidal_Wave" target="SpellpageFrame">Tidal Wave</a></li>
+			<li><a href="/Spells/Wall_of_Water" target="SpellpageFrame">Wall of Water</a></li>
+			<li><a href="/Spells/Water_Breathing" target="SpellpageFrame">Water Breathing</a></li>
+			<li><a href="/Spells/Water_Walk" target="SpellpageFrame">Water Walk</a></li>
+			<li><a href="/Spells/Wind_Wall" target="SpellpageFrame">Wind Wall</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Blight" target="SpellpageFrame">Blight</a></li>
+			<li><a href="/Spells/Confusion" target="SpellpageFrame">Confusion</a></li>
+			<li><a href="/Spells/Conjure_Minor_Elementals" target="SpellpageFrame">Conjure Minor Elementals</a></li>
+			<li><a href="/Spells/Conjure_Woodland_Beings" target="SpellpageFrame">Conjure Woodland Beings</a></li>
+			<li><a href="/Spells/Control_Water" target="SpellpageFrame">Control Water</a></li>
+			<li><a href="/Spells/Dominate_Beast" target="SpellpageFrame">Dominate Beast</a></li>
+			<li><a href="/Spells/Elemental_Bane" target="SpellpageFrame">Elemental Bane</a></li>
+			<li><a href="/Spells/Freedom_of_Movement" target="SpellpageFrame">Freedom of Movement</a></li>
+			<li><a href="/Spells/Giant_Insect" target="SpellpageFrame">Giant Insect</a></li>
+			<li><a href="/Spells/Grasping_Vine" target="SpellpageFrame">Grasping Vine</a></li>
+			<li><a href="/Spells/Hallucinatory_Terrain" target="SpellpageFrame">Hallucinatory Terrain</a></li>
+			<li><a href="/Spells/Ice_Storm" target="SpellpageFrame">Ice Storm</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Polymorph" target="SpellpageFrame">Polymorph</a></li>
+			<li><a href="/Spells/Stone_Shape" target="SpellpageFrame">Stone Shape</a></li>
+			<li><a href="/Spells/Stoneskin" target="SpellpageFrame">Stoneskin</a></li>
+			<li><a href="/Spells/Wall_of_Fire" target="SpellpageFrame">Wall of Fire</a></li>
+			<li><a href="/Spells/Watery_Sphere" target="SpellpageFrame">Watery Sphere</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Antilife_Shell" target="SpellpageFrame">Antilife Shell</a></li>
+			<li><a href="/Spells/Awaken" target="SpellpageFrame">Awaken</a></li>
+			<li><a href="/Spells/Commune_with_Nature" target="SpellpageFrame">Commune with Nature</a></li>
+			<li><a href="/Spells/Conjure_Elemental" target="SpellpageFrame">Conjure Elemental</a></li>
+			<li><a href="/Spells/Contagion" target="SpellpageFrame">Contagion</a></li>
+			<li><a href="/Spells/Control_Winds" target="SpellpageFrame">Control Winds</a></li>
+			<li><a href="/Spells/Geas" target="SpellpageFrame">Geas</a></li>
+			<li><a href="/Spells/Greater_Restoration" target="SpellpageFrame">Greater Restoration</a></li>
+			<li><a href="/Spells/Insect_Plague" target="SpellpageFrame">Insect Plague</a></li>
+			<li><a href="/Spells/Maelstrom" target="SpellpageFrame">Maelstrom</a></li>
+			<li><a href="/Spells/Mass_Cure_Wounds" target="SpellpageFrame">Mass Cure Wounds</a></li>
+			<li><a href="/Spells/Planar_Binding" target="SpellpageFrame">Planar Binding</a></li>
+			<li><a href="/Spells/Reincarnate" target="SpellpageFrame">Reincarnate</a></li>
+			<li><a href="/Spells/Scrying" target="SpellpageFrame">Scrying</a></li>
+			<li><a href="/Spells/Transmute_Rock" target="SpellpageFrame">Transmute Rock</a></li>
+			<li><a href="/Spells/Tree_Stride" target="SpellpageFrame">Tree Stride</a></li>
+			<li><a href="/Spells/Wall_of_Stone" target="SpellpageFrame">Wall of Stone</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Bones_of_the_Earth" target="SpellpageFrame">Bones of the Earth</a></li>
+			<li><a href="/Spells/Conjure_Fey" target="SpellpageFrame">Conjure Fey</a></li>
+			<li><a href="/Spells/Find_the_Path" target="SpellpageFrame">Find the Path</a></li>
+			<li><a href="/Spells/Heal" target="SpellpageFrame">Heal</a></li>
+			<li><a href="/Spells/Heroes_Feast" target="SpellpageFrame">Heroes’ Feast</a></li>
+			<li><a href="/Spells/Investiture_of_Flame" target="SpellpageFrame">Investiture of Flame</a></li>
+			<li><a href="/Spells/Investiture_of_Ice" target="SpellpageFrame">Investiture of Ice</a></li>
+			<li><a href="/Spells/Investiture_of_Stone" target="SpellpageFrame">Investiture of Stone</a></li>
+			<li><a href="/Spells/Investiture_of_Wind" target="SpellpageFrame">Investiture of Wind</a></li>
+			<li><a href="/Spells/Move_Earth" target="SpellpageFrame">Move Earth</a></li>
+			<li><a href="/Spells/Primordial_Ward" target="SpellpageFrame">Primordial Ward</a></li>
+			<li><a href="/Spells/Sunbeam" target="SpellpageFrame">Sunbeam</a></li>
+			<li><a href="/Spells/Transport_via_Plants" target="SpellpageFrame">Transport via Plants</a></li>
+			<li><a href="/Spells/Wall_of_Thorns" target="SpellpageFrame">Wall of Thorns</a></li>
+			<li><a href="/Spells/Wind_Walk" target="SpellpageFrame">Wind Walk</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Fire_Storm" target="SpellpageFrame">Fire Storm</a></li>
+			<li><a href="/Spells/Mirage_Arcane" target="SpellpageFrame">Mirage Arcane</a></li>
+			<li><a href="/Spells/Plane_Shift" target="SpellpageFrame">Plane Shift</a></li>
+			<li><a href="/Spells/Regenerate" target="SpellpageFrame">Regenerate</a></li>
+			<li><a href="/Spells/Reverse_Gravity" target="SpellpageFrame">Reverse Gravity</a></li>
+			<li><a href="/Spells/Whirlwind" target="SpellpageFrame">Whirlwind</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/Animal_Shapes" target="SpellpageFrame">Animal Shapes</a></li>
+			<li><a href="/Spells/AntipathySympathy" target="SpellpageFrame">Antipathy/Sympathy</a></li>
+			<li><a href="/Spells/Control_Weather" target="SpellpageFrame">Control Weather</a></li>
+			<li><a href="/Spells/Earthquake" target="SpellpageFrame">Earthquake</a></li>
+			<li><a href="/Spells/Feeblemind" target="SpellpageFrame">Feeblemind</a></li>
+			<li><a href="/Spells/Sunburst" target="SpellpageFrame">Sunburst</a></li>
+			<li><a href="/Spells/Tsunami" target="SpellpageFrame">Tsunami</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Foresight" target="SpellpageFrame">Foresight</a></li>
+			<li><a href="/Spells/Shapechange" target="SpellpageFrame">Shapechange</a></li>
+			<li><a href="/Spells/Storm_of_Vengeance" target="SpellpageFrame">Storm of Vengeance</a></li>
+			<li><a href="/Spells/True_Resurrection" target="SpellpageFrame">True Resurrection</a></li>
+		</ul>
+</div>
+
+<div id="PaladinSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Paladin</h1><hr>
+	Cantrips<br>
+		<ul>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Bless" target="SpellpageFrame">Bless</a></li>
+			<li><a href="/Spells/Command" target="SpellpageFrame">Command</a></li>
+			<li><a href="/Spells/Compelled_Duel" target="SpellpageFrame">Compelled Duel</a></li>
+			<li><a href="/Spells/Cure_Wounds" target="SpellpageFrame">Cure Wounds</a></li>
+			<li><a href="/Spells/Detect_Evil_and_Good" target="SpellpageFrame">Detect Evil and Good</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Detect_Poison_and_Disease" target="SpellpageFrame">Detect Poison and Disease</a></li>
+			<li><a href="/Spells/Divine_Favor" target="SpellpageFrame">Divine Favor</a></li>
+			<li><a href="/Spells/Heroism" target="SpellpageFrame">Heroism</a></li>
+			<li><a href="/Spells/Protection_from_Evil_and_Good" target="SpellpageFrame">Protection from Evil and Good</a></li>
+			<li><a href="/Spells/Purify_Food_and_Drink" target="SpellpageFrame">Purify Food and Drink</a></li>
+			<li><a href="/Spells/Searing_Smite" target="SpellpageFrame">Searing Smite</a></li>
+			<li><a href="/Spells/Shield_of_Faith" target="SpellpageFrame">Shield of Faith</a></li>
+			<li><a href="/Spells/Thunderous_Smite" target="SpellpageFrame">Thunderous Smite</a></li>
+			<li><a href="/Spells/Wrathful_Smite" target="SpellpageFrame">Wrathful Smite</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Aid" target="SpellpageFrame">Aid</a></li>
+			<li><a href="/Spells/Branding_Smite" target="SpellpageFrame">Branding Smite</a></li>
+			<li><a href="/Spells/Find_Steed" target="SpellpageFrame">Find Steed</a></li>
+			<li><a href="/Spells/Lesser_Restoration" target="SpellpageFrame">Lesser Restoration</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Magic_Weapon" target="SpellpageFrame">Magic Weapon</a></li>
+			<li><a href="/Spells/Protection_from_Poison" target="SpellpageFrame">Protection from Poison</a></li>
+			<li><a href="/Spells/Zone_of_Truth" target="SpellpageFrame">Zone of Truth</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Aura_of_Vitality" target="SpellpageFrame">Aura of Vitality</a></li>
+			<li><a href="/Spells/Blinding_Smite" target="SpellpageFrame">Blinding Smite</a></li>
+			<li><a href="/Spells/Create_Food_and_Water" target="SpellpageFrame">Create Food and Water</a></li>
+			<li><a href="/Spells/Crusaders_Mantle" target="SpellpageFrame">Crusader’s Mantle</a></li>
+			<li><a href="/Spells/Daylight" target="SpellpageFrame">Daylight</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Elemental_Weapon" target="SpellpageFrame">Elemental Weapon</a></li>
+			<li><a href="/Spells/Magic_Circle" target="SpellpageFrame">Magic Circle</a></li>
+			<li><a href="/Spells/Remove_Curse" target="SpellpageFrame">Remove Curse</a></li>
+			<li><a href="/Spells/Revivify" target="SpellpageFrame">Revivify</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Aura_of_Life" target="SpellpageFrame">Aura of Life</a></li>
+			<li><a href="/Spells/Aura_of_Purity" target="SpellpageFrame">Aura of Purity</a></li>
+			<li><a href="/Spells/Banishment" target="SpellpageFrame">Banishment</a></li>
+			<li><a href="/Spells/Death_Ward" target="SpellpageFrame">Death Ward</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Staggering_Smite" target="SpellpageFrame">Staggering Smite</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Banishing_Smite" target="SpellpageFrame">Banishing Smite</a></li>
+			<li><a href="/Spells/Circle_of_Power" target="SpellpageFrame">Circle of Power</a></li>
+			<li><a href="/Spells/Destructive_Wave" target="SpellpageFrame">Destructive Wave</a></li>
+			<li><a href="/Spells/Dispel_Evil_and_Good" target="SpellpageFrame">Dispel Evil and Good</a></li>
+			<li><a href="/Spells/Geas" target="SpellpageFrame">Geas</a></li>
+			<li><a href="/Spells/Raise_Dead" target="SpellpageFrame">Raise Dead</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+		</ul>
+	Level 7<br>
+		<ul>
+		</ul>
+	Level 8<br>
+		<ul>
+		</ul>
+	Level 9<br>
+		<ul>
+		</ul>
+</div>
+
+<div id="RangerSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Ranger</h1><hr>
+	Cantrips<br>
+		<ul>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Absorb_Elements" target="SpellpageFrame">Absorb Elements</a></li>
+			<li><a href="/Spells/Alarm" target="SpellpageFrame">Alarm</a></li>
+			<li><a href="/Spells/Beast_Bond" target="SpellpageFrame">Beast Bond</a></li>
+			<li><a href="/Spells/Cure_Wounds" target="SpellpageFrame">Cure Wounds</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Detect_Poison_and_Disease" target="SpellpageFrame">Detect Poison and Disease</a></li>
+			<li><a href="/Spells/Ensnaring_Strike" target="SpellpageFrame">Ensnaring Strike</a></li>
+			<li><a href="/Spells/Fog_Cloud" target="SpellpageFrame">Fog Cloud</a></li>
+			<li><a href="/Spells/Goodberry" target="SpellpageFrame">Goodberry</a></li>
+			<li><a href="/Spells/Hail_of_Thorns" target="SpellpageFrame">Hail of Thorns</a></li>
+			<li><a href="/Spells/Hunters_Mark" target="SpellpageFrame">Hunter’s Mark</a></li>
+			<li><a href="/Spells/Jump" target="SpellpageFrame">Jump</a></li>
+			<li><a href="/Spells/Longstrider" target="SpellpageFrame">Longstrider</a></li>
+			<li><a href="/Spells/Speak_with_Animals" target="SpellpageFrame">Speak with Animals</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Animal_Messenger" target="SpellpageFrame">Animal Messenger</a></li>
+			<li><a href="/Spells/Barkskin" target="SpellpageFrame">Barkskin</a></li>
+			<li><a href="/Spells/Beast_Sense" target="SpellpageFrame">Beast Sense</a></li>
+			<li><a href="/Spells/Cordon_of_Arrows" target="SpellpageFrame">Cordon of Arrows</a></li>
+			<li><a href="/Spells/Darkvision" target="SpellpageFrame">Darkvision</a></li>
+			<li><a href="/Spells/Find_Traps" target="SpellpageFrame">Find Traps</a></li>
+			<li><a href="/Spells/Lesser_Restoration" target="SpellpageFrame">Lesser Restoration</a></li>
+			<li><a href="/Spells/Locate_Animals_or_Plants" target="SpellpageFrame">Locate Animals or Plants</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Pass_Without_Trace" target="SpellpageFrame">Pass Without Trace</a></li>
+			<li><a href="/Spells/Protection_from_Poison" target="SpellpageFrame">Protection from Poison</a></li>
+			<li><a href="/Spells/Silence" target="SpellpageFrame">Silence</a></li>
+			<li><a href="/Spells/Spike_Growth" target="SpellpageFrame">Spike Growth</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Conjure_Animals" target="SpellpageFrame">Conjure Animals</a></li>
+			<li><a href="/Spells/Conjure_Barrage" target="SpellpageFrame">Conjure Barrage</a></li>
+			<li><a href="/Spells/Daylight" target="SpellpageFrame">Daylight</a></li>
+			<li><a href="/Spells/Flame_Arrows" target="SpellpageFrame">Flame Arrows</a></li>
+			<li><a href="/Spells/Lightning_Arrow" target="SpellpageFrame">Lightning Arrow</a></li>
+			<li><a href="/Spells/Nondetection" target="SpellpageFrame">Nondetection</a></li>
+			<li><a href="/Spells/Plant_Growth" target="SpellpageFrame">Plant Growth</a></li>
+			<li><a href="/Spells/Protection_from_Energy" target="SpellpageFrame">Protection from Energy</a></li>
+			<li><a href="/Spells/Speak_with_Plants" target="SpellpageFrame">Speak with Plants</a></li>
+			<li><a href="/Spells/Water_Breathing" target="SpellpageFrame">Water Breathing</a></li>
+			<li><a href="/Spells/Water_Walk" target="SpellpageFrame">Water Walk</a></li>
+			<li><a href="/Spells/Wind_Wall" target="SpellpageFrame">Wind Wall</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Conjure_Woodland_Beings" target="SpellpageFrame">Conjure Woodland Beings</a></li>
+			<li><a href="/Spells/Freedom_of_Movement" target="SpellpageFrame">Freedom of Movement</a></li>
+			<li><a href="/Spells/Grasping_Vine" target="SpellpageFrame">Grasping Vine</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Stoneskin" target="SpellpageFrame">Stoneskin</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Commune_with_Nature" target="SpellpageFrame">Commune with Nature</a></li>
+			<li><a href="/Spells/Conjure_Volley" target="SpellpageFrame">Conjure Volley</a></li>
+			<li><a href="/Spells/Swift_Quiver" target="SpellpageFrame">Swift Quiver</a></li>
+			<li><a href="/Spells/Tree_Stride" target="SpellpageFrame">Tree Stride</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+		</ul>
+	Level 7<br>
+		<ul>
+		</ul>
+	Level 8<br>
+		<ul>
+		</ul>
+	Level 9<br>
+		<ul>
+		</ul>
+</div>
+
+<div id="SorcererSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Sorcerer</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Acid_Splash" target="SpellpageFrame">Acid Splash</a></li>
+			<li><a href="/Spells/Blade_Ward" target="SpellpageFrame">Blade Ward</a></li>
+			<li><a href="/Spells/Booming_Blade" target="SpellpageFrame">Booming Blade</a></li>
+			<li><a href="/Spells/Chill_Touch" target="SpellpageFrame">Chill Touch</a></li>
+			<li><a href="/Spells/Control_Flames" target="SpellpageFrame">Control Flames</a></li>
+			<li><a href="/Spells/Create_Bonfire" target="SpellpageFrame">Create Bonfire</a></li>
+			<li><a href="/Spells/Dancing_Lights" target="SpellpageFrame">Dancing Lights</a></li>
+			<li><a href="/Spells/Fire_Bolt" target="SpellpageFrame">Fire Bolt</a></li>
+			<li><a href="/Spells/Friends" target="SpellpageFrame">Friends</a></li>
+			<li><a href="/Spells/Frostbite" target="SpellpageFrame">Frostbite</a></li>
+			<li><a href="/Spells/GreenFlame_Blade" target="SpellpageFrame">Green-Flame Blade</a></li>
+			<li><a href="/Spells/Gust" target="SpellpageFrame">Gust</a></li>
+			<li><a href="/Spells/Light" target="SpellpageFrame">Light</a></li>
+			<li><a href="/Spells/Lightning_Lure" target="SpellpageFrame">Lightning Lure</a></li>
+			<li><a href="/Spells/Mage_Hand" target="SpellpageFrame">Mage Hand</a></li>
+			<li><a href="/Spells/Mending" target="SpellpageFrame">Mending</a></li>
+			<li><a href="/Spells/Message" target="SpellpageFrame">Message</a></li>
+			<li><a href="/Spells/Minor_Illusion" target="SpellpageFrame">Minor Illusion</a></li>
+			<li><a href="/Spells/Mold_Earth" target="SpellpageFrame">Mold Earth</a></li>
+			<li><a href="/Spells/Poison_Spray" target="SpellpageFrame">Poison Spray</a></li>
+			<li><a href="/Spells/Prestidigitation" target="SpellpageFrame">Prestidigitation</a></li>
+			<li><a href="/Spells/Ray_of_Frost" target="SpellpageFrame">Ray of Frost</a></li>
+			<li><a href="/Spells/Shape_Water" target="SpellpageFrame">Shape Water</a></li>
+			<li><a href="/Spells/Shocking_Grasp" target="SpellpageFrame">Shocking Grasp</a></li>
+			<li><a href="/Spells/Sword_Burst" target="SpellpageFrame">Sword Burst</a></li>
+			<li><a href="/Spells/Thunderclap" target="SpellpageFrame">Thunderclap</a></li>
+			<li><a href="/Spells/True_Strike" target="SpellpageFrame">True Strike</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Burning_Hands" target="SpellpageFrame">Burning Hands</a></li>
+			<li><a href="/Spells/Catapult" target="SpellpageFrame">Catapult</a></li>
+			<li><a href="/Spells/Charm_Person" target="SpellpageFrame">Charm Person</a></li>
+			<li><a href="/Spells/Chromatic_Orb" target="SpellpageFrame">Chromatic Orb</a></li>
+			<li><a href="/Spells/Color_Spray" target="SpellpageFrame">Color Spray</a></li>
+			<li><a href="/Spells/Comprehend_Languages" target="SpellpageFrame">Comprehend Languages</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Disguise_Self" target="SpellpageFrame">Disguise Self</a></li>
+			<li><a href="/Spells/Earth_Tremor" target="SpellpageFrame">Earth Tremor</a></li>
+			<li><a href="/Spells/Expeditious_Retreat" target="SpellpageFrame">Expeditious Retreat</a></li>
+			<li><a href="/Spells/False_Life" target="SpellpageFrame">False Life</a></li>
+			<li><a href="/Spells/Feather_Fall" target="SpellpageFrame">Feather Fall</a></li>
+			<li><a href="/Spells/Fog_Cloud" target="SpellpageFrame">Fog Cloud</a></li>
+			<li><a href="/Spells/Ice_Knife" target="SpellpageFrame">Ice Knife</a></li>
+			<li><a href="/Spells/Jump" target="SpellpageFrame">Jump</a></li>
+			<li><a href="/Spells/Mage_Armor" target="SpellpageFrame">Mage Armor</a></li>
+			<li><a href="/Spells/Magic_Missile" target="SpellpageFrame">Magic Missile</a></li>
+			<li><a href="/Spells/Ray_of_Sickness" target="SpellpageFrame">Ray of Sickness</a></li>
+			<li><a href="/Spells/Shield" target="SpellpageFrame">Shield</a></li>
+			<li><a href="/Spells/Silent_Image" target="SpellpageFrame">Silent Image</a></li>
+			<li><a href="/Spells/Sleep" target="SpellpageFrame">Sleep</a></li>
+			<li><a href="/Spells/Thunderwave" target="SpellpageFrame">Thunderwave</a></li>
+			<li><a href="/Spells/Witch_Bolt" target="SpellpageFrame">Witch Bolt</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Aganazzars_Scorcher" target="SpellpageFrame">Aganazzar’s Scorcher</a></li>
+			<li><a href="/Spells/Alter_Self" target="SpellpageFrame">Alter Self</a></li>
+			<li><a href="/Spells/BlindnessDeafness" target="SpellpageFrame">Blindness/Deafness</a></li>
+			<li><a href="/Spells/Blur" target="SpellpageFrame">Blur</a></li>
+			<li><a href="/Spells/Cloud_of_Daggers" target="SpellpageFrame">Cloud of Daggers</a></li>
+			<li><a href="/Spells/Darkness" target="SpellpageFrame">Darkness</a></li>
+			<li><a href="/Spells/Darkvision" target="SpellpageFrame">Darkvision</a></li>
+			<li><a href="/Spells/Detect_Thoughts" target="SpellpageFrame">Detect Thoughts</a></li>
+			<li><a href="/Spells/Dust_Devil" target="SpellpageFrame">Dust Devil</a></li>
+			<li><a href="/Spells/Earthbind" target="SpellpageFrame">Earthbind</a></li>
+			<li><a href="/Spells/Enhance_Ability" target="SpellpageFrame">Enhance Ability</a></li>
+			<li><a href="/Spells/EnlargeReduce" target="SpellpageFrame">Enlarge/Reduce</a></li>
+			<li><a href="/Spells/Gust_of_Wind" target="SpellpageFrame">Gust of Wind</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Invisibility" target="SpellpageFrame">Invisibility</a></li>
+			<li><a href="/Spells/Knock" target="SpellpageFrame">Knock</a></li>
+			<li><a href="/Spells/Levitate" target="SpellpageFrame">Levitate</a></li>
+			<li><a href="/Spells/Maximilians_Earthen_Grasp" target="SpellpageFrame">Maximilian’s Earthen Grasp</a></li>
+			<li><a href="/Spells/Mirror_Image" target="SpellpageFrame">Mirror Image</a></li>
+			<li><a href="/Spells/Misty_Step" target="SpellpageFrame">Misty Step</a></li>
+			<li><a href="/Spells/Phantasmal_Force" target="SpellpageFrame">Phantasmal Force</a></li>
+			<li><a href="/Spells/Pyrotechnics" target="SpellpageFrame">Pyrotechnics</a></li>
+			<li><a href="/Spells/Scorching_Ray" target="SpellpageFrame">Scorching Ray</a></li>
+			<li><a href="/Spells/See_Invisibility" target="SpellpageFrame">See Invisibility</a></li>
+			<li><a href="/Spells/Shatter" target="SpellpageFrame">Shatter</a></li>
+			<li><a href="/Spells/Snillocs_Snowball_Swarm" target="SpellpageFrame">Snilloc’s Snowball Swarm</a></li>
+			<li><a href="/Spells/Spider_Climb" target="SpellpageFrame">Spider Climb</a></li>
+			<li><a href="/Spells/Suggestion" target="SpellpageFrame">Suggestion</a></li>
+			<li><a href="/Spells/Warding_Wind" target="SpellpageFrame">Warding Wind</a></li>
+			<li><a href="/Spells/Web" target="SpellpageFrame">Web</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Blink" target="SpellpageFrame">Blink</a></li>
+			<li><a href="/Spells/Clairvoyance" target="SpellpageFrame">Clairvoyance</a></li>
+			<li><a href="/Spells/Counterspell" target="SpellpageFrame">Counterspell</a></li>
+			<li><a href="/Spells/Daylight" target="SpellpageFrame">Daylight</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Erupting_Earth" target="SpellpageFrame">Erupting Earth</a></li>
+			<li><a href="/Spells/Fear" target="SpellpageFrame">Fear</a></li>
+			<li><a href="/Spells/Fireball" target="SpellpageFrame">Fireball</a></li>
+			<li><a href="/Spells/Flame_Arrows" target="SpellpageFrame">Flame Arrows</a></li>
+			<li><a href="/Spells/Fly" target="SpellpageFrame">Fly</a></li>
+			<li><a href="/Spells/Gaseous_Form" target="SpellpageFrame">Gaseous Form</a></li>
+			<li><a href="/Spells/Haste" target="SpellpageFrame">Haste</a></li>
+			<li><a href="/Spells/Hypnotic_Pattern" target="SpellpageFrame">Hypnotic Pattern</a></li>
+			<li><a href="/Spells/Lightning_Bolt" target="SpellpageFrame">Lightning Bolt</a></li>
+			<li><a href="/Spells/Major_Image" target="SpellpageFrame">Major Image</a></li>
+			<li><a href="/Spells/Melfs_Minute_Meteors" target="SpellpageFrame">Melf’s Minute Meteors</a></li>
+			<li><a href="/Spells/Plant_Growth" target="SpellpageFrame">Plant Growth</a></li>
+			<li><a href="/Spells/Protection_from_Energy" target="SpellpageFrame">Protection from Energy</a></li>
+			<li><a href="/Spells/Sleet_Storm" target="SpellpageFrame">Sleet Storm</a></li>
+			<li><a href="/Spells/Slow" target="SpellpageFrame">Slow</a></li>
+			<li><a href="/Spells/Stinking_Cloud" target="SpellpageFrame">Stinking Cloud</a></li>
+			<li><a href="/Spells/Tongues" target="SpellpageFrame">Tongues</a></li>
+			<li><a href="/Spells/Wall_of_Water" target="SpellpageFrame">Wall of Water</a></li>
+			<li><a href="/Spells/Water_Breathing" target="SpellpageFrame">Water Breathing</a></li>
+			<li><a href="/Spells/Water_Walk" target="SpellpageFrame">Water Walk</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Banishment" target="SpellpageFrame">Banishment</a></li>
+			<li><a href="/Spells/Blight" target="SpellpageFrame">Blight</a></li>
+			<li><a href="/Spells/Confusion" target="SpellpageFrame">Confusion</a></li>
+			<li><a href="/Spells/Dimension_Door" target="SpellpageFrame">Dimension Door</a></li>
+			<li><a href="/Spells/Dominate_Beast" target="SpellpageFrame">Dominate Beast</a></li>
+			<li><a href="/Spells/Greater_Invisibility" target="SpellpageFrame">Greater Invisibility</a></li>
+			<li><a href="/Spells/Ice_Storm" target="SpellpageFrame">Ice Storm</a></li>
+			<li><a href="/Spells/Polymorph" target="SpellpageFrame">Polymorph</a></li>
+			<li><a href="/Spells/Stoneskin" target="SpellpageFrame">Stoneskin</a></li>
+			<li><a href="/Spells/Storm_Sphere" target="SpellpageFrame">Storm Sphere</a></li>
+			<li><a href="/Spells/Vitriolic_Sphere" target="SpellpageFrame">Vitriolic Sphere</a></li>
+			<li><a href="/Spells/Wall_of_Fire" target="SpellpageFrame">Wall of Fire</a></li>
+			<li><a href="/Spells/Watery_Sphere" target="SpellpageFrame">Watery Sphere</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Animate_Objects" target="SpellpageFrame">Animate Objects</a></li>
+			<li><a href="/Spells/Cloudkill" target="SpellpageFrame">Cloudkill</a></li>
+			<li><a href="/Spells/Cone_of_Cold" target="SpellpageFrame">Cone of Cold</a></li>
+			<li><a href="/Spells/Control_Winds" target="SpellpageFrame">Control Winds</a></li>
+			<li><a href="/Spells/Creation" target="SpellpageFrame">Creation</a></li>
+			<li><a href="/Spells/Dominate_Person" target="SpellpageFrame">Dominate Person</a></li>
+			<li><a href="/Spells/Hold_Monster" target="SpellpageFrame">Hold Monster</a></li>
+			<li><a href="/Spells/Immolation" target="SpellpageFrame">Immolation</a></li>
+			<li><a href="/Spells/Insect_Plague" target="SpellpageFrame">Insect Plague</a></li>
+			<li><a href="/Spells/Seeming" target="SpellpageFrame">Seeming</a></li>
+			<li><a href="/Spells/Telekinesis" target="SpellpageFrame">Telekinesis</a></li>
+			<li><a href="/Spells/Teleportation_Circle" target="SpellpageFrame">Teleportation Circle</a></li>
+			<li><a href="/Spells/Wall_of_Stone" target="SpellpageFrame">Wall of Stone</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Arcane_Gate" target="SpellpageFrame">Arcane Gate</a></li>
+			<li><a href="/Spells/Chain_Lightning" target="SpellpageFrame">Chain Lightning</a></li>
+			<li><a href="/Spells/Circle_of_Death" target="SpellpageFrame">Circle of Death</a></li>
+			<li><a href="/Spells/Disintegrate" target="SpellpageFrame">Disintegrate</a></li>
+			<li><a href="/Spells/Eyebite" target="SpellpageFrame">Eyebite</a></li>
+			<li><a href="/Spells/Globe_of_Invulnerability" target="SpellpageFrame">Globe of Invulnerability</a></li>
+			<li><a href="/Spells/Investiture_of_Flame" target="SpellpageFrame">Investiture of Flame</a></li>
+			<li><a href="/Spells/Investiture_of_Ice" target="SpellpageFrame">Investiture of Ice</a></li>
+			<li><a href="/Spells/Investiture_of_Stone" target="SpellpageFrame">Investiture of Stone</a></li>
+			<li><a href="/Spells/Investiture_of_Wind" target="SpellpageFrame">Investiture of Wind</a></li>
+			<li><a href="/Spells/Mass_Suggestion" target="SpellpageFrame">Mass Suggestion</a></li>
+			<li><a href="/Spells/Move_Earth" target="SpellpageFrame">Move Earth</a></li>
+			<li><a href="/Spells/Sunbeam" target="SpellpageFrame">Sunbeam</a></li>
+			<li><a href="/Spells/True_Seeing" target="SpellpageFrame">True Seeing</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Delayed_Blast_Fireball" target="SpellpageFrame">Delayed Blast Fireball</a></li>
+			<li><a href="/Spells/Etherealness" target="SpellpageFrame">Etherealness</a></li>
+			<li><a href="/Spells/Finger_of_Death" target="SpellpageFrame">Finger of Death</a></li>
+			<li><a href="/Spells/Fire_Storm" target="SpellpageFrame">Fire Storm</a></li>
+			<li><a href="/Spells/Plane_Shift" target="SpellpageFrame">Plane Shift</a></li>
+			<li><a href="/Spells/Prismatic_Spray" target="SpellpageFrame">Prismatic Spray</a></li>
+			<li><a href="/Spells/Reverse_Gravity" target="SpellpageFrame">Reverse Gravity</a></li>
+			<li><a href="/Spells/Teleport" target="SpellpageFrame">Teleport</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/AbiDalzims_Horrid_Wilting" target="SpellpageFrame">Abi-Dalzim’s Horrid Wilting</a></li>
+			<li><a href="/Spells/Dominate_Monster" target="SpellpageFrame">Dominate Monster</a></li>
+			<li><a href="/Spells/Earthquake" target="SpellpageFrame">Earthquake</a></li>
+			<li><a href="/Spells/Incendiary_Cloud" target="SpellpageFrame">Incendiary Cloud</a></li>
+			<li><a href="/Spells/Power_Word_Stun" target="SpellpageFrame">Power Word Stun</a></li>
+			<li><a href="/Spells/Sunburst" target="SpellpageFrame">Sunburst</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Gate" target="SpellpageFrame">Gate</a></li>
+			<li><a href="/Spells/Meteor_Swarm" target="SpellpageFrame">Meteor Swarm</a></li>
+			<li><a href="/Spells/Power_Word_Kill" target="SpellpageFrame">Power Word Kill</a></li>
+			<li><a href="/Spells/Time_Stop" target="SpellpageFrame">Time Stop</a></li>
+			<li><a href="/Spells/Wish" target="SpellpageFrame">Wish</a></li>
+		</ul>
+</div>
+
+<div id="WarlockSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Warlock</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Blade_Ward" target="SpellpageFrame">Blade Ward</a></li>
+			<li><a href="/Spells/Booming_Blade" target="SpellpageFrame">Booming Blade</a></li>
+			<li><a href="/Spells/Chill_Touch" target="SpellpageFrame">Chill Touch</a></li>
+			<li><a href="/Spells/Create_Bonfire" target="SpellpageFrame">Create Bonfire</a></li>
+			<li><a href="/Spells/Eldritch_Blast" target="SpellpageFrame">Eldritch Blast</a></li>
+			<li><a href="/Spells/Friends" target="SpellpageFrame">Friends</a></li>
+			<li><a href="/Spells/Frostbite" target="SpellpageFrame">Frostbite</a></li>
+			<li><a href="/Spells/GreenFlame_Blade" target="SpellpageFrame">Green-Flame Blade</a></li>
+			<li><a href="/Spells/Lightning_Lure" target="SpellpageFrame">Lightning Lure</a></li>
+			<li><a href="/Spells/Mage_Hand" target="SpellpageFrame">Mage Hand</a></li>
+			<li><a href="/Spells/Magic_Stone" target="SpellpageFrame">Magic Stone</a></li>
+			<li><a href="/Spells/Minor_Illusion" target="SpellpageFrame">Minor Illusion</a></li>
+			<li><a href="/Spells/Poison_Spray" target="SpellpageFrame">Poison Spray</a></li>
+			<li><a href="/Spells/Prestidigitation" target="SpellpageFrame">Prestidigitation</a></li>
+			<li><a href="/Spells/Sword_Burst" target="SpellpageFrame">Sword Burst</a></li>
+			<li><a href="/Spells/Thunderclap" target="SpellpageFrame">Thunderclap</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Armor_of_Agathys" target="SpellpageFrame">Armor of Agathys</a></li>
+			<li><a href="/Spells/Arms_of_Hadar" target="SpellpageFrame">Arms of Hadar</a></li>
+			<li><a href="/Spells/Charm_Person" target="SpellpageFrame">Charm Person</a></li>
+			<li><a href="/Spells/Comprehend_Languages" target="SpellpageFrame">Comprehend Languages</a></li>
+			<li><a href="/Spells/Expeditious_Retreat" target="SpellpageFrame">Expeditious Retreat</a></li>
+			<li><a href="/Spells/Hellish_Rebuke" target="SpellpageFrame">Hellish Rebuke</a></li>
+			<li><a href="/Spells/Hex" target="SpellpageFrame">Hex</a></li>
+			<li><a href="/Spells/Illusory_Script" target="SpellpageFrame">Illusory Script</a></li>
+			<li><a href="/Spells/Protection_from_Evil_and_Good" target="SpellpageFrame">Protection from Evil and Good</a></li>
+			<li><a href="/Spells/Unseen_Servant" target="SpellpageFrame">Unseen Servant</a></li>
+			<li><a href="/Spells/Witch_Bolt" target="SpellpageFrame">Witch Bolt</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Cloud_of_Daggers" target="SpellpageFrame">Cloud of Daggers</a></li>
+			<li><a href="/Spells/Darkness" target="SpellpageFrame">Darkness</a></li>
+			<li><a href="/Spells/Earthbind" target="SpellpageFrame">Earthbind</a></li>
+			<li><a href="/Spells/Enthrall" target="SpellpageFrame">Enthrall</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Invisibility" target="SpellpageFrame">Invisibility</a></li>
+			<li><a href="/Spells/Mirror_Image" target="SpellpageFrame">Mirror Image</a></li>
+			<li><a href="/Spells/Misty_Step" target="SpellpageFrame">Misty Step</a></li>
+			<li><a href="/Spells/Ray_of_Enfeeblement" target="SpellpageFrame">Ray of Enfeeblement</a></li>
+			<li><a href="/Spells/Shatter" target="SpellpageFrame">Shatter</a></li>
+			<li><a href="/Spells/Spider_Climb" target="SpellpageFrame">Spider Climb</a></li>
+			<li><a href="/Spells/Suggestion" target="SpellpageFrame">Suggestion</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Counterspell" target="SpellpageFrame">Counterspell</a></li>
+			<li><a href="/Spells/Fear" target="SpellpageFrame">Fear</a></li>
+			<li><a href="/Spells/Fly" target="SpellpageFrame">Fly</a></li>
+			<li><a href="/Spells/Gaseous_Form" target="SpellpageFrame">Gaseous Form</a></li>
+			<li><a href="/Spells/Hunger_of_Hadar" target="SpellpageFrame">Hunger of Hadar</a></li>
+			<li><a href="/Spells/Hypnotic_Pattern" target="SpellpageFrame">Hypnotic Pattern</a></li>
+			<li><a href="/Spells/Magic_Circle" target="SpellpageFrame">Magic Circle</a></li>
+			<li><a href="/Spells/Major_Image" target="SpellpageFrame">Major Image</a></li>
+			<li><a href="/Spells/Remove_Curse" target="SpellpageFrame">Remove Curse</a></li>
+			<li><a href="/Spells/Tongues" target="SpellpageFrame">Tongues</a></li>
+			<li><a href="/Spells/Vampiric_Touch" target="SpellpageFrame">Vampiric Touch</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Blight" target="SpellpageFrame">Blight</a></li>
+			<li><a href="/Spells/Dimension_Door" target="SpellpageFrame">Dimension Door</a></li>
+			<li><a href="/Spells/Elemental_Bane" target="SpellpageFrame">Elemental Bane</a></li>
+			<li><a href="/Spells/Hallucinatory_Terrain" target="SpellpageFrame">Hallucinatory Terrain</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Contact_Other_Plane" target="SpellpageFrame">Contact Other Plane</a></li>
+			<li><a href="/Spells/Dream" target="SpellpageFrame">Dream</a></li>
+			<li><a href="/Spells/Planar_Binding" target="SpellpageFrame">Planar Binding</a></li>
+			<li><a href="/Spells/Scrying" target="SpellpageFrame">Scrying</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Arcane_Gate" target="SpellpageFrame">Arcane Gate</a></li>
+			<li><a href="/Spells/Circle_of_Death" target="SpellpageFrame">Circle of Death</a></li>
+			<li><a href="/Spells/Conjure_Fey" target="SpellpageFrame">Conjure Fey</a></li>
+			<li><a href="/Spells/Create_Undead" target="SpellpageFrame">Create Undead</a></li>
+			<li><a href="/Spells/Eyebite" target="SpellpageFrame">Eyebite</a></li>
+			<li><a href="/Spells/Flesh_to_Stone" target="SpellpageFrame">Flesh to Stone</a></li>
+			<li><a href="/Spells/Globe_of_Invulnerability" target="SpellpageFrame">Globe of Invulnerability</a></li>
+			<li><a href="/Spells/Investiture_of_Flame" target="SpellpageFrame">Investiture of Flame</a></li>
+			<li><a href="/Spells/Investiture_of_Ice" target="SpellpageFrame">Investiture of Ice</a></li>
+			<li><a href="/Spells/Investiture_of_Stone" target="SpellpageFrame">Investiture of Stone</a></li>
+			<li><a href="/Spells/Investiture_of_Wind" target="SpellpageFrame">Investiture of Wind</a></li>
+			<li><a href="/Spells/Mass_Suggestion" target="SpellpageFrame">Mass Suggestion</a></li>
+			<li><a href="/Spells/True_Seeing" target="SpellpageFrame">True Seeing</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Etherealness" target="SpellpageFrame">Etherealness</a></li>
+			<li><a href="/Spells/Finger_of_Death" target="SpellpageFrame">Finger of Death</a></li>
+			<li><a href="/Spells/Forcecage" target="SpellpageFrame">Forcecage</a></li>
+			<li><a href="/Spells/Plane_Shift" target="SpellpageFrame">Plane Shift</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/Demiplane" target="SpellpageFrame">Demiplane</a></li>
+			<li><a href="/Spells/Dominate_Monster" target="SpellpageFrame">Dominate Monster</a></li>
+			<li><a href="/Spells/Feeblemind" target="SpellpageFrame">Feeblemind</a></li>
+			<li><a href="/Spells/Power_Word_Stun" target="SpellpageFrame">Power Word Stun</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Astral_Projection" target="SpellpageFrame">Astral Projection</a></li>
+			<li><a href="/Spells/Foresight" target="SpellpageFrame">Foresight</a></li>
+			<li><a href="/Spells/Imprisonment" target="SpellpageFrame">Imprisonment</a></li>
+			<li><a href="/Spells/Power_Word_Kill" target="SpellpageFrame">Power Word Kill</a></li>
+			<li><a href="/Spells/True_Polymorph" target="SpellpageFrame">True Polymorph</a></li>
+		</ul>
+</div>
+
+<div id="WizardSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>Wizard</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Acid_Splash" target="SpellpageFrame">Acid Splash</a></li>
+			<li><a href="/Spells/Blade_Ward" target="SpellpageFrame">Blade Ward</a></li>
+			<li><a href="/Spells/Booming_Blade" target="SpellpageFrame">Booming Blade</a></li>
+			<li><a href="/Spells/Chill_Touch" target="SpellpageFrame">Chill Touch</a></li>
+			<li><a href="/Spells/Control_Flames" target="SpellpageFrame">Control Flames</a></li>
+			<li><a href="/Spells/Create_Bonfire" target="SpellpageFrame">Create Bonfire</a></li>
+			<li><a href="/Spells/Dancing_Lights" target="SpellpageFrame">Dancing Lights</a></li>
+			<li><a href="/Spells/Fire_Bolt" target="SpellpageFrame">Fire Bolt</a></li>
+			<li><a href="/Spells/Friends" target="SpellpageFrame">Friends</a></li>
+			<li><a href="/Spells/Frostbite" target="SpellpageFrame">Frostbite</a></li>
+			<li><a href="/Spells/GreenFlame_Blade" target="SpellpageFrame">Green-Flame Blade</a></li>
+			<li><a href="/Spells/Gust" target="SpellpageFrame">Gust</a></li>
+			<li><a href="/Spells/Light" target="SpellpageFrame">Light</a></li>
+			<li><a href="/Spells/Lightning_Lure" target="SpellpageFrame">Lightning Lure</a></li>
+			<li><a href="/Spells/Mage_Hand" target="SpellpageFrame">Mage Hand</a></li>
+			<li><a href="/Spells/Mending" target="SpellpageFrame">Mending</a></li>
+			<li><a href="/Spells/Message" target="SpellpageFrame">Message</a></li>
+			<li><a href="/Spells/Minor_Illusion" target="SpellpageFrame">Minor Illusion</a></li>
+			<li><a href="/Spells/Mold_Earth" target="SpellpageFrame">Mold Earth</a></li>
+			<li><a href="/Spells/Poison_Spray" target="SpellpageFrame">Poison Spray</a></li>
+			<li><a href="/Spells/Prestidigitation" target="SpellpageFrame">Prestidigitation</a></li>
+			<li><a href="/Spells/Ray_of_Frost" target="SpellpageFrame">Ray of Frost</a></li>
+			<li><a href="/Spells/Shape_Water" target="SpellpageFrame">Shape Water</a></li>
+			<li><a href="/Spells/Shocking_Grasp" target="SpellpageFrame">Shocking Grasp</a></li>
+			<li><a href="/Spells/Sword_Burst" target="SpellpageFrame">Sword Burst</a></li>
+			<li><a href="/Spells/Thunderclap" target="SpellpageFrame">Thunderclap</a></li>
+			<li><a href="/Spells/True_Strike" target="SpellpageFrame">True Strike</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Absorb_Elements" target="SpellpageFrame">Absorb Elements</a></li>
+			<li><a href="/Spells/Alarm" target="SpellpageFrame">Alarm</a></li>
+			<li><a href="/Spells/Burning_Hands" target="SpellpageFrame">Burning Hands</a></li>
+			<li><a href="/Spells/Catapult" target="SpellpageFrame">Catapult</a></li>
+			<li><a href="/Spells/Charm_Person" target="SpellpageFrame">Charm Person</a></li>
+			<li><a href="/Spells/Chromatic_Orb" target="SpellpageFrame">Chromatic Orb</a></li>
+			<li><a href="/Spells/Color_Spray" target="SpellpageFrame">Color Spray</a></li>
+			<li><a href="/Spells/Comprehend_Languages" target="SpellpageFrame">Comprehend Languages</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Disguise_Self" target="SpellpageFrame">Disguise Self</a></li>
+			<li><a href="/Spells/Earth_Tremor" target="SpellpageFrame">Earth Tremor</a></li>
+			<li><a href="/Spells/Expeditious_Retreat" target="SpellpageFrame">Expeditious Retreat</a></li>
+			<li><a href="/Spells/False_Life" target="SpellpageFrame">False Life</a></li>
+			<li><a href="/Spells/Feather_Fall" target="SpellpageFrame">Feather Fall</a></li>
+			<li><a href="/Spells/Find_Familiar" target="SpellpageFrame">Find Familiar</a></li>
+			<li><a href="/Spells/Fog_Cloud" target="SpellpageFrame">Fog Cloud</a></li>
+			<li><a href="/Spells/Grease" target="SpellpageFrame">Grease</a></li>
+			<li><a href="/Spells/Ice_Knife" target="SpellpageFrame">Ice Knife</a></li>
+			<li><a href="/Spells/Identify" target="SpellpageFrame">Identify</a></li>
+			<li><a href="/Spells/Illusory_Script" target="SpellpageFrame">Illusory Script</a></li>
+			<li><a href="/Spells/Jump" target="SpellpageFrame">Jump</a></li>
+			<li><a href="/Spells/Longstrider" target="SpellpageFrame">Longstrider</a></li>
+			<li><a href="/Spells/Mage_Armor" target="SpellpageFrame">Mage Armor</a></li>
+			<li><a href="/Spells/Magic_Missile" target="SpellpageFrame">Magic Missile</a></li>
+			<li><a href="/Spells/Protection_from_Evil_and_Good" target="SpellpageFrame">Protection from Evil and Good</a></li>
+			<li><a href="/Spells/Ray_of_Sickness" target="SpellpageFrame">Ray of Sickness</a></li>
+			<li><a href="/Spells/Shield" target="SpellpageFrame">Shield</a></li>
+			<li><a href="/Spells/Silent_Image" target="SpellpageFrame">Silent Image</a></li>
+			<li><a href="/Spells/Sleep" target="SpellpageFrame">Sleep</a></li>
+			<li><a href="/Spells/Tashas_Hideous_Laughter" target="SpellpageFrame">Tasha’s Hideous Laughter</a></li>
+			<li><a href="/Spells/Tensers_Floating_Disk" target="SpellpageFrame">Tenser’s Floating Disk</a></li>
+			<li><a href="/Spells/Thunderwave" target="SpellpageFrame">Thunderwave</a></li>
+			<li><a href="/Spells/Unseen_Servant" target="SpellpageFrame">Unseen Servant</a></li>
+			<li><a href="/Spells/Witch_Bolt" target="SpellpageFrame">Witch Bolt</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Aganazzars_Scorcher" target="SpellpageFrame">Aganazzar’s Scorcher</a></li>
+			<li><a href="/Spells/Alter_Self" target="SpellpageFrame">Alter Self</a></li>
+			<li><a href="/Spells/Arcane_Lock" target="SpellpageFrame">Arcane Lock</a></li>
+			<li><a href="/Spells/BlindnessDeafness" target="SpellpageFrame">Blindness/Deafness</a></li>
+			<li><a href="/Spells/Blur" target="SpellpageFrame">Blur</a></li>
+			<li><a href="/Spells/Cloud_of_Daggers" target="SpellpageFrame">Cloud of Daggers</a></li>
+			<li><a href="/Spells/Continual_Flame" target="SpellpageFrame">Continual Flame</a></li>
+			<li><a href="/Spells/Darkness" target="SpellpageFrame">Darkness</a></li>
+			<li><a href="/Spells/Darkvision" target="SpellpageFrame">Darkvision</a></li>
+			<li><a href="/Spells/Detect_Thoughts" target="SpellpageFrame">Detect Thoughts</a></li>
+			<li><a href="/Spells/Dust_Devil" target="SpellpageFrame">Dust Devil</a></li>
+			<li><a href="/Spells/Earthbind" target="SpellpageFrame">Earthbind</a></li>
+			<li><a href="/Spells/EnlargeReduce" target="SpellpageFrame">Enlarge/Reduce</a></li>
+			<li><a href="/Spells/Flaming_Sphere" target="SpellpageFrame">Flaming Sphere</a></li>
+			<li><a href="/Spells/Gentle_Repose" target="SpellpageFrame">Gentle Repose</a></li>
+			<li><a href="/Spells/Gust_of_Wind" target="SpellpageFrame">Gust of Wind</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Invisibility" target="SpellpageFrame">Invisibility</a></li>
+			<li><a href="/Spells/Knock" target="SpellpageFrame">Knock</a></li>
+			<li><a href="/Spells/Levitate" target="SpellpageFrame">Levitate</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Magic_Mouth" target="SpellpageFrame">Magic Mouth</a></li>
+			<li><a href="/Spells/Magic_Weapon" target="SpellpageFrame">Magic Weapon</a></li>
+			<li><a href="/Spells/Maximilians_Earthen_Grasp" target="SpellpageFrame">Maximilian’s Earthen Grasp</a></li>
+			<li><a href="/Spells/Melfs_Acid_Arrow" target="SpellpageFrame">Melf’s Acid Arrow</a></li>
+			<li><a href="/Spells/Mirror_Image" target="SpellpageFrame">Mirror Image</a></li>
+			<li><a href="/Spells/Misty_Step" target="SpellpageFrame">Misty Step</a></li>
+			<li><a href="/Spells/Nystuls_Magic_Aura" target="SpellpageFrame">Nystul’s Magic Aura</a></li>
+			<li><a href="/Spells/Phantasmal_Force" target="SpellpageFrame">Phantasmal Force</a></li>
+			<li><a href="/Spells/Pyrotechnics" target="SpellpageFrame">Pyrotechnics</a></li>
+			<li><a href="/Spells/Ray_of_Enfeeblement" target="SpellpageFrame">Ray of Enfeeblement</a></li>
+			<li><a href="/Spells/Rope_Trick" target="SpellpageFrame">Rope Trick</a></li>
+			<li><a href="/Spells/Scorching_Ray" target="SpellpageFrame">Scorching Ray</a></li>
+			<li><a href="/Spells/See_Invisibility" target="SpellpageFrame">See Invisibility</a></li>
+			<li><a href="/Spells/Shatter" target="SpellpageFrame">Shatter</a></li>
+			<li><a href="/Spells/Skywrite" target="SpellpageFrame">Skywrite</a></li>
+			<li><a href="/Spells/Snillocs_Snowball_Swarm" target="SpellpageFrame">Snilloc’s Snowball Swarm</a></li>
+			<li><a href="/Spells/Spider_Climb" target="SpellpageFrame">Spider Climb</a></li>
+			<li><a href="/Spells/Suggestion" target="SpellpageFrame">Suggestion</a></li>
+			<li><a href="/Spells/Web" target="SpellpageFrame">Web</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Animate_Dead" target="SpellpageFrame">Animate Dead</a></li>
+			<li><a href="/Spells/Bestow_Curse" target="SpellpageFrame">Bestow Curse</a></li>
+			<li><a href="/Spells/Blink" target="SpellpageFrame">Blink</a></li>
+			<li><a href="/Spells/Clairvoyance" target="SpellpageFrame">Clairvoyance</a></li>
+			<li><a href="/Spells/Counterspell" target="SpellpageFrame">Counterspell</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Erupting_Earth" target="SpellpageFrame">Erupting Earth</a></li>
+			<li><a href="/Spells/Fear" target="SpellpageFrame">Fear</a></li>
+			<li><a href="/Spells/Feign_Death" target="SpellpageFrame">Feign Death</a></li>
+			<li><a href="/Spells/Fireball" target="SpellpageFrame">Fireball</a></li>
+			<li><a href="/Spells/Flame_Arrows" target="SpellpageFrame">Flame Arrows</a></li>
+			<li><a href="/Spells/Fly" target="SpellpageFrame">Fly</a></li>
+			<li><a href="/Spells/Gaseous_Form" target="SpellpageFrame">Gaseous Form</a></li>
+			<li><a href="/Spells/Glyph_of_Warding" target="SpellpageFrame">Glyph of Warding</a></li>
+			<li><a href="/Spells/Haste" target="SpellpageFrame">Haste</a></li>
+			<li><a href="/Spells/Hypnotic_Pattern" target="SpellpageFrame">Hypnotic Pattern</a></li>
+			<li><a href="/Spells/Leomunds_Tiny_Hut" target="SpellpageFrame">Leomund’s Tiny Hut</a></li>
+			<li><a href="/Spells/Lightning_Bolt" target="SpellpageFrame">Lightning Bolt</a></li>
+			<li><a href="/Spells/Magic_Circle" target="SpellpageFrame">Magic Circle</a></li>
+			<li><a href="/Spells/Major_Image" target="SpellpageFrame">Major Image</a></li>
+			<li><a href="/Spells/Melfs_Minute_Meteors" target="SpellpageFrame">Melf’s Minute Meteors</a></li>
+			<li><a href="/Spells/Nondetection" target="SpellpageFrame">Nondetection</a></li>
+			<li><a href="/Spells/Phantom_Steed" target="SpellpageFrame">Phantom Steed</a></li>
+			<li><a href="/Spells/Protection_from_Energy" target="SpellpageFrame">Protection from Energy</a></li>
+			<li><a href="/Spells/Remove_Curse" target="SpellpageFrame">Remove Curse</a></li>
+			<li><a href="/Spells/Sending" target="SpellpageFrame">Sending</a></li>
+			<li><a href="/Spells/Sleet_Storm" target="SpellpageFrame">Sleet Storm</a></li>
+			<li><a href="/Spells/Slow" target="SpellpageFrame">Slow</a></li>
+			<li><a href="/Spells/Stinking_Cloud" target="SpellpageFrame">Stinking Cloud</a></li>
+			<li><a href="/Spells/Tidal_Wave" target="SpellpageFrame">Tidal Wave</a></li>
+			<li><a href="/Spells/Tongues" target="SpellpageFrame">Tongues</a></li>
+			<li><a href="/Spells/Vampiric_Touch" target="SpellpageFrame">Vampiric Touch</a></li>
+			<li><a href="/Spells/Wall_of_Sand" target="SpellpageFrame">Wall of Sand</a></li>
+			<li><a href="/Spells/Wall_of_Water" target="SpellpageFrame">Wall of Water</a></li>
+			<li><a href="/Spells/Water_Breathing" target="SpellpageFrame">Water Breathing</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Arcane_Eye" target="SpellpageFrame">Arcane Eye</a></li>
+			<li><a href="/Spells/Banishment" target="SpellpageFrame">Banishment</a></li>
+			<li><a href="/Spells/Blight" target="SpellpageFrame">Blight</a></li>
+			<li><a href="/Spells/Confusion" target="SpellpageFrame">Confusion</a></li>
+			<li><a href="/Spells/Conjure_Minor_Elementals" target="SpellpageFrame">Conjure Minor Elementals</a></li>
+			<li><a href="/Spells/Control_Water" target="SpellpageFrame">Control Water</a></li>
+			<li><a href="/Spells/Dimension_Door" target="SpellpageFrame">Dimension Door</a></li>
+			<li><a href="/Spells/Elemental_Bane" target="SpellpageFrame">Elemental Bane</a></li>
+			<li><a href="/Spells/Evards_Black_Tentacles" target="SpellpageFrame">Evard’s Black Tentacles</a></li>
+			<li><a href="/Spells/Fabricate" target="SpellpageFrame">Fabricate</a></li>
+			<li><a href="/Spells/Fire_Shield" target="SpellpageFrame">Fire Shield</a></li>
+			<li><a href="/Spells/Greater_Invisibility" target="SpellpageFrame">Greater Invisibility</a></li>
+			<li><a href="/Spells/Hallucinatory_Terrain" target="SpellpageFrame">Hallucinatory Terrain</a></li>
+			<li><a href="/Spells/Ice_Storm" target="SpellpageFrame">Ice Storm</a></li>
+			<li><a href="/Spells/Leomunds_Secret_Chest" target="SpellpageFrame">Leomund’s Secret Chest</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Mordenkainens_Faithful_Hound" target="SpellpageFrame">Mordenkainen’s Faithful Hound</a></li>
+			<li><a href="/Spells/Mordenkainens_Private_Sanctum" target="SpellpageFrame">Mordenkainen’s Private Sanctum</a></li>
+			<li><a href="/Spells/Otilukes_Resilient_Sphere" target="SpellpageFrame">Otiluke’s Resilient Sphere</a></li>
+			<li><a href="/Spells/Phantasmal_Killer" target="SpellpageFrame">Phantasmal Killer</a></li>
+			<li><a href="/Spells/Polymorph" target="SpellpageFrame">Polymorph</a></li>
+			<li><a href="/Spells/Stone_Shape" target="SpellpageFrame">Stone Shape</a></li>
+			<li><a href="/Spells/Stoneskin" target="SpellpageFrame">Stoneskin</a></li>
+			<li><a href="/Spells/Storm_Sphere" target="SpellpageFrame">Storm Sphere</a></li>
+			<li><a href="/Spells/Vitriolic_Sphere" target="SpellpageFrame">Vitriolic Sphere</a></li>
+			<li><a href="/Spells/Wall_of_Fire" target="SpellpageFrame">Wall of Fire</a></li>
+			<li><a href="/Spells/Watery_Sphere" target="SpellpageFrame">Watery Sphere</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Animate_Objects" target="SpellpageFrame">Animate Objects</a></li>
+			<li><a href="/Spells/Bigbys_Hand" target="SpellpageFrame">Bigby’s Hand</a></li>
+			<li><a href="/Spells/Cloudkill" target="SpellpageFrame">Cloudkill</a></li>
+			<li><a href="/Spells/Cone_of_Cold" target="SpellpageFrame">Cone of Cold</a></li>
+			<li><a href="/Spells/Conjure_Elemental" target="SpellpageFrame">Conjure Elemental</a></li>
+			<li><a href="/Spells/Contact_Other_Plane" target="SpellpageFrame">Contact Other Plane</a></li>
+			<li><a href="/Spells/Control_Winds" target="SpellpageFrame">Control Winds</a></li>
+			<li><a href="/Spells/Creation" target="SpellpageFrame">Creation</a></li>
+			<li><a href="/Spells/Dominate_Person" target="SpellpageFrame">Dominate Person</a></li>
+			<li><a href="/Spells/Dream" target="SpellpageFrame">Dream</a></li>
+			<li><a href="/Spells/Geas" target="SpellpageFrame">Geas</a></li>
+			<li><a href="/Spells/Hold_Monster" target="SpellpageFrame">Hold Monster</a></li>
+			<li><a href="/Spells/Immolation" target="SpellpageFrame">Immolation</a></li>
+			<li><a href="/Spells/Legend_Lore" target="SpellpageFrame">Legend Lore</a></li>
+			<li><a href="/Spells/Mislead" target="SpellpageFrame">Mislead</a></li>
+			<li><a href="/Spells/Modify_Memory" target="SpellpageFrame">Modify Memory</a></li>
+			<li><a href="/Spells/Passwall" target="SpellpageFrame">Passwall</a></li>
+			<li><a href="/Spells/Planar_Binding" target="SpellpageFrame">Planar Binding</a></li>
+			<li><a href="/Spells/Rarys_Telepathic_Bond" target="SpellpageFrame">Rary’s Telepathic Bond</a></li>
+			<li><a href="/Spells/Scrying" target="SpellpageFrame">Scrying</a></li>
+			<li><a href="/Spells/Seeming" target="SpellpageFrame">Seeming</a></li>
+			<li><a href="/Spells/Telekinesis" target="SpellpageFrame">Telekinesis</a></li>
+			<li><a href="/Spells/Teleportation_Circle" target="SpellpageFrame">Teleportation Circle</a></li>
+			<li><a href="/Spells/Transmute_Rock" target="SpellpageFrame">Transmute Rock</a></li>
+			<li><a href="/Spells/Wall_of_Force" target="SpellpageFrame">Wall of Force</a></li>
+			<li><a href="/Spells/Wall_of_Stone" target="SpellpageFrame">Wall of Stone</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Arcane_Gate" target="SpellpageFrame">Arcane Gate</a></li>
+			<li><a href="/Spells/Chain_Lightning" target="SpellpageFrame">Chain Lightning</a></li>
+			<li><a href="/Spells/Circle_of_Death" target="SpellpageFrame">Circle of Death</a></li>
+			<li><a href="/Spells/Contingency" target="SpellpageFrame">Contingency</a></li>
+			<li><a href="/Spells/Create_Undead" target="SpellpageFrame">Create Undead</a></li>
+			<li><a href="/Spells/Disintegrate" target="SpellpageFrame">Disintegrate</a></li>
+			<li><a href="/Spells/Drawmijs_Instant_Summons" target="SpellpageFrame">Drawmij’s Instant Summons</a></li>
+			<li><a href="/Spells/Eyebite" target="SpellpageFrame">Eyebite</a></li>
+			<li><a href="/Spells/Flesh_to_Stone" target="SpellpageFrame">Flesh to Stone</a></li>
+			<li><a href="/Spells/Guards_and_Wards" target="SpellpageFrame">Guards and Wards</a></li>
+			<li><a href="/Spells/Investiture_of_Flame" target="SpellpageFrame">Investiture of Flame</a></li>
+			<li><a href="/Spells/Investiture_of_Ice" target="SpellpageFrame">Investiture of Ice</a></li>
+			<li><a href="/Spells/Investiture_of_Stone" target="SpellpageFrame">Investiture of Stone</a></li>
+			<li><a href="/Spells/Investiture_of_Wind" target="SpellpageFrame">Investiture of Wind</a></li>
+			<li><a href="/Spells/Magic_Jar" target="SpellpageFrame">Magic Jar</a></li>
+			<li><a href="/Spells/Mass_Suggestion" target="SpellpageFrame">Mass Suggestion</a></li>
+			<li><a href="/Spells/Move_Earth" target="SpellpageFrame">Move Earth</a></li>
+			<li><a href="/Spells/Otilukes_Freezing_Sphere" target="SpellpageFrame">Otiluke’s Freezing Sphere</a></li>
+			<li><a href="/Spells/Ottos_Irresistible_Dance" target="SpellpageFrame">Otto’s Irresistible Dance</a></li>
+			<li><a href="/Spells/Programmed_Illusion" target="SpellpageFrame">Programmed Illusion</a></li>
+			<li><a href="/Spells/Sunbeam" target="SpellpageFrame">Sunbeam</a></li>
+			<li><a href="/Spells/True_Seeing" target="SpellpageFrame">True Seeing</a></li>
+			<li><a href="/Spells/Wall_of_Ice" target="SpellpageFrame">Wall of Ice</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Delayed_Blast_Fireball" target="SpellpageFrame">Delayed Blast Fireball</a></li>
+			<li><a href="/Spells/Etherealness" target="SpellpageFrame">Etherealness</a></li>
+			<li><a href="/Spells/Finger_of_Death" target="SpellpageFrame">Finger of Death</a></li>
+			<li><a href="/Spells/Forcecage" target="SpellpageFrame">Forcecage</a></li>
+			<li><a href="/Spells/Mirage_Arcane" target="SpellpageFrame">Mirage Arcane</a></li>
+			<li><a href="/Spells/Mordenkainens_Magnificent_Mansion" target="SpellpageFrame">Mordenkainen’s Magnificent Mansion</a></li>
+			<li><a href="/Spells/Mordenkainens_Sword" target="SpellpageFrame">Mordenkainen’s Sword</a></li>
+			<li><a href="/Spells/Plane_Shift" target="SpellpageFrame">Plane Shift</a></li>
+			<li><a href="/Spells/Prismatic_Spray" target="SpellpageFrame">Prismatic Spray</a></li>
+			<li><a href="/Spells/Project_Image" target="SpellpageFrame">Project Image</a></li>
+			<li><a href="/Spells/Reverse_Gravity" target="SpellpageFrame">Reverse Gravity</a></li>
+			<li><a href="/Spells/Sequester" target="SpellpageFrame">Sequester</a></li>
+			<li><a href="/Spells/Simulacrum" target="SpellpageFrame">Simulacrum</a></li>
+			<li><a href="/Spells/Symbol" target="SpellpageFrame">Symbol</a></li>
+			<li><a href="/Spells/Teleport" target="SpellpageFrame">Teleport</a></li>
+			<li><a href="/Spells/Whirlwind" target="SpellpageFrame">Whirlwind</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/AbiDalzims_Horrid_Wilting" target="SpellpageFrame">Abi-Dalzim’s Horrid Wilting</a></li>
+			<li><a href="/Spells/Antimagic_Field" target="SpellpageFrame">Antimagic Field</a></li>
+			<li><a href="/Spells/AntipathySympathy" target="SpellpageFrame">Antipathy/Sympathy</a></li>
+			<li><a href="/Spells/Clone" target="SpellpageFrame">Clone</a></li>
+			<li><a href="/Spells/Control_Weather" target="SpellpageFrame">Control Weather</a></li>
+			<li><a href="/Spells/Demiplane" target="SpellpageFrame">Demiplane</a></li>
+			<li><a href="/Spells/Dominate_Monster" target="SpellpageFrame">Dominate Monster</a></li>
+			<li><a href="/Spells/Feeblemind" target="SpellpageFrame">Feeblemind</a></li>
+			<li><a href="/Spells/Glibness" target="SpellpageFrame">Glibness</a></li>
+			<li><a href="/Spells/Incendiary_Cloud" target="SpellpageFrame">Incendiary Cloud</a></li>
+			<li><a href="/Spells/Maze" target="SpellpageFrame">Maze</a></li>
+			<li><a href="/Spells/Mind_Blank" target="SpellpageFrame">Mind Blank</a></li>
+			<li><a href="/Spells/Power_Word_Stun" target="SpellpageFrame">Power Word Stun</a></li>
+			<li><a href="/Spells/Sunburst" target="SpellpageFrame">Sunburst</a></li>
+			<li><a href="/Spells/Telepathy" target="SpellpageFrame">Telepathy</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Astral_Projection" target="SpellpageFrame">Astral Projection</a></li>
+			<li><a href="/Spells/Foresight" target="SpellpageFrame">Foresight</a></li>
+			<li><a href="/Spells/Gate" target="SpellpageFrame">Gate</a></li>
+			<li><a href="/Spells/Imprisonment" target="SpellpageFrame">Imprisonment</a></li>
+			<li><a href="/Spells/Meteor_Swarm" target="SpellpageFrame">Meteor Swarm</a></li>
+			<li><a href="/Spells/Power_Word_Kill" target="SpellpageFrame">Power Word Kill</a></li>
+			<li><a href="/Spells/Prismatic_Wall" target="SpellpageFrame">Prismatic Wall</a></li>
+			<li><a href="/Spells/Shapechange" target="SpellpageFrame">Shapechange</a></li>
+			<li><a href="/Spells/Time_Stop" target="SpellpageFrame">Time Stop</a></li>
+			<li><a href="/Spells/True_Polymorph" target="SpellpageFrame">True Polymorph</a></li>
+			<li><a href="/Spells/Weird" target="SpellpageFrame">Weird</a></li>
+			<li><a href="/Spells/Wish" target="SpellpageFrame">Wish</a></li>
+		</ul>
+</div>
+
+<div id="AllSpellList" style="height:100%; width:550px; position:absolute; top:50px; left:0px; visibility:hidden; overflow-y: auto;">
+	<h1>All Spells (CTRL F works)</h1><hr>
+	Cantrips<br>
+		<ul>
+			<li><a href="/Spells/Acid_Splash" target="SpellpageFrame">Acid Splash</a></li>
+			<li><a href="/Spells/Blade_Ward" target="SpellpageFrame">Blade Ward</a></li>
+			<li><a href="/Spells/Booming_Blade" target="SpellpageFrame">Booming Blade</a></li>
+			<li><a href="/Spells/Chill_Touch" target="SpellpageFrame">Chill Touch</a></li>
+			<li><a href="/Spells/Control_Flames" target="SpellpageFrame">Control Flames</a></li>
+			<li><a href="/Spells/Create_Bonfire" target="SpellpageFrame">Create Bonfire</a></li>
+			<li><a href="/Spells/Dancing_Lights" target="SpellpageFrame">Dancing Lights</a></li>
+			<li><a href="/Spells/Druidcraft" target="SpellpageFrame">Druidcraft</a></li>
+			<li><a href="/Spells/Eldritch_Blast" target="SpellpageFrame">Eldritch Blast</a></li>
+			<li><a href="/Spells/Fire_Bolt" target="SpellpageFrame">Fire Bolt</a></li>
+			<li><a href="/Spells/Friends" target="SpellpageFrame">Friends</a></li>
+			<li><a href="/Spells/Frostbite" target="SpellpageFrame">Frostbite</a></li>
+			<li><a href="/Spells/GreenFlame_Blade" target="SpellpageFrame">Green-Flame Blade</a></li>
+			<li><a href="/Spells/Guidance" target="SpellpageFrame">Guidance</a></li>
+			<li><a href="/Spells/Gust" target="SpellpageFrame">Gust</a></li>
+			<li><a href="/Spells/Light" target="SpellpageFrame">Light</a></li>
+			<li><a href="/Spells/Lightning_Lure" target="SpellpageFrame">Lightning Lure</a></li>
+			<li><a href="/Spells/Mage_Hand" target="SpellpageFrame">Mage Hand</a></li>
+			<li><a href="/Spells/Magic_Stone" target="SpellpageFrame">Magic Stone</a></li>
+			<li><a href="/Spells/Mending" target="SpellpageFrame">Mending</a></li>
+			<li><a href="/Spells/Message" target="SpellpageFrame">Message</a></li>
+			<li><a href="/Spells/Minor_Illusion" target="SpellpageFrame">Minor Illusion</a></li>
+			<li><a href="/Spells/Mold_Earth" target="SpellpageFrame">Mold Earth</a></li>
+			<li><a href="/Spells/Poison_Spray" target="SpellpageFrame">Poison Spray</a></li>
+			<li><a href="/Spells/Prestidigitation" target="SpellpageFrame">Prestidigitation</a></li>
+			<li><a href="/Spells/Produce_Flame" target="SpellpageFrame">Produce Flame</a></li>
+			<li><a href="/Spells/Ray_of_Frost" target="SpellpageFrame">Ray of Frost</a></li>
+			<li><a href="/Spells/Resistance" target="SpellpageFrame">Resistance</a></li>
+			<li><a href="/Spells/Sacred_Flame" target="SpellpageFrame">Sacred Flame</a></li>
+			<li><a href="/Spells/Shape_Water" target="SpellpageFrame">Shape Water</a></li>
+			<li><a href="/Spells/Shillelagh" target="SpellpageFrame">Shillelagh</a></li>
+			<li><a href="/Spells/Shocking_Grasp" target="SpellpageFrame">Shocking Grasp</a></li>
+			<li><a href="/Spells/Spare_the_Dying" target="SpellpageFrame">Spare the Dying</a></li>
+			<li><a href="/Spells/Sword_Burst" target="SpellpageFrame">Sword Burst</a></li>
+			<li><a href="/Spells/Thaumaturgy" target="SpellpageFrame">Thaumaturgy</a></li>
+			<li><a href="/Spells/Thorn_Whip" target="SpellpageFrame">Thorn Whip</a></li>
+			<li><a href="/Spells/Thunderclap" target="SpellpageFrame">Thunderclap</a></li>
+			<li><a href="/Spells/True_Strike" target="SpellpageFrame">True Strike</a></li>
+			<li><a href="/Spells/Vicious_Mockery" target="SpellpageFrame">Vicious Mockery</a></li>
+		</ul>
+	Level 1<br>
+		<ul>
+			<li><a href="/Spells/Absorb_Elements" target="SpellpageFrame">Absorb Elements</a></li>
+			<li><a href="/Spells/Alarm" target="SpellpageFrame">Alarm</a></li>
+			<li><a href="/Spells/Animal_Friendship" target="SpellpageFrame">Animal Friendship</a></li>
+			<li><a href="/Spells/Armor_of_Agathys" target="SpellpageFrame">Armor of Agathys</a></li>
+			<li><a href="/Spells/Arms_of_Hadar" target="SpellpageFrame">Arms of Hadar</a></li>
+			<li><a href="/Spells/Bane" target="SpellpageFrame">Bane</a></li>
+			<li><a href="/Spells/Beast_Bond" target="SpellpageFrame">Beast Bond</a></li>
+			<li><a href="/Spells/Bless" target="SpellpageFrame">Bless</a></li>
+			<li><a href="/Spells/Burning_Hands" target="SpellpageFrame">Burning Hands</a></li>
+			<li><a href="/Spells/Catapult" target="SpellpageFrame">Catapult</a></li>
+			<li><a href="/Spells/Charm_Person" target="SpellpageFrame">Charm Person</a></li>
+			<li><a href="/Spells/Chromatic_Orb" target="SpellpageFrame">Chromatic Orb</a></li>
+			<li><a href="/Spells/Color_Spray" target="SpellpageFrame">Color Spray</a></li>
+			<li><a href="/Spells/Command" target="SpellpageFrame">Command</a></li>
+			<li><a href="/Spells/Compelled_Duel" target="SpellpageFrame">Compelled Duel</a></li>
+			<li><a href="/Spells/Comprehend_Languages" target="SpellpageFrame">Comprehend Languages</a></li>
+			<li><a href="/Spells/Create_or_Destroy_Water" target="SpellpageFrame">Create or Destroy Water</a></li>
+			<li><a href="/Spells/Cure_Wounds" target="SpellpageFrame">Cure Wounds</a></li>
+			<li><a href="/Spells/Detect_Evil_and_Good" target="SpellpageFrame">Detect Evil and Good</a></li>
+			<li><a href="/Spells/Detect_Magic" target="SpellpageFrame">Detect Magic</a></li>
+			<li><a href="/Spells/Detect_Poison_and_Disease" target="SpellpageFrame">Detect Poison and Disease</a></li>
+			<li><a href="/Spells/Disguise_Self" target="SpellpageFrame">Disguise Self</a></li>
+			<li><a href="/Spells/Dissonant_Whispers" target="SpellpageFrame">Dissonant Whispers</a></li>
+			<li><a href="/Spells/Divine_Favor" target="SpellpageFrame">Divine Favor</a></li>
+			<li><a href="/Spells/Earth_Tremor" target="SpellpageFrame">Earth Tremor</a></li>
+			<li><a href="/Spells/Ensnaring_Strike" target="SpellpageFrame">Ensnaring Strike</a></li>
+			<li><a href="/Spells/Entangle" target="SpellpageFrame">Entangle</a></li>
+			<li><a href="/Spells/Expeditious_Retreat" target="SpellpageFrame">Expeditious Retreat</a></li>
+			<li><a href="/Spells/Faerie_Fire" target="SpellpageFrame">Faerie Fire</a></li>
+			<li><a href="/Spells/False_Life" target="SpellpageFrame">False Life</a></li>
+			<li><a href="/Spells/Feather_Fall" target="SpellpageFrame">Feather Fall</a></li>
+			<li><a href="/Spells/Find_Familiar" target="SpellpageFrame">Find Familiar</a></li>
+			<li><a href="/Spells/Fog_Cloud" target="SpellpageFrame">Fog Cloud</a></li>
+			<li><a href="/Spells/Goodberry" target="SpellpageFrame">Goodberry</a></li>
+			<li><a href="/Spells/Grease" target="SpellpageFrame">Grease</a></li>
+			<li><a href="/Spells/Guiding_Bolt" target="SpellpageFrame">Guiding Bolt</a></li>
+			<li><a href="/Spells/Hail_of_Thorns" target="SpellpageFrame">Hail of Thorns</a></li>
+			<li><a href="/Spells/Healing_Word" target="SpellpageFrame">Healing Word</a></li>
+			<li><a href="/Spells/Hellish_Rebuke" target="SpellpageFrame">Hellish Rebuke</a></li>
+			<li><a href="/Spells/Heroism" target="SpellpageFrame">Heroism</a></li>
+			<li><a href="/Spells/Hex" target="SpellpageFrame">Hex</a></li>
+			<li><a href="/Spells/Hunters_Mark" target="SpellpageFrame">Hunter’s Mark</a></li>
+			<li><a href="/Spells/Ice_Knife" target="SpellpageFrame">Ice Knife</a></li>
+			<li><a href="/Spells/Identify" target="SpellpageFrame">Identify</a></li>
+			<li><a href="/Spells/Illusory_Script" target="SpellpageFrame">Illusory Script</a></li>
+			<li><a href="/Spells/Inflict_Wounds" target="SpellpageFrame">Inflict Wounds</a></li>
+			<li><a href="/Spells/Jump" target="SpellpageFrame">Jump</a></li>
+			<li><a href="/Spells/Longstrider" target="SpellpageFrame">Longstrider</a></li>
+			<li><a href="/Spells/Mage_Armor" target="SpellpageFrame">Mage Armor</a></li>
+			<li><a href="/Spells/Magic_Missile" target="SpellpageFrame">Magic Missile</a></li>
+			<li><a href="/Spells/Protection_from_Evil_and_Good" target="SpellpageFrame">Protection from Evil and Good</a></li>
+			<li><a href="/Spells/Purify_Food_and_Drink" target="SpellpageFrame">Purify Food and Drink</a></li>
+			<li><a href="/Spells/Ray_of_Sickness" target="SpellpageFrame">Ray of Sickness</a></li>
+			<li><a href="/Spells/Sanctuary" target="SpellpageFrame">Sanctuary</a></li>
+			<li><a href="/Spells/Searing_Smite" target="SpellpageFrame">Searing Smite</a></li>
+			<li><a href="/Spells/Shield" target="SpellpageFrame">Shield</a></li>
+			<li><a href="/Spells/Shield_of_Faith" target="SpellpageFrame">Shield of Faith</a></li>
+			<li><a href="/Spells/Silent_Image" target="SpellpageFrame">Silent Image</a></li>
+			<li><a href="/Spells/Sleep" target="SpellpageFrame">Sleep</a></li>
+			<li><a href="/Spells/Speak_with_Animals" target="SpellpageFrame">Speak with Animals</a></li>
+			<li><a href="/Spells/Tashas_Hideous_Laughter" target="SpellpageFrame">Tasha’s Hideous Laughter</a></li>
+			<li><a href="/Spells/Tensers_Floating_Disk" target="SpellpageFrame">Tenser’s Floating Disk</a></li>
+			<li><a href="/Spells/Thunderous_Smite" target="SpellpageFrame">Thunderous Smite</a></li>
+			<li><a href="/Spells/Thunderwave" target="SpellpageFrame">Thunderwave</a></li>
+			<li><a href="/Spells/Unseen_Servant" target="SpellpageFrame">Unseen Servant</a></li>
+			<li><a href="/Spells/Witch_Bolt" target="SpellpageFrame">Witch Bolt</a></li>
+			<li><a href="/Spells/Wrathful_Smite" target="SpellpageFrame">Wrathful Smite</a></li>
+		</ul>
+	Level 2<br>
+		<ul>
+			<li><a href="/Spells/Aganazzars_Scorcher" target="SpellpageFrame">Aganazzar’s Scorcher</a></li>
+			<li><a href="/Spells/Aid" target="SpellpageFrame">Aid</a></li>
+			<li><a href="/Spells/Alter_Self" target="SpellpageFrame">Alter Self</a></li>
+			<li><a href="/Spells/Animal_Messenger" target="SpellpageFrame">Animal Messenger</a></li>
+			<li><a href="/Spells/Arcane_Lock" target="SpellpageFrame">Arcane Lock</a></li>
+			<li><a href="/Spells/Augury" target="SpellpageFrame">Augury</a></li>
+			<li><a href="/Spells/Barkskin" target="SpellpageFrame">Barkskin</a></li>
+			<li><a href="/Spells/Beast_Sense" target="SpellpageFrame">Beast Sense</a></li>
+			<li><a href="/Spells/BlindnessDeafness" target="SpellpageFrame">Blindness/Deafness</a></li>
+			<li><a href="/Spells/Blur" target="SpellpageFrame">Blur</a></li>
+			<li><a href="/Spells/Branding_Smite" target="SpellpageFrame">Branding Smite</a></li>
+			<li><a href="/Spells/Calm_Emotions" target="SpellpageFrame">Calm Emotions</a></li>
+			<li><a href="/Spells/Cloud_of_Daggers" target="SpellpageFrame">Cloud of Daggers</a></li>
+			<li><a href="/Spells/Continual_Flame" target="SpellpageFrame">Continual Flame</a></li>
+			<li><a href="/Spells/Cordon_of_Arrows" target="SpellpageFrame">Cordon of Arrows</a></li>
+			<li><a href="/Spells/Crown_of_Madness" target="SpellpageFrame">Crown of Madness</a></li>
+			<li><a href="/Spells/Darkness" target="SpellpageFrame">Darkness</a></li>
+			<li><a href="/Spells/Darkvision" target="SpellpageFrame">Darkvision</a></li>
+			<li><a href="/Spells/Detect_Thoughts" target="SpellpageFrame">Detect Thoughts</a></li>
+			<li><a href="/Spells/Dust_Devil" target="SpellpageFrame">Dust Devil</a></li>
+			<li><a href="/Spells/Earthbind" target="SpellpageFrame">Earthbind</a></li>
+			<li><a href="/Spells/Enhance_Ability" target="SpellpageFrame">Enhance Ability</a></li>
+			<li><a href="/Spells/EnlargeReduce" target="SpellpageFrame">Enlarge/Reduce</a></li>
+			<li><a href="/Spells/Enthrall" target="SpellpageFrame">Enthrall</a></li>
+			<li><a href="/Spells/Find_Steed" target="SpellpageFrame">Find Steed</a></li>
+			<li><a href="/Spells/Find_Traps" target="SpellpageFrame">Find Traps</a></li>
+			<li><a href="/Spells/Flame_Blade" target="SpellpageFrame">Flame Blade</a></li>
+			<li><a href="/Spells/Flaming_Sphere" target="SpellpageFrame">Flaming Sphere</a></li>
+			<li><a href="/Spells/Gentle_Repose" target="SpellpageFrame">Gentle Repose</a></li>
+			<li><a href="/Spells/Gust_of_Wind" target="SpellpageFrame">Gust of Wind</a></li>
+			<li><a href="/Spells/Heat_Metal" target="SpellpageFrame">Heat Metal</a></li>
+			<li><a href="/Spells/Hold_Person" target="SpellpageFrame">Hold Person</a></li>
+			<li><a href="/Spells/Invisibility" target="SpellpageFrame">Invisibility</a></li>
+			<li><a href="/Spells/Knock" target="SpellpageFrame">Knock</a></li>
+			<li><a href="/Spells/Lesser_Restoration" target="SpellpageFrame">Lesser Restoration</a></li>
+			<li><a href="/Spells/Levitate" target="SpellpageFrame">Levitate</a></li>
+			<li><a href="/Spells/Locate_Animals_or_Plants" target="SpellpageFrame">Locate Animals or Plants</a></li>
+			<li><a href="/Spells/Locate_Object" target="SpellpageFrame">Locate Object</a></li>
+			<li><a href="/Spells/Magic_Mouth" target="SpellpageFrame">Magic Mouth</a></li>
+			<li><a href="/Spells/Magic_Weapon" target="SpellpageFrame">Magic Weapon</a></li>
+			<li><a href="/Spells/Maximilians_Earthen_Grasp" target="SpellpageFrame">Maximilian’s Earthen Grasp</a></li>
+			<li><a href="/Spells/Melfs_Acid_Arrow" target="SpellpageFrame">Melf’s Acid Arrow</a></li>
+			<li><a href="/Spells/Mirror_Image" target="SpellpageFrame">Mirror Image</a></li>
+			<li><a href="/Spells/Misty_Step" target="SpellpageFrame">Misty Step</a></li>
+			<li><a href="/Spells/Moonbeam" target="SpellpageFrame">Moonbeam</a></li>
+			<li><a href="/Spells/Nystuls_Magic_Aura" target="SpellpageFrame">Nystul’s Magic Aura</a></li>
+			<li><a href="/Spells/Pass_Without_Trace" target="SpellpageFrame">Pass Without Trace</a></li>
+			<li><a href="/Spells/Phantasmal_Force" target="SpellpageFrame">Phantasmal Force</a></li>
+			<li><a href="/Spells/Prayer_of_Healing" target="SpellpageFrame">Prayer of Healing</a></li>
+			<li><a href="/Spells/Protection_from_Poison" target="SpellpageFrame">Protection from Poison</a></li>
+			<li><a href="/Spells/Pyrotechnics" target="SpellpageFrame">Pyrotechnics</a></li>
+			<li><a href="/Spells/Ray_of_Enfeeblement" target="SpellpageFrame">Ray of Enfeeblement</a></li>
+			<li><a href="/Spells/Rope_Trick" target="SpellpageFrame">Rope Trick</a></li>
+			<li><a href="/Spells/Scorching_Ray" target="SpellpageFrame">Scorching Ray</a></li>
+			<li><a href="/Spells/See_Invisibility" target="SpellpageFrame">See Invisibility</a></li>
+			<li><a href="/Spells/Shatter" target="SpellpageFrame">Shatter</a></li>
+			<li><a href="/Spells/Silence" target="SpellpageFrame">Silence</a></li>
+			<li><a href="/Spells/Skywrite" target="SpellpageFrame">Skywrite</a></li>
+			<li><a href="/Spells/Snillocs_Snowball_Swarm" target="SpellpageFrame">Snilloc’s Snowball Swarm</a></li>
+			<li><a href="/Spells/Spider_Climb" target="SpellpageFrame">Spider Climb</a></li>
+			<li><a href="/Spells/Spike_Growth" target="SpellpageFrame">Spike Growth</a></li>
+			<li><a href="/Spells/Spiritual_Weapon" target="SpellpageFrame">Spiritual Weapon</a></li>
+			<li><a href="/Spells/Suggestion" target="SpellpageFrame">Suggestion</a></li>
+			<li><a href="/Spells/Warding_Bond" target="SpellpageFrame">Warding Bond</a></li>
+			<li><a href="/Spells/Warding_Wind" target="SpellpageFrame">Warding Wind</a></li>
+			<li><a href="/Spells/Web" target="SpellpageFrame">Web</a></li>
+			<li><a href="/Spells/Zone_of_Truth" target="SpellpageFrame">Zone of Truth</a></li>
+		</ul>
+	Level 3<br>
+		<ul>
+			<li><a href="/Spells/Animate_Dead" target="SpellpageFrame">Animate Dead</a></li>
+			<li><a href="/Spells/Aura_of_Vitality" target="SpellpageFrame">Aura of Vitality</a></li>
+			<li><a href="/Spells/Beacon_of_Hope" target="SpellpageFrame">Beacon of Hope</a></li>
+			<li><a href="/Spells/Bestow_Curse" target="SpellpageFrame">Bestow Curse</a></li>
+			<li><a href="/Spells/Blinding_Smite" target="SpellpageFrame">Blinding Smite</a></li>
+			<li><a href="/Spells/Blink" target="SpellpageFrame">Blink</a></li>
+			<li><a href="/Spells/Call_Lightning" target="SpellpageFrame">Call Lightning</a></li>
+			<li><a href="/Spells/Clairvoyance" target="SpellpageFrame">Clairvoyance</a></li>
+			<li><a href="/Spells/Conjure_Animals" target="SpellpageFrame">Conjure Animals</a></li>
+			<li><a href="/Spells/Conjure_Barrage" target="SpellpageFrame">Conjure Barrage</a></li>
+			<li><a href="/Spells/Counterspell" target="SpellpageFrame">Counterspell</a></li>
+			<li><a href="/Spells/Create_Food_and_Water" target="SpellpageFrame">Create Food and Water</a></li>
+			<li><a href="/Spells/Crusaders_Mantle" target="SpellpageFrame">Crusader’s Mantle</a></li>
+			<li><a href="/Spells/Daylight" target="SpellpageFrame">Daylight</a></li>
+			<li><a href="/Spells/Dispel_Magic" target="SpellpageFrame">Dispel Magic</a></li>
+			<li><a href="/Spells/Elemental_Weapon" target="SpellpageFrame">Elemental Weapon</a></li>
+			<li><a href="/Spells/Erupting_Earth" target="SpellpageFrame">Erupting Earth</a></li>
+			<li><a href="/Spells/Fear" target="SpellpageFrame">Fear</a></li>
+			<li><a href="/Spells/Feign_Death" target="SpellpageFrame">Feign Death</a></li>
+			<li><a href="/Spells/Fireball" target="SpellpageFrame">Fireball</a></li>
+			<li><a href="/Spells/Flame_Arrows" target="SpellpageFrame">Flame Arrows</a></li>
+			<li><a href="/Spells/Fly" target="SpellpageFrame">Fly</a></li>
+			<li><a href="/Spells/Gaseous_Form" target="SpellpageFrame">Gaseous Form</a></li>
+			<li><a href="/Spells/Glyph_of_Warding" target="SpellpageFrame">Glyph of Warding</a></li>
+			<li><a href="/Spells/Haste" target="SpellpageFrame">Haste</a></li>
+			<li><a href="/Spells/Hunger_of_Hadar" target="SpellpageFrame">Hunger of Hadar</a></li>
+			<li><a href="/Spells/Hypnotic_Pattern" target="SpellpageFrame">Hypnotic Pattern</a></li>
+			<li><a href="/Spells/Leomunds_Tiny_Hut" target="SpellpageFrame">Leomund’s Tiny Hut</a></li>
+			<li><a href="/Spells/Lightning_Arrow" target="SpellpageFrame">Lightning Arrow</a></li>
+			<li><a href="/Spells/Lightning_Bolt" target="SpellpageFrame">Lightning Bolt</a></li>
+			<li><a href="/Spells/Magic_Circle" target="SpellpageFrame">Magic Circle</a></li>
+			<li><a href="/Spells/Major_Image" target="SpellpageFrame">Major Image</a></li>
+			<li><a href="/Spells/Mass_Healing_Word" target="SpellpageFrame">Mass Healing Word</a></li>
+			<li><a href="/Spells/Meld_into_Stone" target="SpellpageFrame">Meld into Stone</a></li>
+			<li><a href="/Spells/Melfs_Minute_Meteors" target="SpellpageFrame">Melf’s Minute Meteors</a></li>
+			<li><a href="/Spells/Nondetection" target="SpellpageFrame">Nondetection</a></li>
+			<li><a href="/Spells/Phantom_Steed" target="SpellpageFrame">Phantom Steed</a></li>
+			<li><a href="/Spells/Plant_Growth" target="SpellpageFrame">Plant Growth</a></li>
+			<li><a href="/Spells/Protection_from_Energy" target="SpellpageFrame">Protection from Energy</a></li>
+			<li><a href="/Spells/Remove_Curse" target="SpellpageFrame">Remove Curse</a></li>
+			<li><a href="/Spells/Revivify" target="SpellpageFrame">Revivify</a></li>
+			<li><a href="/Spells/Sending" target="SpellpageFrame">Sending</a></li>
+			<li><a href="/Spells/Sleet_Storm" target="SpellpageFrame">Sleet Storm</a></li>
+			<li><a href="/Spells/Slow" target="SpellpageFrame">Slow</a></li>
+			<li><a href="/Spells/Speak_with_Dead" target="SpellpageFrame">Speak with Dead</a></li>
+			<li><a href="/Spells/Speak_with_Plants" target="SpellpageFrame">Speak with Plants</a></li>
+			<li><a href="/Spells/Spirit_Guardians" target="SpellpageFrame">Spirit Guardians</a></li>
+			<li><a href="/Spells/Stinking_Cloud" target="SpellpageFrame">Stinking Cloud</a></li>
+			<li><a href="/Spells/Tidal_Wave" target="SpellpageFrame">Tidal Wave</a></li>
+			<li><a href="/Spells/Tongues" target="SpellpageFrame">Tongues</a></li>
+			<li><a href="/Spells/Vampiric_Touch" target="SpellpageFrame">Vampiric Touch</a></li>
+			<li><a href="/Spells/Wall_of_Sand" target="SpellpageFrame">Wall of Sand</a></li>
+			<li><a href="/Spells/Wall_of_Water" target="SpellpageFrame">Wall of Water</a></li>
+			<li><a href="/Spells/Water_Breathing" target="SpellpageFrame">Water Breathing</a></li>
+			<li><a href="/Spells/Water_Walk" target="SpellpageFrame">Water Walk</a></li>
+			<li><a href="/Spells/Wind_Wall" target="SpellpageFrame">Wind Wall</a></li>
+		</ul>
+	Level 4<br>
+		<ul>
+			<li><a href="/Spells/Arcane_Eye" target="SpellpageFrame">Arcane Eye</a></li>
+			<li><a href="/Spells/Aura_of_Life" target="SpellpageFrame">Aura of Life</a></li>
+			<li><a href="/Spells/Aura_of_Purity" target="SpellpageFrame">Aura of Purity</a></li>
+			<li><a href="/Spells/Banishment" target="SpellpageFrame">Banishment</a></li>
+			<li><a href="/Spells/Blight" target="SpellpageFrame">Blight</a></li>
+			<li><a href="/Spells/Compulsion" target="SpellpageFrame">Compulsion</a></li>
+			<li><a href="/Spells/Confusion" target="SpellpageFrame">Confusion</a></li>
+			<li><a href="/Spells/Conjure_Minor_Elementals" target="SpellpageFrame">Conjure Minor Elementals</a></li>
+			<li><a href="/Spells/Conjure_Woodland_Beings" target="SpellpageFrame">Conjure Woodland Beings</a></li>
+			<li><a href="/Spells/Control_Water" target="SpellpageFrame">Control Water</a></li>
+			<li><a href="/Spells/Death_Ward" target="SpellpageFrame">Death Ward</a></li>
+			<li><a href="/Spells/Dimension_Door" target="SpellpageFrame">Dimension Door</a></li>
+			<li><a href="/Spells/Divination" target="SpellpageFrame">Divination</a></li>
+			<li><a href="/Spells/Dominate_Beast" target="SpellpageFrame">Dominate Beast</a></li>
+			<li><a href="/Spells/Elemental_Bane" target="SpellpageFrame">Elemental Bane</a></li>
+			<li><a href="/Spells/Evards_Black_Tentacles" target="SpellpageFrame">Evard’s Black Tentacles</a></li>
+			<li><a href="/Spells/Fabricate" target="SpellpageFrame">Fabricate</a></li>
+			<li><a href="/Spells/Fire_Shield" target="SpellpageFrame">Fire Shield</a></li>
+			<li><a href="/Spells/Freedom_of_Movement" target="SpellpageFrame">Freedom of Movement</a></li>
+			<li><a href="/Spells/Giant_Insect" target="SpellpageFrame">Giant Insect</a></li>
+			<li><a href="/Spells/Grasping_Vine" target="SpellpageFrame">Grasping Vine</a></li>
+			<li><a href="/Spells/Greater_Invisibility" target="SpellpageFrame">Greater Invisibility</a></li>
+			<li><a href="/Spells/Guardian_of_Faith" target="SpellpageFrame">Guardian of Faith</a></li>
+			<li><a href="/Spells/Hallucinatory_Terrain" target="SpellpageFrame">Hallucinatory Terrain</a></li>
+			<li><a href="/Spells/Ice_Storm" target="SpellpageFrame">Ice Storm</a></li>
+			<li><a href="/Spells/Leomunds_Secret_Chest" target="SpellpageFrame">Leomund’s Secret Chest</a></li>
+			<li><a href="/Spells/Locate_Creature" target="SpellpageFrame">Locate Creature</a></li>
+			<li><a href="/Spells/Mordenkainens_Faithful_Hound" target="SpellpageFrame">Mordenkainen’s Faithful Hound</a></li>
+			<li><a href="/Spells/Mordenkainens_Private_Sanctum" target="SpellpageFrame">Mordenkainen’s Private Sanctum</a></li>
+			<li><a href="/Spells/Otilukes_Resilient_Sphere" target="SpellpageFrame">Otiluke’s Resilient Sphere</a></li>
+			<li><a href="/Spells/Phantasmal_Killer" target="SpellpageFrame">Phantasmal Killer</a></li>
+			<li><a href="/Spells/Polymorph" target="SpellpageFrame">Polymorph</a></li>
+			<li><a href="/Spells/Staggering_Smite" target="SpellpageFrame">Staggering Smite</a></li>
+			<li><a href="/Spells/Stone_Shape" target="SpellpageFrame">Stone Shape</a></li>
+			<li><a href="/Spells/Stoneskin" target="SpellpageFrame">Stoneskin</a></li>
+			<li><a href="/Spells/Storm_Sphere" target="SpellpageFrame">Storm Sphere</a></li>
+			<li><a href="/Spells/Vitriolic_Sphere" target="SpellpageFrame">Vitriolic Sphere</a></li>
+			<li><a href="/Spells/Wall_of_Fire" target="SpellpageFrame">Wall of Fire</a></li>
+			<li><a href="/Spells/Watery_Sphere" target="SpellpageFrame">Watery Sphere</a></li>
+		</ul>
+	Level 5<br>
+		<ul>
+			<li><a href="/Spells/Animate_Objects" target="SpellpageFrame">Animate Objects</a></li>
+			<li><a href="/Spells/Antilife_Shell" target="SpellpageFrame">Antilife Shell</a></li>
+			<li><a href="/Spells/Awaken" target="SpellpageFrame">Awaken</a></li>
+			<li><a href="/Spells/Banishing_Smite" target="SpellpageFrame">Banishing Smite</a></li>
+			<li><a href="/Spells/Bigbys_Hand" target="SpellpageFrame">Bigby’s Hand</a></li>
+			<li><a href="/Spells/Circle_of_Power" target="SpellpageFrame">Circle of Power</a></li>
+			<li><a href="/Spells/Cloudkill" target="SpellpageFrame">Cloudkill</a></li>
+			<li><a href="/Spells/Commune" target="SpellpageFrame">Commune</a></li>
+			<li><a href="/Spells/Commune_with_Nature" target="SpellpageFrame">Commune with Nature</a></li>
+			<li><a href="/Spells/Cone_of_Cold" target="SpellpageFrame">Cone of Cold</a></li>
+			<li><a href="/Spells/Conjure_Elemental" target="SpellpageFrame">Conjure Elemental</a></li>
+			<li><a href="/Spells/Conjure_Volley" target="SpellpageFrame">Conjure Volley</a></li>
+			<li><a href="/Spells/Contact_Other_Plane" target="SpellpageFrame">Contact Other Plane</a></li>
+			<li><a href="/Spells/Contagion" target="SpellpageFrame">Contagion</a></li>
+			<li><a href="/Spells/Control_Winds" target="SpellpageFrame">Control Winds</a></li>
+			<li><a href="/Spells/Creation" target="SpellpageFrame">Creation</a></li>
+			<li><a href="/Spells/Destructive_Wave" target="SpellpageFrame">Destructive Wave</a></li>
+			<li><a href="/Spells/Dispel_Evil_and_Good" target="SpellpageFrame">Dispel Evil and Good</a></li>
+			<li><a href="/Spells/Dominate_Person" target="SpellpageFrame">Dominate Person</a></li>
+			<li><a href="/Spells/Dream" target="SpellpageFrame">Dream</a></li>
+			<li><a href="/Spells/Flame_Strike" target="SpellpageFrame">Flame Strike</a></li>
+			<li><a href="/Spells/Geas" target="SpellpageFrame">Geas</a></li>
+			<li><a href="/Spells/Greater_Restoration" target="SpellpageFrame">Greater Restoration</a></li>
+			<li><a href="/Spells/Hallow" target="SpellpageFrame">Hallow</a></li>
+			<li><a href="/Spells/Hold_Monster" target="SpellpageFrame">Hold Monster</a></li>
+			<li><a href="/Spells/Immolation" target="SpellpageFrame">Immolation</a></li>
+			<li><a href="/Spells/Insect_Plague" target="SpellpageFrame">Insect Plague</a></li>
+			<li><a href="/Spells/Legend_Lore" target="SpellpageFrame">Legend Lore</a></li>
+			<li><a href="/Spells/Maelstrom" target="SpellpageFrame">Maelstrom</a></li>
+			<li><a href="/Spells/Mass_Cure_Wounds" target="SpellpageFrame">Mass Cure Wounds</a></li>
+			<li><a href="/Spells/Mislead" target="SpellpageFrame">Mislead</a></li>
+			<li><a href="/Spells/Modify_Memory" target="SpellpageFrame">Modify Memory</a></li>
+			<li><a href="/Spells/Passwall" target="SpellpageFrame">Passwall</a></li>
+			<li><a href="/Spells/Planar_Binding" target="SpellpageFrame">Planar Binding</a></li>
+			<li><a href="/Spells/Raise_Dead" target="SpellpageFrame">Raise Dead</a></li>
+			<li><a href="/Spells/Rarys_Telepathic_Bond" target="SpellpageFrame">Rary’s Telepathic Bond</a></li>
+			<li><a href="/Spells/Reincarnate" target="SpellpageFrame">Reincarnate</a></li>
+			<li><a href="/Spells/Scrying" target="SpellpageFrame">Scrying</a></li>
+			<li><a href="/Spells/Seeming" target="SpellpageFrame">Seeming</a></li>
+			<li><a href="/Spells/Swift_Quiver" target="SpellpageFrame">Swift Quiver</a></li>
+			<li><a href="/Spells/Telekinesis" target="SpellpageFrame">Telekinesis</a></li>
+			<li><a href="/Spells/Teleportation_Circle" target="SpellpageFrame">Teleportation Circle</a></li>
+			<li><a href="/Spells/Transmute_Rock" target="SpellpageFrame">Transmute Rock</a></li>
+			<li><a href="/Spells/Tree_Stride" target="SpellpageFrame">Tree Stride</a></li>
+			<li><a href="/Spells/Wall_of_Force" target="SpellpageFrame">Wall of Force</a></li>
+			<li><a href="/Spells/Wall_of_Stone" target="SpellpageFrame">Wall of Stone</a></li>
+		</ul>
+	Level 6<br>
+		<ul>
+			<li><a href="/Spells/Arcane_Gate" target="SpellpageFrame">Arcane Gate</a></li>
+			<li><a href="/Spells/Blade_Barrier" target="SpellpageFrame">Blade Barrier</a></li>
+			<li><a href="/Spells/Bones_of_the_Earth" target="SpellpageFrame">Bones of the Earth</a></li>
+			<li><a href="/Spells/Chain_Lightning" target="SpellpageFrame">Chain Lightning</a></li>
+			<li><a href="/Spells/Circle_of_Death" target="SpellpageFrame">Circle of Death</a></li>
+			<li><a href="/Spells/Conjure_Fey" target="SpellpageFrame">Conjure Fey</a></li>
+			<li><a href="/Spells/Contingency" target="SpellpageFrame">Contingency</a></li>
+			<li><a href="/Spells/Create_Undead" target="SpellpageFrame">Create Undead</a></li>
+			<li><a href="/Spells/Disintegrate" target="SpellpageFrame">Disintegrate</a></li>
+			<li><a href="/Spells/Drawmijs_Instant_Summons" target="SpellpageFrame">Drawmij’s Instant Summons</a></li>
+			<li><a href="/Spells/Eyebite" target="SpellpageFrame">Eyebite</a></li>
+			<li><a href="/Spells/Find_the_Path" target="SpellpageFrame">Find the Path</a></li>
+			<li><a href="/Spells/Flesh_to_Stone" target="SpellpageFrame">Flesh to Stone</a></li>
+			<li><a href="/Spells/Forbiddance" target="SpellpageFrame">Forbiddance</a></li>
+			<li><a href="/Spells/Globe_of_Invulnerability" target="SpellpageFrame">Globe of Invulnerability</a></li>
+			<li><a href="/Spells/Guards_and_Wards" target="SpellpageFrame">Guards and Wards</a></li>
+			<li><a href="/Spells/Harm" target="SpellpageFrame">Harm</a></li>
+			<li><a href="/Spells/Heal" target="SpellpageFrame">Heal</a></li>
+			<li><a href="/Spells/Heroes_Feast" target="SpellpageFrame">Heroes’ Feast</a></li>
+			<li><a href="/Spells/Investiture_of_Flame" target="SpellpageFrame">Investiture of Flame</a></li>
+			<li><a href="/Spells/Investiture_of_Ice" target="SpellpageFrame">Investiture of Ice</a></li>
+			<li><a href="/Spells/Investiture_of_Stone" target="SpellpageFrame">Investiture of Stone</a></li>
+			<li><a href="/Spells/Investiture_of_Wind" target="SpellpageFrame">Investiture of Wind</a></li>
+			<li><a href="/Spells/Magic_Jar" target="SpellpageFrame">Magic Jar</a></li>
+			<li><a href="/Spells/Mass_Suggestion" target="SpellpageFrame">Mass Suggestion</a></li>
+			<li><a href="/Spells/Move_Earth" target="SpellpageFrame">Move Earth</a></li>
+			<li><a href="/Spells/Otilukes_Freezing_Sphere" target="SpellpageFrame">Otiluke’s Freezing Sphere</a></li>
+			<li><a href="/Spells/Ottos_Irresistible_Dance" target="SpellpageFrame">Otto’s Irresistible Dance</a></li>
+			<li><a href="/Spells/Planar_Ally" target="SpellpageFrame">Planar Ally</a></li>
+			<li><a href="/Spells/Primordial_Ward" target="SpellpageFrame">Primordial Ward</a></li>
+			<li><a href="/Spells/Programmed_Illusion" target="SpellpageFrame">Programmed Illusion</a></li>
+			<li><a href="/Spells/Sunbeam" target="SpellpageFrame">Sunbeam</a></li>
+			<li><a href="/Spells/Transport_via_Plants" target="SpellpageFrame">Transport via Plants</a></li>
+			<li><a href="/Spells/True_Seeing" target="SpellpageFrame">True Seeing</a></li>
+			<li><a href="/Spells/Wall_of_Ice" target="SpellpageFrame">Wall of Ice</a></li>
+			<li><a href="/Spells/Wall_of_Thorns" target="SpellpageFrame">Wall of Thorns</a></li>
+			<li><a href="/Spells/Wind_Walk" target="SpellpageFrame">Wind Walk</a></li>
+			<li><a href="/Spells/Word_of_Recall" target="SpellpageFrame">Word of Recall</a></li>
+		</ul>
+	Level 7<br>
+		<ul>
+			<li><a href="/Spells/Conjure_Celestial" target="SpellpageFrame">Conjure Celestial</a></li>
+			<li><a href="/Spells/Delayed_Blast_Fireball" target="SpellpageFrame">Delayed Blast Fireball</a></li>
+			<li><a href="/Spells/Divine_Word" target="SpellpageFrame">Divine Word</a></li>
+			<li><a href="/Spells/Etherealness" target="SpellpageFrame">Etherealness</a></li>
+			<li><a href="/Spells/Finger_of_Death" target="SpellpageFrame">Finger of Death</a></li>
+			<li><a href="/Spells/Fire_Storm" target="SpellpageFrame">Fire Storm</a></li>
+			<li><a href="/Spells/Forcecage" target="SpellpageFrame">Forcecage</a></li>
+			<li><a href="/Spells/Mirage_Arcane" target="SpellpageFrame">Mirage Arcane</a></li>
+			<li><a href="/Spells/Mordenkainens_Magnificent_Mansion" target="SpellpageFrame">Mordenkainen’s Magnificent Mansion</a></li>
+			<li><a href="/Spells/Mordenkainens_Sword" target="SpellpageFrame">Mordenkainen’s Sword</a></li>
+			<li><a href="/Spells/Plane_Shift" target="SpellpageFrame">Plane Shift</a></li>
+			<li><a href="/Spells/Prismatic_Spray" target="SpellpageFrame">Prismatic Spray</a></li>
+			<li><a href="/Spells/Project_Image" target="SpellpageFrame">Project Image</a></li>
+			<li><a href="/Spells/Regenerate" target="SpellpageFrame">Regenerate</a></li>
+			<li><a href="/Spells/Resurrection" target="SpellpageFrame">Resurrection</a></li>
+			<li><a href="/Spells/Reverse_Gravity" target="SpellpageFrame">Reverse Gravity</a></li>
+			<li><a href="/Spells/Sequester" target="SpellpageFrame">Sequester</a></li>
+			<li><a href="/Spells/Simulacrum" target="SpellpageFrame">Simulacrum</a></li>
+			<li><a href="/Spells/Symbol" target="SpellpageFrame">Symbol</a></li>
+			<li><a href="/Spells/Teleport" target="SpellpageFrame">Teleport</a></li>
+			<li><a href="/Spells/Whirlwind" target="SpellpageFrame">Whirlwind</a></li>
+		</ul>
+	Level 8<br>
+		<ul>
+			<li><a href="/Spells/AbiDalzims_Horrid_Wilting" target="SpellpageFrame">Abi-Dalzim’s Horrid Wilting</a></li>
+			<li><a href="/Spells/Animal_Shapes" target="SpellpageFrame">Animal Shapes</a></li>
+			<li><a href="/Spells/Antimagic_Field" target="SpellpageFrame">Antimagic Field</a></li>
+			<li><a href="/Spells/AntipathySympathy" target="SpellpageFrame">Antipathy/Sympathy</a></li>
+			<li><a href="/Spells/Clone" target="SpellpageFrame">Clone</a></li>
+			<li><a href="/Spells/Control_Weather" target="SpellpageFrame">Control Weather</a></li>
+			<li><a href="/Spells/Demiplane" target="SpellpageFrame">Demiplane</a></li>
+			<li><a href="/Spells/Dominate_Monster" target="SpellpageFrame">Dominate Monster</a></li>
+			<li><a href="/Spells/Earthquake" target="SpellpageFrame">Earthquake</a></li>
+			<li><a href="/Spells/Feeblemind" target="SpellpageFrame">Feeblemind</a></li>
+			<li><a href="/Spells/Glibness" target="SpellpageFrame">Glibness</a></li>
+			<li><a href="/Spells/Holy_Aura" target="SpellpageFrame">Holy Aura</a></li>
+			<li><a href="/Spells/Incendiary_Cloud" target="SpellpageFrame">Incendiary Cloud</a></li>
+			<li><a href="/Spells/Maze" target="SpellpageFrame">Maze</a></li>
+			<li><a href="/Spells/Mind_Blank" target="SpellpageFrame">Mind Blank</a></li>
+			<li><a href="/Spells/Power_Word_Stun" target="SpellpageFrame">Power Word Stun</a></li>
+			<li><a href="/Spells/Sunburst" target="SpellpageFrame">Sunburst</a></li>
+			<li><a href="/Spells/Telepathy" target="SpellpageFrame">Telepathy</a></li>
+			<li><a href="/Spells/Trap_the_Soul" target="SpellpageFrame">Trap the Soul</a></li>
+			<li><a href="/Spells/Tsunami" target="SpellpageFrame">Tsunami</a></li>
+		</ul>
+	Level 9<br>
+		<ul>
+			<li><a href="/Spells/Astral_Projection" target="SpellpageFrame">Astral Projection</a></li>
+			<li><a href="/Spells/Foresight" target="SpellpageFrame">Foresight</a></li>
+			<li><a href="/Spells/Gate" target="SpellpageFrame">Gate</a></li>
+			<li><a href="/Spells/Imprisonment" target="SpellpageFrame">Imprisonment</a></li>
+			<li><a href="/Spells/Mass_Heal" target="SpellpageFrame">Mass Heal</a></li>
+			<li><a href="/Spells/Meteor_Swarm" target="SpellpageFrame">Meteor Swarm</a></li>
+			<li><a href="/Spells/Power_Word_Heal" target="SpellpageFrame">Power Word Heal</a></li>
+			<li><a href="/Spells/Power_Word_Kill" target="SpellpageFrame">Power Word Kill</a></li>
+			<li><a href="/Spells/Prismatic_Wall" target="SpellpageFrame">Prismatic Wall</a></li>
+			<li><a href="/Spells/Shapechange" target="SpellpageFrame">Shapechange</a></li>
+			<li><a href="/Spells/Storm_of_Vengeance" target="SpellpageFrame">Storm of Vengeance</a></li>
+			<li><a href="/Spells/Time_Stop" target="SpellpageFrame">Time Stop</a></li>
+			<li><a href="/Spells/True_Polymorph" target="SpellpageFrame">True Polymorph</a></li>
+			<li><a href="/Spells/True_Resurrection" target="SpellpageFrame">True Resurrection</a></li>
+			<li><a href="/Spells/Weird" target="SpellpageFrame">Weird</a></li>
+			<li><a href="/Spells/Wish" target="SpellpageFrame">Wish</a></li>
+		</ul>
+</div>
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body></html>
