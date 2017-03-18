@@ -29,6 +29,10 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/Login', function(req, res){
+	res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify("")});
+});
+
 mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
 	console.log("DB connected");
 	db = database;
