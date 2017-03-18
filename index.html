@@ -1,18 +1,127 @@
-<html>
-  <head>
-<title>D&D 5e</title>
+<html><head>
+<title>Dnd Tool</title>
+<script src="/Functions/chatcommands.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-var socket = io.connect();
+	var socket = io('/Main');
+</script>
+
+<script src="/Functions/Moved.js"></script>
+
+
+<script>
+var ChatMessages = [];
+var InitList = [];
+var DMStatus;
+var DMPrivateInit = [];
+var DMID;
+var CharacterStats;
+
+function UpdatePlayerList(){
+
+}
+
+function linkSocketIDs(ToolSocketId, CharName, PlayerName){
+	socket.emit('LinkSockets', ToolSocketId, CharName, PlayerName)
+}
 
 
 
+//function submitCharacter(Character){
+//	socket.emit('PlayerJoined', Character);
+//}
+
+function sendMessage(msg){
+	socket.emit('ChatMsgSend', msg);
+}
+
+function sendPrivateMessage(toSocket, msg, senderName){
+	socket.emit('PrivateMsgSend', toSocket, msg, senderName);
+}
+
+
+
+function pageLoad(){
+	
+
+}
+
+function submitDM(DMName, iToolSocket){
+	socket.emit('DMJoined', DMName, iToolSocket)
+}
+
+socket.on('DMDataRecieved', function(iDMID){
+	DMID = iDMID;
+});
+
+
+//function loadCharacter(character){
+//	
+//}
+
+function toolLoaded(initButtons, DM){
+	DMStatus = DM;
+	document.getElementById('ChatButtons').style.visibility = 'visible';
+	document.getElementById('PlayerLists').style.visibility = 'visible';
+	document.getElementById('InitListMenu').innerHTML = initButtons;
+}
+
+
+function showSpell(){
+	document.getElementById().style.visibility = "hidden";
+}
+
+function HideMain(status){
+	if(status == 1){
+		document.getElementById('PlayerLists').style.visibility = "hidden";
+		document.getElementById('ChatList').style.visibility = "hidden";
+		document.getElementById('ChatButtons').style.visibility = "hidden";
+	}
+	else{
+		document.getElementById('PlayerLists').style.visibility = "visible";
+		document.getElementById('ChatList').style.visibility = "visible";
+		document.getElementById('ChatButtons').style.visibility = "visible";
+	}
+		
+}
+
+function clearChat(){
+	ChatMessages = [];
+	document.getElementById('ChatList').innerHTML = "";
+}
 
 
 </script>
 </head>
 
-<body bgcolor="#BEC6DD">Website v5
+<body bgcolor="#BEC6DD" onload="pageLoad()">
+
+<iframe src="/Login" id="game"  style="height:100%; width:1300px;  position:absolute; top:0px; left:0px; border:0px">
+</iframe>
+
+<div id="ChatButtons" style="height:30px; width:375px; position:absolute; top:0px; left:635px; visibility:hidden; border-bottom-style:solid; border-bottom-width:6px;">
+	    <div style="height:30px; width:375px; position:absolute; top:0px; left:10px;">
+			<button id="ClearChat" onclick="clearChat()">Clear Chat</button>
+		</div>
+</div>
+
+<div id="ChatList" style="height:100%; width:375px; position:absolute; top:50px; left:640px;">
+	
+</div>
+
+<div id="PlayerLists" style="height:100%; width:220px; padding:5px; position:absolute; top:0px; left:1025px; border-left-style:solid; border-left-width:6px;border-right-style:solid; border-right-width:6px; visibility:hidden;">
+	<div id="InitListMenu" style="height:100%; width:220px; padding:5px; position:absolute; top:0px; left:0px; overflow: auto;">
+
+	</div>
+	<div id="EditInitListMenu" style="height:100%; width:220px; padding:5px; position:absolute; top:0px; left:0px; overflow: auto; visibility:hidden;">
+
+	</div>
+</div>
+
+
+
+
+
 
 </body></html>
