@@ -44,6 +44,11 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tar
 });
 
 
+//app.get('/', function(req, res){
+//  res.sendFile(__dirname + '/Views/Main.html');
+//});
+
+
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
