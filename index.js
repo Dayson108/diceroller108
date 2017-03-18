@@ -22,23 +22,28 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 
 
-//drd108's database
-//mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds147797.mlab.com:47797/heroku_8xmzgt7g', function(err, database){
 
-//diceroller108's database
-//mongodb.MongoClient.connect('mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
+var ObjectId = require('mongodb').ObjectID;
+console.log("Starting");
+server.listen(process.env.PORT || 3000);
+console.log("Listening");
+
+var db;
+var DMCODE = "samplecode";
+var InitList = [];
+var Characters = [];
+var CharacterStats = [];
+var DMID;
+var SocketAddressBook = [];
+
+
+
 mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tarw1nd@ds139278.mlab.com:39278/heroku_cjk61411', function(err, database){
-	server.listen(process.env.PORT || 3000);
-	console.log("listening");
-	
-	
-	app.post('/comment', function(req, res){
-		database.collection('comment').save(req.body, function(err, result){
-			if(err){return console.log(err)};
-			res.redirect('/test');
-		});
-	});
+	console.log("DB connected");
+	db = database;
 });
+
+
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
