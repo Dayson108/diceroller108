@@ -53,3 +53,6 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tar
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
+app.get('/Login', function(req, res){
+	res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify("")});
+});
