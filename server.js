@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
-var http = require('http');
+
+console.log("woof");
+//var http = require('http');
 var bcrypt = require('bcryptjs');
 
 // set the port of our application
