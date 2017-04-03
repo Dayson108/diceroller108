@@ -1,9 +1,8 @@
 var express = require('express');
 var app = express();
 
-console.log("woof");
-//var http = require('http');
-var bcrypt = require('bcryptjs');
+var mongodb = require('mongodb');
+
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
