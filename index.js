@@ -25,6 +25,7 @@ var CharacterStats = [];
 var DMID;
 var SocketAddressBook = [];
 
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
   //res.sendFile(__dirname + '/index.ejs');
