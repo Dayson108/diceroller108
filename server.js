@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http');
+var bcrypt = require('bcryptjs');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
