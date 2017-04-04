@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 // set the home page route
 app.get('/', function(req, res) {
 	// ejs render automatically looks in the views folder
-	res.render('index', {ErrorMsg: JSON.stringify("Pork")});
+	res.render('index', {ErrorMsg: JSON.stringify("Pie")});
 });
 
 app.listen(port, function() {
