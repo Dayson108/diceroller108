@@ -2,6 +2,10 @@ var express = require('express'),
 app = express();
 var bodyParser = require('body-parser');
 
+
+var http = require('http');
+var server = http.createServer(app);
+
 var mongodb = require('mongodb');
 var ObjectId = require('mongodb').ObjectID;
 
