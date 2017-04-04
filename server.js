@@ -1,6 +1,6 @@
 var express = require('express'),   
 app = express();
-
+var bodyParser = require('body-parser');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 // set the home page route
 app.get('/', function(req, res) {
 	// ejs render automatically looks in the views folder
-	res.render('index', {ErrorMsg: JSON.stringify("Bacon")});
+	res.render('index', {ErrorMsg: JSON.stringify("F")});
 });
 
 app.listen(port, function() {
