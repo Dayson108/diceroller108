@@ -9,7 +9,7 @@ var server = http.createServer(app);
 var mongodb = require('mongodb');
 var ObjectId = require('mongodb').ObjectID;
 
-var bcrypt = require('bcryptjs');
+//var bcrypt = require('bcryptjs');
 
 var db;
 var DMCODE = "samplecode";
