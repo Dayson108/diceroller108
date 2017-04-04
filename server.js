@@ -12,7 +12,7 @@ var ObjectId = require('mongodb').ObjectID;
 //var bcrypt = require('bcryptjs');
 
 //npm install bcrypt-nodejs
-//var bcrypt = require('require("./bCrypt");');
+var bcrypt = require("./bCrypt");
 
 var db;
 var DMCODE = "samplecode";
