@@ -3,6 +3,19 @@ app = express();
 var bodyParser = require('body-parser');
 
 var mongodb = require('mongodb');
+var ObjectId = require('mongodb').ObjectID;
+
+
+
+var db;
+var DMCODE = "samplecode";
+
+var InitList = [];
+var Characters = [];
+var CharacterStats = [];
+var DMID;
+var SocketAddressBook = [];
+
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -14,7 +27,7 @@ app.set('view engine', 'ejs');
 // set the home page route
 app.get('/', function(req, res) {
 	// ejs render automatically looks in the views folder
-	res.render('index', {ErrorMsg: JSON.stringify("Hello")});
+	res.render('index', {ErrorMsg: JSON.stringify("Pork")});
 });
 
 app.listen(port, function() {
