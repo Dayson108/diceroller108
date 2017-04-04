@@ -31,7 +31,7 @@ var SocketAddressBook = [];
 
 app.get('/', function(req, res){
   //res.sendFile(__dirname + '/index.ejs');
-  res.render(__dirname + '/views/index.ejs', {ErrorMsg: JSON.stringify("Wiggles")});
+  res.render('index.ejs', {ErrorMsg: JSON.stringify("Wiggles")});
 });
 
 app.get('/Login', function(req, res){
@@ -146,7 +146,7 @@ app.post('/LoginAttempt', function(req, res){
 			
 		}else{
 			var msg = "Invalid Account Name / Password";
-			res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify(msg)});
+			res.render(__dirname + 'index.ejs', {ErrorMsg: JSON.stringify(msg)});
 		}
 	});
 });
