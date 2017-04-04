@@ -9,7 +9,7 @@ var server = http.createServer(app);
 var mongodb = require('mongodb');
 var ObjectId = require('mongodb').ObjectID;
 
-
+var bcrypt = require('bcryptjs');
 
 var db;
 var DMCODE = "samplecode";
@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 // set the home page route
 app.get('/', function(req, res) {
 	// ejs render automatically looks in the views folder
-	res.render('index', {ErrorMsg: JSON.stringify("Pie")});
+	res.render('index', {ErrorMsg: JSON.stringify("Freedom")});
 });
 
 app.listen(port, function() {
