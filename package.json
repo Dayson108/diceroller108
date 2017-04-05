@@ -1,8 +1,8 @@
 {
   "name": "socket-chat-example",
-  "version": "0.0.1",
-  "description": "my first socket.io app",
-  "main": "server.js",
+  "version": "1.0.99999",
+  "description": "DnD Game Tool",
+  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
