@@ -5,7 +5,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 //var bcrypt = require('bcryptjs');
-var bcrypt = require('bcryptjs');
+//var bcrypt = require('bcryptjs');
 
 app.use('/', express.static(__dirname + '/'));
 var mongodb = require('mongodb');
