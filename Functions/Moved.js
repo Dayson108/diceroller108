@@ -114,9 +114,6 @@ function clearAdv(){
 	document.getElementById('AdvantageRadio').checked = false;
 }
 
-socket.on('ChatMsgRcv', function(msg){
-	updateChat(msg);
-});
 
 
 
@@ -141,38 +138,7 @@ function updateChat(input){
 }
 
 
-function PlayerInitRoll(plus, CharacterName){
-	var adv = 0;
-	
-	if(document.getElementById('RadioAdv').checked){
-		adv = 1;
-	}else if(document.getElementById('RadioDis').checked){
-		adv = -1;
-	}
-	
-	document.getElementById('initButton').style.visibility = "hidden";
-	initRoll(plus, CharacterName, adv);
-}
 
-function initRoll(plus, CharacterName, adv){
-	plus += Number(document.getElementById("initMod").value);
-	document.getElementById("initMod").value = "";
-	
-	
-	var dice1 = Math.floor((Math.random() * 20) + 1);
-	var dice2 = Math.floor((Math.random() * 20) + 1);
-	var dice = diceAdvCalc(adv, dice1, dice2);
-	
-	var status = 0;
-	if(dice == 20){
-		status = 1;
-	}else if(dice == 1){
-		status = -1;
-	}
-	dice += plus;
-	
-	socket.emit('InitRoll', CharacterName, dice, status);
-}
 
 
 

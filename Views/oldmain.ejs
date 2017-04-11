@@ -11,7 +11,7 @@
 
 
 <script>
-var ChatMessages = [];
+
 var InitList = [];
 var DMStatus;
 var DMPrivateInit = [];
@@ -20,35 +20,6 @@ var CharacterStats;
 
 function UpdatePlayerList(){
 
-}
-
-function linkSocketIDs(ToolSocketId, CharName, PlayerName){
-	socket.emit('LinkSockets', ToolSocketId, CharName, PlayerName)
-}
-
-
-
-//function submitCharacter(Character){
-//	socket.emit('PlayerJoined', Character);
-//}
-
-function sendMessage(msg){
-	socket.emit('ChatMsgSend', msg);
-}
-
-function sendPrivateMessage(toSocket, msg, senderName){
-	socket.emit('PrivateMsgSend', toSocket, msg, senderName);
-}
-
-
-
-function pageLoad(){
-	
-
-}
-
-function submitDM(DMName, iToolSocket){
-	socket.emit('DMJoined', DMName, iToolSocket)
 }
 
 socket.on('DMDataRecieved', function(iDMID){
@@ -60,31 +31,14 @@ socket.on('DMDataRecieved', function(iDMID){
 //	
 //}
 
-function toolLoaded(initButtons, DM){
-	DMStatus = DM;
-	document.getElementById('ChatButtons').style.visibility = 'visible';
-	document.getElementById('PlayerLists').style.visibility = 'visible';
-	document.getElementById('InitListMenu').innerHTML = initButtons;
-}
+
 
 
 function showSpell(){
 	document.getElementById().style.visibility = "hidden";
 }
 
-function HideMain(status){
-	if(status == 1){
-		document.getElementById('PlayerLists').style.visibility = "hidden";
-		document.getElementById('ChatList').style.visibility = "hidden";
-		document.getElementById('ChatButtons').style.visibility = "hidden";
-	}
-	else{
-		document.getElementById('PlayerLists').style.visibility = "visible";
-		document.getElementById('ChatList').style.visibility = "visible";
-		document.getElementById('ChatButtons').style.visibility = "visible";
-	}
-		
-}
+
 
 function clearChat(){
 	ChatMessages = [];
