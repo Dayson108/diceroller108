@@ -19,12 +19,6 @@ socket.on('PlayerChange', function(CharacterStats, SocketAddressBook){
 	UpdateAddressBook(SocketAddressBook);
 });
 
-
-socket.on('UpdatePlayerStats', function(CharacterStats){
-	UpdatePlayerStats(CharacterStats);
-});
-
-
 /*
 function getCharacterName(socketID){
 	for(var i = 0; i < SocketAddressBook.length; i++){
@@ -51,73 +45,10 @@ function UpdateAddressBook(iSocketAddressBook){
 }
 */
 
-function pageLoad(){
-	Character = JSON.parse(sessionStorage.getItem('DnDToolCharacter'));
-	var plus = calcStatBonus(Character.DEX);
-	
-	var InitMenu = 'Init List<br><input type="radio" name="initAdv" id="RadioAdv" value="Adv"> Adv';
-	InitMenu += '<input type="radio" name="initAdv" id="RadioDis" value="Dis"> Dis<button id="ClearAdvDis" onclick="resetAdv()">Clear</button><br>';
-	InitMenu += "1d20+" + plus + '  Modifier:<input type="text" id="initMod" style="width:25px;" value="1"><button id="initButton" onclick="PlayerInitRoll(' + plus + ', ' + "'" + Character.CharacterName + "'" + ')">Roll</button>';
-	InitMenu += '</p><hr><p id="initList"></p>';
-	
-	//DMStatus = false;
-	//document.getElementById('ChatButtons').style.visibility = 'visible';
-	document.getElementById('PlayerLists').style.visibility = 'visible';
-	document.getElementById('InitListMenu').innerHTML = InitMenu;
-	socket.emit('GetStartData');
-	socket.emit('SubmitCharacter', Character);
-}
 
 
 
 
-function UpdatePlayerStats(CharacterStats){
-	var output = "";
-	var myStats = "";
-	var myIndex;
-	for(var i = 0; i < CharacterStats.length; i++){
-		if(CharacterStats[i].ToolSocket == ToolSocketId){
-			myIndex = i;
-		}else{
-			output += CharacterStats[i].CharacterName + ' - ' + CharacterStats[i].PlayerName + '<br>';
-			output += "Level: " + CharacterStats[i].Level + " " + CharacterStats[i].Class + "<br>"
-			output += "HP: " + CharacterStats[i].CurrentHP + " / " + CharacterStats[i].MaxHP + "<br>"
-			if(CharacterStats[i].CurrentTempHP != 0){
-				output += "TempHP: " + CharacterStats[i].CurrentTempHP + " / " + CharacterStats[i].MaxTempHP + "<br>"
-			}
-			output += "AC: " + (Number(CharacterStats[i].AC) + Number(CharacterStats[i].ACMod)) + "<hr>"
-		}
-	}
-	myStats += CharacterStats[myIndex].CharacterName + ' - ' + CharacterStats[myIndex].PlayerName + '<br>';
-	myStats += "Level: " + CharacterStats[myIndex].Level + " " + CharacterStats[myIndex].Class + "<br>"
-	myStats += 'HP: <input type="text" id="myHP" size="1" value="' + CharacterStats[myIndex].CurrentHP + '">/ ' + CharacterStats[myIndex].MaxHP + '<br>';
-	myStats += 'Temp HP: <input type="text" id="myTempHP" size="1" value="' + CharacterStats[myIndex].CurrentTempHP + '">/<input type="text" id="myTempMaxHP" size="1" value="' + CharacterStats[myIndex].MaxTempHP + '"><br>'	
-	myStats += 'AC: ' + CharacterStats[myIndex].AC + ' + <input type="text" id="myACMod" size="1" value="' + CharacterStats[myIndex].ACMod + '"><br>';
-	myStats += '<button id="sumbitStats" onclick="submitNewStats()">Submit</button><hr>';
-	document.getElementById('PlayerStats').innerHTML = myStats + output;
-}
-
-function submitNewStats(){
-	var newStats = {
-		CurrentHP: document.getElementById('myHP').value,
-		TempHP: document.getElementById('myTempHP').value,
-		TempMaxHP: document.getElementById('myTempMaxHP').value,
-		ACMod: document.getElementById('myACMod').value
-	}
-	socket.emit('UpdateServerStats', newStats);
-}
-
-
-function showSpellsScreen(){
-	document.getElementById('MainScreen').style.visibility = 'hidden';
-	document.getElementById('SpellbookFrame').style.visibility = 'visible';
-	HideMain(1);
-}
-function showMainScreen(){
-	document.getElementById('MainScreen').style.visibility = 'visible';
-	document.getElementById('SpellbookFrame').style.visibility = 'hidden';
-	HideMain(0);
-}
 
 
 </script>

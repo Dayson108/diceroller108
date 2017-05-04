@@ -1,11 +1,51 @@
-
-
-
-function resetAdv(){
-	document.getElementById('AdvantageRadio').checked = false;
-	document.getElementById('DisadvantageRadio').checked = false;
+function resetDMInitAdv(){
+	document.getElementById('InitAdvantageRadio').checked = false;
+	document.getElementById('InitDisadvantageRadio').checked = false;
 }
 
+socket.on('DMStartingData', function(iMySocketId, iInitList, CharacterStats){
+	mySocketId = iMySocketId;
+	initRcv(iInitList);
+	UpdatePlayerStats(CharacterStats);
+});
+
+function initRcv(iInitList){
+	InitList = iInitList;
+	var output = "<ul>";
+	for(var i = 0; i < iInitList.length; i++){
+		output += "<li>" + iInitList[i].msg; 	
+		output += '<button id="DMEditInit' + i + '" onclick="DMEditInit(' + i + ')">Edit</button>';
+		output += "</li>"
+	}
+	output += "</ul>";
+	document.getElementById('initList').innerHTML = output;
+}
+
+
+
+function UpdatePlayerStats(CharacterStats){
+	var output = "";
+	for(var i = 0; i < CharacterStats.length; i++){
+		//console.log("CharacterID: " + CharacterStats[i].socketId);
+		//if(CharacterStats[i].socketId == mySocketId){
+		//	myIndex = i;
+		//}else{
+			output += CharacterStats[i].CharacterName + ' - ' + CharacterStats[i].PlayerName + '<br>';
+			output += "Level: " + CharacterStats[i].Level + " " + CharacterStats[i].Class + "<br>"
+			output += "HP: " + CharacterStats[i].CurrentHP + " / " + CharacterStats[i].MaxHP + "<br>"
+			if(CharacterStats[i].CurrentTempHP != 0){
+				output += "TempHP: " + CharacterStats[i].CurrentTempHP + " / " + CharacterStats[i].MaxTempHP + "<br>"
+			}
+			output += "AC: " + (Number(CharacterStats[i].AC) + Number(CharacterStats[i].ACMod)) + "<hr>"
+		//}
+	}
+	document.getElementById('PlayerStats').innerHTML = output;
+}
+
+function DMResetInit(){
+	console.log("Restting INIT");
+	socket.emit('ClearInit');
+}
 
 function DMRollInit(){
 	var dice;
@@ -15,12 +55,12 @@ function DMRollInit(){
 	var type;
 	if(document.getElementById('DMDiceInit').checked){
 		var adv = 0;
-		if(document.getElementById('AdvantageRadio').checked){
+		if(document.getElementById('InitAdvantageRadio').checked){
 			adv = 1;
-		}else if(document.getElementById('DisadvantageRadio').checked){
+		}else if(document.getElementById('InitDisadvantageRadio').checked){
 			adv = -1;
 		}
-		resetAdv();
+		resetDMInitAdv();
 		var dice = diceAdvCalc(adv, Math.floor((Math.random() * 20) + 1), Math.floor((Math.random() * 20) + 1));
 		if(dice == 20){
 			status = 1;
@@ -34,7 +74,6 @@ function DMRollInit(){
 		dice = Number(document.getElementById('InitSetValue').value);
 		document.getElementById('InitSetValue').value = "";
 	}
-
 	if(document.getElementById('PublicRadio').checked){
 		socket.emit('DMInitRoll', CharacterName, dice, status, "Public");
 	}else if (document.getElementById('PrivateRadio').checked){
@@ -42,54 +81,24 @@ function DMRollInit(){
 	}
 }
 
-
-function initRcv(iInitList){
-	//InitList = iInitList;
-	var output = "<ul>";
-	if(DMStatus){
-		for(var i = 0; i < iInitList.length; i++){
-			output += "<li>" + iInitList[i].msg; 	
-			output += '<button id="DMEditInit' + i + '" onclick="DMEditInit(' + i + ')">Edit</button>';
-			output += "</li>"
-		}
-	}
-	else{
-		for(var i = 0; i < iInitList.length; i++){
-			if(iInitList[i].socket != "Private"){
-				output += "<li>" + iInitList[i].msg; 
-				output += "</li>"
-			}
-		}
-	}
-	output += "</ul>";
-	document.getElementById('initList').innerHTML = output;
-}
-
-socket.on('InitRcv', function(iInitList){
-	initRcv(iInitList);
-});
-
 function DMEditInit(num){
 	document.getElementById('InitListMenu').style.visibility = "hidden";
 	document.getElementById('EditInitListMenu').style.visibility = "visible";
 	var output = "Modify " + InitList[num].CName + "'s Init Roll<br>";
-	output += 'New Init Value: <input type="text" id="DMNewInitValue" size="1">';
+	output += "Current Value: " + InitList[num].roll;
+	output += '<br>New Init Value: <input type="text" id="DMNewInitValue" size="1">';
 	output += '<button id="DMInitChange" onclick="DMInitChange(' + num + ')">Edit</button><hr>'
-	output += '<br><hr>Remove Player From Init List<button id="DMInitRelease" onclick="DMReleaseInit(' + num + ')">Remove</button><hr>'
+	output += '<br><hr>Remove Character From Init List<button id="DMInitRelease" onclick="DMReleaseInit(' + num + ')">Remove</button><hr>'
 	output += '<br><hr><button id="DMInitCancle" onclick="DMCancleInit()">Go Back</button><hr>'
 	document.getElementById('EditInitListMenu').innerHTML = output;
+}
 
-}
-function DMResetInit(){
-	socket.emit('ClearInit');
-}
 function DMReleaseInit(num){
 	socket.emit('DMRemoveInit', num);
 	DMCancleInit();
 }
 
 function DMInitChange(num){
-	console.log("hello");
 	var initRoll = {
 		roll: Number(document.getElementById('DMNewInitValue').value),
 		CName: InitList[num].CName,
@@ -101,68 +110,17 @@ function DMInitChange(num){
 	DMCancleInit();
 }
 
-
-
 function DMCancleInit(){
 	document.getElementById('EditInitListMenu').innerHTML = "";
 	document.getElementById('InitListMenu').style.visibility = "visible";
 	document.getElementById('EditInitListMenu').style.visibility = "hidden";
 }
 
+/*
 function clearAdv(){
-	document.getElementById('DisadvantageRadio').checked = false;
-	document.getElementById('AdvantageRadio').checked = false;
+	document.getElementById('InitDisadvantageRadio').checked = false;
+	document.getElementById('InitAdvantageRadio').checked = false;
 }
 
-
-
-
-socket.on('ReleaseInit', function(){
-	if(!DMStatus){
-		document.getElementById('initButton').style.visibility = "visible";
-	}
-});
-
-socket.on('ReleaseInit', function(){
-	document.getElementById('initButton').style.visibility = "visible";
-});
-
-
-function updateChat(input){
-	ChatMessages.push(input);
-	var Output = "";
-	for(var i = ChatMessages.length-1; i >= 0; i--){
-		Output += ChatMessages[i] + '<hr>';
-	}
-	document.getElementById('ChatList').innerHTML = Output;
-}
-
-
-
-
-
-
-function diceAdvCalc(adv, dice1, dice2){
-	var dice = 0;
-	if(adv == 1){	
-		if(dice1 >= dice2){
-			dice = dice1;
-		}
-		else{
-			dice = dice2;
-		}
-		return dice;
-	}else if(adv == -1){
-		if(dice1 <= dice2){
-			dice = dice1;
-		}
-		else{
-			dice = dice2;
-		}
-		return dice;
-	}else{
-		return dice1;
-	}
-}
-
+*/
 

@@ -6,13 +6,14 @@
 <script src="/Functions/ToolSharedFunctions.js"></script>
 
 <script src="/Functions/dicerolls.js"></script>
+<script src="/Functions/PlayerOnlyFunctions.js"></script>
+
 
 <script>//Globals
 
 var ChatMessages = [];
-
+var mySocketId;
 </script>
-
 
 <script>//Initiative Functions
 function PlayerInitRoll(plus, CharacterName){
@@ -27,7 +28,6 @@ function PlayerInitRoll(plus, CharacterName){
 	document.getElementById('initButton').style.visibility = "hidden";
 	initRoll(plus, CharacterName, adv);
 }
-
 function initRoll(plus, CharacterName, adv){
 	plus += Number(document.getElementById("initMod").value);
 	document.getElementById("initMod").value = "";
@@ -49,95 +49,13 @@ function initRoll(plus, CharacterName, adv){
 }
 </script>
 
-
-<script>
-//Dice Rolls
-function rolld20(plus, skill, name){
-	plus = Number(plus);
-	var adv;
-	if(document.getElementById('RadioAdv').checked){
-		adv = 1;
-	}
-	else if(document.getElementById('RadioDis').checked){
-		adv = -1;
-	}
-	else{
-		adv = 0;
-	}
-	ClearAdvDis();
-
-	var dice = 0;
-	var dice1 = Math.floor((Math.random() * 20) + 1);
-	var dice2 = Math.floor((Math.random() * 20) + 1);
-	var dice = diceAdvCalc(adv, dice1, dice2);
-	var mark = "";
-	
-	if(dice == 20){
-		mark = '**';
-	}else if(dice == 1){
-		mark = '--';
-	}
-	
-	var center; 
-	if(adv == 0){ 
-		center = name + "(" + skill + '):[' + dice + '] + {' + plus + '} = ' + (dice+plus);
-	
-	}else if(adv == 1 || adv == -1){
-		center = name + "(" + skill + '):[' + dice1 + '][' + dice2 + ']: [' + dice + '] + {' + plus + '} = ' + (dice+plus);
-	}
-	sendMessage(mark+center+mark);
-	
-}//end rolld20
-
+<script>//Dice Rolls
 
 function calcStatBonus(stat){
 	stat = Number(stat);
-	return ((((stat - 10)) - (stat % 2)) / 2);
+	return Number(((((stat - 10)) - (stat % 2)) / 2));
 }	
 
-function diceAdvCalc(adv, dice1, dice2){
-	var dice = 0;
-	if(adv == 1){	
-		if(dice1 >= dice2){
-			dice = dice1;
-		}
-		else{
-			dice = dice2;
-		}
-		return dice;
-	}else if(adv == -1){
-		if(dice1 <= dice2){
-			dice = dice1;
-		}
-		else{
-			dice = dice2;
-		}
-		return dice;
-	}else{
-		return dice1;
-	}
-}
-
-function ClearAdvDis(){
-	document.getElementById('RadioAdv').checked = false;
-	document.getElementById('RadioDis').checked = false;
-}
-function rollSidedDice(diceNum, diceSides, Plus, name){
-	var Output = "";
-	var result = 0;
-	var temp = 0;
-	
-	Output += name + "(" + diceNum + 'd' + diceSides + '+' + Plus + '): ';
-	for(var i = 1; i <= diceNum; i++){
-		temp = Math.floor((Math.random() * diceSides) + 1);
-		result += temp;
-		Output += "[" + temp + "]";
-	}
-	Output += " + {" + Plus + "} = " + (result + Plus);
-	
-	sendMessage(Output);
-	
-}
 
 function macro(Macro, name, hideDice){
 	var input = parseMacro(document.getElementById(Macro).value, hideDice);
@@ -228,8 +146,10 @@ function rollStatThrow(plus, Skill, SaveProf, name){
 
 function rollSkillThrow(skillProf, stat, Skill, name){
 	var plus = 0;
-	if(skillProf == "true"){
+	if(skillProf == "+"){
 		plus += Number(Character.ProfBonus);
+	}else if(skillProf == "++"){
+		plus += (Number(Character.ProfBonus) * 2);
 	}
 	plus += calcStatBonus(stat);
 	
@@ -243,58 +163,46 @@ function rollSkillThrow(skillProf, stat, Skill, name){
 </script>
 
 <script>//Sockets
+socket.on('StartingData', function(iMySocketId, iInitList){
+	mySocketId = iMySocketId;
+	initRcv(iInitList);
 
-
-socket.on('ChatMsgRcv', function(msg){
-	updateChat(msg);
 });
-
 
 //End Sockets
 </script>
 
-<script>
-
-
-function sendMessage(msg){
-	socket.emit('ChatMsgSend', msg);
-}
-function updateChat(input){
-	ChatMessages.push(input);
-	var Output = "";
-	for(var i = ChatMessages.length-1; i >= 0; i--){
-		Output += ChatMessages[i] + '<hr>';
-	}
-	document.getElementById('ChatList').innerHTML = Output;
-}
-
-function clearChat(){
-	ChatMessages = [];
-	document.getElementById('ChatList').innerHTML = "";
-}
-
-function pageLoad(){
-	Character = JSON.parse(sessionStorage.getItem('DnDToolCharacter'));
-	var plus = calcStatBonus(Character.DEX);
-	
-	var InitMenu = 'Init List<br><input type="radio" name="initAdv" id="RadioAdv" value="Adv"> Adv';
-	InitMenu += '<input type="radio" name="initAdv" id="RadioDis" value="Dis"> Dis<button id="ClearAdvDis" onclick="resetAdv()">Clear</button><br>';
+<script>//Init 
+function writeInitMenu(plus){
+	var InitMenu = 'Init List<br><input type="radio" name="initAdv" id="InitAdv" value="Adv"> Adv';
+	InitMenu += '<input type="radio" name="initAdv" id="InitDis" value="Dis"> Dis<button id="ClearAdvDis" onclick="resetInitAdv()">Clear</button><br>';
 	InitMenu += "1d20+" + plus + '  Modifier:<input type="text" id="initMod" style="width:25px;" value="1"><button id="initButton" onclick="PlayerInitRoll(' + plus + ', ' + "'" + Character.CharacterName + "'" + ')">Roll</button>';
 	InitMenu += '</p><hr><p id="initList"></p>';
 	
 	document.getElementById('InitListMenu').innerHTML = InitMenu;
 }
+function resetInitAdv(){
+	document.getElementById('InitAdv').checked = false;
+	document.getElementById('InitDis').checked = false;
+}
+//end Init 
+</script>
 
-function showSpellsScreen(){
-	document.getElementById('MainScreen').style.visibility = 'hidden';
-	document.getElementById('SpellbookFrame').style.visibility = 'visible';
-	HideMain(1);
+<script>//Misc Functions
+
+
+function clearChat(){
+	ChatMessages = [];
+	document.getElementById('ChatList').innerHTML = "";
 }
-function showMainScreen(){
-	document.getElementById('MainScreen').style.visibility = 'visible';
-	document.getElementById('SpellbookFrame').style.visibility = 'hidden';
-	HideMain(0);
+function pageLoad(){
+	Character = JSON.parse(sessionStorage.getItem('DnDToolCharacter'));
+	updateSkillButtonNames();
+	writeInitMenu(calcStatBonus(Character.DEX))
+	socket.emit('PlayerJoined', Character);
 }
+
+
 
 
 </script>
@@ -303,7 +211,7 @@ function showMainScreen(){
 <body bgcolor="#BEC6DD" onload="pageLoad()">
 
 <nav id="nav" style="background-color:#00004d; position:absolute; left:0px; top:0px; height:100%; width:75px; float:left; border-right-style:solid; border-right-width:5px;">
-	<button onclick="showMainScreen()">Main</button><br>
+	<button onclick="showMainScreen()">Main</button><br><br>
 	<button onclick="showSpellsScreen()">Spells</button>
 </nav>
 
@@ -319,14 +227,14 @@ function showMainScreen(){
 	</div>
 
 
-	<div id="AdvDisMain" style="height:30px; width:350px; position: absolute; top:50px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
+	<div id="AdvDisMain" style="height:30px; width:350px; position: absolute; top:0px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
 		<input type="radio" name="adv" id="RadioAdv" value="Adv"> Advantage
 		<input type="radio" name="adv" id="RadioDis" value="Dis"> Disadvantage
 		<button id="ClearAdvDis" onclick="ClearAdvDis()">Clear</button>
 		
 	</div>
 
-	<div id="DiceMain" style="height:130px; width:350px; position:absolute; top:90px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
+	<div id="DiceMain" style="height:130px; width:350px; position:absolute; top:40px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
 		1d20 + <input type="text" id="d20P" size="1">
 		<button id="rolld20" onclick="rolld20(document.getElementById('d20P').value, 'd20', Character.CharacterName)">Roll</button><br>
 		<input type="text" id="d12" size="1">d12 + <input type="text" id="d12P" size="1">
@@ -339,6 +247,8 @@ function showMainScreen(){
 		<button id="rolld6" onclick="rollSidedDice(Number(document.getElementById('d6').value),6,Number(document.getElementById('d6P').value), Character.CharacterName)">Roll</button><br>
 		<input type="text" id="d4" size="1">d4 + <input type="text" id="d4P" size="1">
 		<button id="rolld4" onclick="rollSidedDice(Number(document.getElementById('d4').value),4,Number(document.getElementById('d4P').value), Character.CharacterName)">Roll</button><br>
+		<input type="text" id="d100" size="1">d100 + <input type="text" id="d100P" size="1">
+		<button id="rolld100" onclick="rollSidedDice(Number(document.getElementById('d100').value),100,Number(document.getElementById('d100P').value), Character.CharacterName)">Roll</button><br>
 	</div>
 	
 	<div id="PlayerMacros" style="height:110; width:350px; position:absolute; top:230px; left:200px; overflow:auto; border-bottom-style:solid; border-bottom-width:6px;">
@@ -365,32 +275,37 @@ function showMainScreen(){
 
 	<div id="SkillButtonsMain" style="height:100%; width:150px; position: absolute; top:390px; left:350px; overflow: auto;">
 		Skill:<br>	
-		<button onclick="rollSkillThrow(Character.AcrobaticsProf, Character.DEX , 'Acrobatics', Character.CharacterName)">Acrobatics</button><br>
-		<button onclick="rollSkillThrow(Character.AnimalHandlingProf, Character.WIS , 'Animal Handling', Character.CharacterName)">Animal Handling</button><br>
-		<button onclick="rollSkillThrow(Character.ArcanaProf, Character.INT , 'Arcana', Character.CharacterName)">Arcana</button><br>
-		<button onclick="rollSkillThrow(Character.AthleticsProf, Character.STR , 'Athletics', Character.CharacterName)">Athletics</button><br>
-		<button onclick="rollSkillThrow(Character.DeceptionProf, Character.CHA , 'Deception', Character.CharacterName)">Deception</button><br>
-		<button onclick="rollSkillThrow(Character.HistoryProf, Character.INT , 'History', Character.CharacterName)">History</button><br>
-		<button onclick="rollSkillThrow(Character.InsightProf, Character.WIS , 'Insight', Character.CharacterName)">Insight</button><br>
-		<button onclick="rollSkillThrow(Character.IntimidationProf, Character.CHA , 'Intimidation', Character.CharacterName)">Intimidation</button><br>
-		<button onclick="rollSkillThrow(Character.InvestigationProf, Character.INT , 'Investigation', Character.CharacterName)">Investigation</button><br>
-		<button onclick="rollSkillThrow(Character.MedicineProf, Character.WIS , 'Medicine', Character.CharacterName)">Medicine</button><br>
-		<button onclick="rollSkillThrow(Character.NatureProf, Character.INT , 'Nature', Character.CharacterName)">Nature</button><br>
-		<button onclick="rollSkillThrow(Character.PerceptionProf, Character.WIS , 'Perception', Character.CharacterName)">Perception</button><br>
-		<button onclick="rollSkillThrow(Character.PerformanceProf, Character.CHA , 'Performance', Character.CharacterName)">Performance</button><br>
-		<button onclick="rollSkillThrow(Character.PersuasionProf, Character.CHA , 'Persuasion', Character.CharacterName)">Persuasion</button><br>
-		<button onclick="rollSkillThrow(Character.ReligionProf, Character.INT , 'Religion', Character.CharacterName)">Religion</button><br>
-		<button onclick="rollSkillThrow(Character.SlieghtOfHandProf, Character.DEX , 'SleightOfHand', Character.CharacterName)">SleightOfHand</button><br>
-		<button onclick="rollSkillThrow(Character.StealthProf, Character.DEX , 'Stealth', Character.CharacterName)">Stealth</button><br>
-		<button onclick="rollSkillThrow(Character.SurvivalProf, Character.WIS , 'Survival', Character.CharacterName)">Survival</button><br>
+		<button id="AcrobaticsButton" onclick="rollSkillThrow(Character.AcrobaticsProf, Character.DEX , 'Acrobatics', Character.CharacterName)">Acrobatics</button><br>
+		<button id="AnimalHandlingButton" onclick="rollSkillThrow(Character.AnimalHandlingProf, Character.WIS , 'Animal Handling', Character.CharacterName)">Animal Handling</button><br>
+		<button id="ArcanaButton" onclick="rollSkillThrow(Character.ArcanaProf, Character.INT , 'Arcana', Character.CharacterName)">Arcana</button><br>
+		<button id="AthleticsButton" onclick="rollSkillThrow(Character.AthleticsProf, Character.STR , 'Athletics', Character.CharacterName)">Athletics</button><br>
+		<button id="DeceptionButton" onclick="rollSkillThrow(Character.DeceptionProf, Character.CHA , 'Deception', Character.CharacterName)">Deception</button><br>
+		<button id="HistoryButton" onclick="rollSkillThrow(Character.HistoryProf, Character.INT , 'History', Character.CharacterName)">History</button><br>
+		<button id="InsightButton" onclick="rollSkillThrow(Character.InsightProf, Character.WIS , 'Insight', Character.CharacterName)">Insight</button><br>
+		<button id="IntimidationButton" onclick="rollSkillThrow(Character.IntimidationProf, Character.CHA , 'Intimidation', Character.CharacterName)">Intimidation</button><br>
+		<button id="InvestigationButton" onclick="rollSkillThrow(Character.InvestigationProf, Character.INT , 'Investigation', Character.CharacterName)">Investigation</button><br>
+		<button id="MedicineButton" onclick="rollSkillThrow(Character.MedicineProf, Character.WIS , 'Medicine', Character.CharacterName)">Medicine</button><br>
+		<button id="NatureButton" onclick="rollSkillThrow(Character.NatureProf, Character.INT , 'Nature', Character.CharacterName)">Nature</button><br>
+		<button id="PerceptionButton" onclick="rollSkillThrow(Character.PerceptionProf, Character.WIS , 'Perception', Character.CharacterName)">Perception</button><br>
+		<button id="PerformanceButton" onclick="rollSkillThrow(Character.PerformanceProf, Character.CHA , 'Performance', Character.CharacterName)">Performance</button><br>
+		<button id="PersuasionButton" onclick="rollSkillThrow(Character.PersuasionProf, Character.CHA , 'Persuasion', Character.CharacterName)">Persuasion</button><br>
+		<button id="ReligionButton" onclick="rollSkillThrow(Character.ReligionProf, Character.INT , 'Religion', Character.CharacterName)">Religion</button><br>
+		<button id="SleightOfHandButton" onclick="rollSkillThrow(Character.SlieghtOfHandProf, Character.DEX , 'SleightOfHand', Character.CharacterName)">SleightOfHand</button><br>
+		<button id="StealthButton" onclick="rollSkillThrow(Character.StealthProf, Character.DEX , 'Stealth', Character.CharacterName)">Stealth</button><br>
+		<button id="SurvivalButton" onclick="rollSkillThrow(Character.l, Character.WIS , 'Survival', Character.CharacterName)">Survival</button><br>
 
+		
+		<button id="CustomSkill1Button" onclick="rollCustomSkillThrow(Character.CustomSkill1Prof, Character.CustomSkill1Stat, Character.CustomSkill1Name)">Custom1</button><br>
+		<button id="CustomSkill2Button" onclick="rollCustomSkillThrow(Character.CustomSkill2Prof, Character.CustomSkill2Stat, Character.CustomSkill2Name)">Custom2</button><br>
+		<button id="CustomSkill3Button" onclick="rollCustomSkillThrow(Character.CustomSkill3Prof, Character.CustomSkill3Stat, Character.CustomSkill3Name)">Custom3</button><br>
 		
 	</div>
 </div>
 
 
+
 <div id="ChatListButtons" style="height:30px; width:375px; position:absolute; top:0px; left:640px; border-bottom-style:solid; border-bottom-width:6px;">
-	<input type="checkbox" id="PrivateRoll">Private to:<select id="PrivateMessage" name="Players"></select>
+	<input type="checkbox" id="PrivateRoll">Private to:<select id="PrivateMessageAddress"></select>
 	<button id="ClearChat" onclick="clearChat()">Clear Chat</button>
 </div>
 <div id="ChatList" style="height:100%; width:375px; position:absolute; top:40px; left:640px;">

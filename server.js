@@ -14,16 +14,20 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 
 var ObjectId = require('mongodb').ObjectID;
+var db;
+var DMCODE = "samplecode";
 
 
+var InitList = [];
+var CharacterStats = [];
+var AddressBook = [];
+//var DMsocketId;
 
 console.log("Starting");
 server.listen(process.env.PORT || 3000);
 console.log("Listening");
 
-var db;
-var DMCODE = "samplecode";
-var InitList = [];
+
 
 app.get('/', function(req, res){
   //res.sendFile(__dirname + '/index.ejs');
@@ -38,8 +42,6 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://dayson108:5tar
 	console.log("DB connected");
 	db = database;
 });
-
-
 
 app.post('/SaveCharacter', function(req, res){
 	var playerName = req.body.PlayerName;
@@ -111,8 +113,6 @@ app.get('/Spellbook', function(req, res){
 	res.render(__dirname + '/Views/Spellbook.ejs', {ErrorMsg: JSON.stringify("")});
 });
 
-
-
 app.post('/LoginAttempt', function(req, res){
 	var playerFound = false;
 	var DMFound = false;
@@ -133,17 +133,13 @@ app.post('/LoginAttempt', function(req, res){
 			}
 		}
 		if(playerFound){
-			console.log("meow");
 			db.collection(req.body.username + "_Characters").find().toArray(function(err, result){
 				if (err) return console.log(err);
 				res.render(__dirname + '/Views/CharScreen', {Characters: JSON.stringify(result), iPlayerName: JSON.stringify(playerName)});
 			});	
 		}else if(DMFound){
-			console.log("bark");
-				res.render(__dirname + '/Views/DMTool', {DMName: JSON.stringify(result[foundIndex].PlayerName)});
-			
+			res.render(__dirname + '/Views/DMTool', {DMName: JSON.stringify(result[foundIndex].PlayerName)});
 		}else{
-			console.log("woof");
 			var msg = "Invalid Account Name / Password";
 			res.render(__dirname + '/Views/index.ejs', {ErrorMsg: JSON.stringify(msg)});
 		}
@@ -208,7 +204,16 @@ app.post('/RegisterDM', function(req, res){
 
 
 
+/*
+All but sender
+toolSocket.broadcast.emit('', msg);
 
+All
+toolSocket.emit('', msg);
+
+Whisper
+toolSocket.to(socketid).emit('', msg);
+*/
 
 var toolSocket = io.of('/Tool');
 toolSocket.on('connection', function(socket){
@@ -216,6 +221,26 @@ toolSocket.on('connection', function(socket){
 	
 	socket.on('disconnect', function(){ 
         console.log('Someone disconnected from tool.');
+		
+		//Remove Player from CharacterStats
+		for(var i = 0; i < CharacterStats.length; i++){
+			if(socket.id == CharacterStats[i].socketId){
+				CharacterStats.splice(i,1);
+				break;
+			}
+		}
+		
+		//Remove Player/DM from addressbook
+		console.log("removing player: " + socket.id);
+		for(var i = 0; i < AddressBook.length; i++){
+			if(socket.id == AddressBook[i].socketId){
+				console.log("removed from addressbook");
+				AddressBook.splice(i,1);
+			}
+		}
+		
+		toolSocket.emit('UpdatePlayerStats', CharacterStats);
+		toolSocket.emit('UpdateAddressBook', AddressBook);
     });
 	
 	socket.on('ChatMsgSend', function(msg){
@@ -232,16 +257,146 @@ toolSocket.on('connection', function(socket){
 			socket: socket.id
 		}
 		if(iStatus == 1){
-			msg = "**" + msg + "**";
+			initRoll.msg = "**" + initRoll.msg + "**";
 			
 		}else if(iStatus == -1){
-			msg = '--' + msg + '--';
+			initRoll.msg = '--' + initRoll.msg + '--';
 		}
 		
 		InitList.push(initRoll);
 		InitList.sort(function(a,b){return b.roll > a.roll});
 		toolSocket.emit('InitRcv', InitList);
     });	
+	
+	socket.on('DMInitRoll', function(iCharacterName, iDice, iStatus, type){ 
+		var initRoll = {
+			roll: iDice,
+			CName: iCharacterName,
+			msg: iCharacterName + ': ' + iDice,
+			status: iStatus,
+			socket: type
+		}
+
+		if(iStatus == 1){
+			initRoll.msg = "**" + initRoll.msg + "**";
+			
+		}else if(iStatus == -1){
+			initRoll.msg = '--' + initRoll.msg + '--';
+		}
+		
+		if(type == "Private"){
+			initRoll.msg = "(P) " + initRoll.msg;
+		}
+		
+		InitList.push(initRoll);
+		InitList.sort(function(a,b){return b.roll > a.roll});
+		toolSocket.emit('InitRcv', InitList);
+    });	
+	
+	
+	socket.on('PlayerJoined', function(iCharacter){ 
+		var characterStat= {
+			CharacterName: iCharacter.CharacterName,
+			PlayerName: iCharacter.PlayerName,
+			Class: iCharacter.Class,
+			Level: iCharacter.Level,
+			MaxHP: iCharacter.MaxHP,
+			CurrentHP: iCharacter.MaxHP,
+			MaxTempHP: 0,
+			CurrentTempHP: 0,
+			AC: iCharacter.AC,
+			ACMod: 0,
+			SpellsRemaining: "",
+			Notes: "",
+			socketId: socket.id
+		}
+		
+		var address = {
+			CharacterName: iCharacter.CharacterName,
+			PlayerName: iCharacter.PlayerName,
+			socketId: socket.id
+		}
+		AddressBook.push(address);
+		CharacterStats.push(characterStat);
+		
+		//Send Starting Data to User
+		toolSocket.to(socket.id).emit('PlayerStartingData', socket.id, InitList);
+		
+		toolSocket.emit('UpdatePlayerStats', CharacterStats);
+		toolSocket.emit('UpdateAddressBook', AddressBook);
+	});
+	
+	socket.on('DMJoined', function(iName){ 
+		//Send Starting Data to User
+		var address = {
+			CharacterName: "DM",
+			PlayerName: iName,
+			socketId: socket.id
+		}
+		AddressBook.push(address);
+		
+		
+		toolSocket.to(socket.id).emit('DMStartingData', socket.id, InitList, CharacterStats);
+		
+		console.log("adding DM into addressbook");
+		toolSocket.emit('UpdateAddressBook', AddressBook);
+		//toolSocket.emit('UpdatePlayerStats', CharacterStats);
+		//toolSocket.emit('PlayerChange', CharacterStats, SocketAddressBook);
+	});	
+	
+
+		
+	socket.on('ClearInit', function(){
+		toolSocket.emit('ReleaseInit');
+		InitList = [];
+		toolSocket.emit('InitRcv', InitList);
+	});
+	
+	
+	socket.on('UpdateServerCharacterStats', function(iStats){
+		var index = -1;
+		for(var i = 0; i < CharacterStats.length; i++){
+			if(CharacterStats[i].socketId == socket.id){
+				CharacterStats[i].CurrentHP = iStats.CurrentHP;
+				CharacterStats[i].CurrentTempHP = iStats.TempHP;
+				CharacterStats[i].MaxTempHP = iStats.TempMaxHP;
+				CharacterStats[i].ACMod = iStats.ACMod;
+				index = i;
+				break;
+			}
+		}
+		toolSocket.emit('UpdatePlayerStats', CharacterStats);
+	});
+	
+	
+
+
+	socket.on('DMRemoveInit', function(num){	
+		if(InitList[num].socket != "Public" && InitList[num].socket != "Private"){
+			toolSocket.to(InitList[num].socket).emit('ReleaseInit');
+		}
+		
+		InitList.splice(num, 1);
+		toolSocket.emit('InitRcv', InitList);
+	});
+		
+
+	
+	socket.on('DMChangeInit', function(num, modifiedInit){
+		InitList[num] = modifiedInit;
+		InitList.sort(function(a,b){return b.roll > a.roll});
+		toolSocket.emit('InitRcv', InitList);
+	});	
+		
+	
+	socket.on('PrivateMsgSend', function(toSocket, msg){
+		console.log("Private message from: " + socket.id);
+		console.log("Private message to: " + toSocket);
+		
+		//Add code to modify msg to contain senders name
+		
+		//toolSocket.to(toSocket).emit('ChatMsgRcv', msg);
+	});
 	
 });
 

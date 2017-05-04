@@ -61,25 +61,7 @@ function UpdatePlayerStats(CharacterStats){
 	document.getElementById('PlayerStats').innerHTML = myStats + output;
 }
 
-function pageLoad(){
 
-	DMName = <%- DMName %>;
-
-	var InitMenu = 'Init List <button id="DMResetInit" onclick="DMResetInit()">Reset</button><hr>';
-	InitMenu += '<input type="radio" name="Privacy" id="PublicRadio" checked> Public    -   <input type="radio" name="Privacy" id="PrivateRadio"> Private<br>'
-	InitMenu += '<input type="radio" name="initAdv" id="AdvantageRadio" value="Adv"> Adv <input type="radio" name="initAdv" id="DisadvantageRadio" value="Dis"> Dis<button id="ClearAdvDis" onclick="resetAdv()">Clear</button><br>';
-	InitMenu += '<input type="radio" name="RollType" id="DMDiceInit" checked>1d20 + <input type="text" id="InitRollPlus" size="1"><input type="radio" name="RollType" id="DMDSetInit"><input type="text" id="InitSetValue" size="1"><br>'
-	InitMenu += 'Name: <input type="text" id="InitRollName" size="3"><button id="DMInitButton" onclick="DMRollInit()">Roll</button><hr>'
-	InitMenu += '<p id="initList"></p>';
-
-		//DMStatus = DM;
-	document.getElementById('ChatButtons').style.visibility = 'visible';
-	document.getElementById('PlayerLists').style.visibility = 'visible';
-	document.getElementById('InitListMenu').innerHTML = initButtons;
-	
-	
-	socket.emit('StartData');
-}
 
 socket.on('StartingDataRcv', function(iToolSocketId){
 	ToolSocketId = iToolSocketId;
