@@ -141,7 +141,7 @@ app.post('/LoginAttempt', function(req, res){
 			res.render(__dirname + '/Views/DMTool', {DMName: JSON.stringify(result[foundIndex].PlayerName)});
 		}else{
 			var msg = "Invalid Account Name / Password";
-			res.render(__dirname + '/Views/index.ejs', {ErrorMsg: JSON.stringify(msg)});
+			res.render(__dirname + '/views/index.ejs', {ErrorMsg: JSON.stringify(msg)});
 		}
 	});
 });
