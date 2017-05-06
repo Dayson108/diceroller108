@@ -1,12 +1,10 @@
 Must be done before Gameday:
-	- Show Init Rolls to the DM
 	- Finish the Spellbook
-	- All Private Messages
-	- Make things pretty
+	- DM Macros
 
 Updates:
 		-Disable Multiple DM Login
 		- Notes Section?
 		- Temp Modify Core Stats (temp bonus to STR/DEX/etc..)
 		- Make edit show the character's current stats
-		-Registering an Account that already exists errors program 
+		-Registering an Account that already exists errors program S

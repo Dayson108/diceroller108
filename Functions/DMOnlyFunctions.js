@@ -13,7 +13,8 @@ function initRcv(iInitList){
 	InitList = iInitList;
 	var output = "<ul>";
 	for(var i = 0; i < iInitList.length; i++){
-		output += "<li>" + iInitList[i].msg; 	
+		output += "<li>" + iInitList[i].msg; 
+		output += "(" + iInitList[i].plus + ")";
 		output += '<button id="DMEditInit' + i + '" onclick="DMEditInit(' + i + ')">Edit</button>';
 		output += "</li>"
 	}
@@ -53,6 +54,8 @@ function DMRollInit(){
 	document.getElementById('InitRollName').value = "";
 	var status = 0;
 	var type;
+	var plus = Number(document.getElementById('InitRollPlus').value)
+	document.getElementById('InitRollPlus').value = "";
 	if(document.getElementById('DMDiceInit').checked){
 		var adv = 0;
 		if(document.getElementById('InitAdvantageRadio').checked){
@@ -67,17 +70,14 @@ function DMRollInit(){
 		}else if(dice == 1){
 			status = -1;
 		}
-		dice +=	Number(document.getElementById('InitRollPlus').value);
-		document.getElementById('InitRollPlus').value = "";
-		
 	}else if(document.getElementById('DMDSetInit').checked){
 		dice = Number(document.getElementById('InitSetValue').value);
 		document.getElementById('InitSetValue').value = "";
 	}
 	if(document.getElementById('PublicRadio').checked){
-		socket.emit('DMInitRoll', CharacterName, dice, status, "Public");
+		socket.emit('DMInitRoll', CharacterName, dice, plus, status, "Public");
 	}else if (document.getElementById('PrivateRadio').checked){
-		socket.emit('DMInitRoll', CharacterName, dice, status, "Private");
+		socket.emit('DMInitRoll', CharacterName, dice, plus, status, "Private");
 	}
 }
 

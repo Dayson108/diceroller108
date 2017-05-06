@@ -16,7 +16,7 @@ var mySocketId;
 </script>
 
 <script>//Initiative Functions
-function PlayerInitRoll(plus, CharacterName){
+function PlayerInitRoll(CharacterName){
 	var adv = 0;
 	
 	if(document.getElementById('RadioAdv').checked){
@@ -26,12 +26,12 @@ function PlayerInitRoll(plus, CharacterName){
 	}
 	
 	document.getElementById('initButton').style.visibility = "hidden";
-	initRoll(plus, CharacterName, adv);
+	initRoll(CharacterName, adv);
 }
-function initRoll(plus, CharacterName, adv){
+function initRoll(CharacterName, adv){
+	var plus = calcStatBonus(Character.DEX);
 	plus += Number(document.getElementById("initMod").value);
 	document.getElementById("initMod").value = "";
-	
 	
 	var dice1 = Math.floor((Math.random() * 20) + 1);
 	var dice2 = Math.floor((Math.random() * 20) + 1);
@@ -43,9 +43,8 @@ function initRoll(plus, CharacterName, adv){
 	}else if(dice == 1){
 		status = -1;
 	}
-	dice += plus;
 	
-	socket.emit('InitRoll', CharacterName, dice, status);
+	socket.emit('InitRoll', CharacterName, dice, plus, status);
 }
 </script>
 
@@ -173,10 +172,10 @@ socket.on('StartingData', function(iMySocketId, iInitList){
 </script>
 
 <script>//Init 
-function writeInitMenu(plus){
+function writeInitMenu(){
 	var InitMenu = 'Init List<br><input type="radio" name="initAdv" id="InitAdv" value="Adv"> Adv';
 	InitMenu += '<input type="radio" name="initAdv" id="InitDis" value="Dis"> Dis<button id="ClearAdvDis" onclick="resetInitAdv()">Clear</button><br>';
-	InitMenu += "1d20+" + plus + '  Modifier:<input type="text" id="initMod" style="width:25px;" value="1"><button id="initButton" onclick="PlayerInitRoll(' + plus + ', ' + "'" + Character.CharacterName + "'" + ')">Roll</button>';
+	InitMenu += "1d20+" + calcStatBonus(Character.DEX) + '  Modifier:<input type="text" id="initMod" style="width:25px;"><button id="initButton" onclick="PlayerInitRoll(' + "'" + Character.CharacterName + "'" + ')">Roll</button>';
 	InitMenu += '</p><hr><p id="initList"></p>';
 	
 	document.getElementById('InitListMenu').innerHTML = InitMenu;
@@ -198,7 +197,7 @@ function clearChat(){
 function pageLoad(){
 	Character = JSON.parse(sessionStorage.getItem('DnDToolCharacter'));
 	updateSkillButtonNames();
-	writeInitMenu(calcStatBonus(Character.DEX))
+	writeInitMenu()
 	socket.emit('PlayerJoined', Character);
 }
 
@@ -234,7 +233,7 @@ function pageLoad(){
 		
 	</div>
 
-	<div id="DiceMain" style="height:130px; width:350px; position:absolute; top:40px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
+	<div id="DiceMain" style="height:160px; width:350px; position:absolute; top:40px; left:200px; border-bottom-style:solid; border-bottom-width:6px;">
 		1d20 + <input type="text" id="d20P" size="1">
 		<button id="rolld20" onclick="rolld20(document.getElementById('d20P').value, 'd20', Character.CharacterName)">Roll</button><br>
 		<input type="text" id="d12" size="1">d12 + <input type="text" id="d12P" size="1">

@@ -69,23 +69,18 @@ socket.on('InitRcv', function(iInitList){
 function sendMessage(msg){
 	
 	if(document.getElementById('PrivateRoll').checked == true){
-		
-		if(sender == self){
-			//send to self
-		}else{
-			//send to that person
-			socket.emit('PrivateMsgSend', document.getElementById('PrivateMessageAddress').value, msg);
+		if(document.getElementById('PrivateRoll').checked == true){
+			if(document.getElementById('PrivateMessageAddress').value == mySocketId){
+				msg = "PRIVATE: " + msg;
+				updateChat(msg);
+			}else{
+				//send to that person
+				socket.emit('PrivateMsgSend', document.getElementById('PrivateMessageAddress').value, msg);
+			}	
 		}
-		
 	}else{
-		socket.emit('ChatMsgSend', msg);
-		
+		socket.emit('ChatMsgSend', msg);	
 	}
-	//socket.emit('PrivateMsgSend', toSocket, msg, senderName);
-	//if private == false
-	
-	
-	//if private == true
 }
 socket.on('ChatMsgRcv', function(msg){
 	updateChat(msg);

@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 var ObjectId = require('mongodb').ObjectID;
 var db;
-var DMCODE = "samplecode";
+var DMCODE = "123";
 
 
 var InitList = [];
@@ -31,7 +31,7 @@ console.log("Listening");
 
 app.get('/', function(req, res){
   //res.sendFile(__dirname + '/index.ejs');
-  res.render(__dirname + '/views/index.ejs', {ErrorMsg: JSON.stringify("Butter Cream")});
+  res.render(__dirname + '/views/index.ejs', {ErrorMsg: JSON.stringify("")});
 });
 
 app.get('/Login', function(req, res){
@@ -167,7 +167,8 @@ app.post('/RegisterAccount', function(req, res){
 			});
 		}else{
 			var msg = "Account Name Already Exists.  Please login or choose a different account name";
-			res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify(msg)});
+			//res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify(msg)});
+			res.render(__dirname + '/views/index.ejs', {ErrorMsg: JSON.stringify(msg)});
 		}
 	});
 });
@@ -198,7 +199,8 @@ app.post('/RegisterDM', function(req, res){
 		});	
 	}else{
 		var msg = "Invalid DM Code.  Please contact me to request access"
-		res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify(msg)});
+		//res.render(__dirname + '/Views/Login.ejs', {ErrorMsg: JSON.stringify(msg)});
+		res.render(__dirname + '/views/index.ejs', {ErrorMsg: JSON.stringify(msg)});
 	}
 });
 
@@ -212,7 +214,7 @@ All
 toolSocket.emit('', msg);
 
 Whisper
-toolSocket.to(socketid).emit('', msg);
+toolSocket.to(socketID).emit('', msg);
 */
 
 var toolSocket = io.of('/Tool');
@@ -247,32 +249,32 @@ toolSocket.on('connection', function(socket){
 		toolSocket.emit('ChatMsgRcv', msg);
 	});
 		
-	socket.on('InitRoll', function(iCharacterName, iDice, iStatus){ 
-	console.log("Init Recieved");
+	socket.on('InitRoll', function(iCharacterName, iDice, iPlus, iStatus){ 
 		var initRoll = {
 			roll: iDice,
+			plus: iPlus,
 			CName: iCharacterName,
-			msg: iCharacterName + ': ' + iDice,
+			msg: iCharacterName + ': ' + (Number(iDice) + Number(iPlus)),
 			status: iStatus,
 			socket: socket.id
 		}
 		if(iStatus == 1){
 			initRoll.msg = "**" + initRoll.msg + "**";
-			
 		}else if(iStatus == -1){
 			initRoll.msg = '--' + initRoll.msg + '--';
 		}
-		
+	
 		InitList.push(initRoll);
 		InitList.sort(function(a,b){return b.roll > a.roll});
 		toolSocket.emit('InitRcv', InitList);
     });	
 	
-	socket.on('DMInitRoll', function(iCharacterName, iDice, iStatus, type){ 
+	socket.on('DMInitRoll', function(iCharacterName, iDice, iPlus, iStatus, type){ 
 		var initRoll = {
 			roll: iDice,
+			plus: iPlus,
 			CName: iCharacterName,
-			msg: iCharacterName + ': ' + iDice,
+			msg: iCharacterName + ': ' + (Number(iDice) + Number(iPlus)),
 			status: iStatus,
 			socket: type
 		}
@@ -390,12 +392,15 @@ toolSocket.on('connection', function(socket){
 		
 	
 	socket.on('PrivateMsgSend', function(toSocket, msg){
-		console.log("Private message from: " + socket.id);
-		console.log("Private message to: " + toSocket);
-		
 		//Add code to modify msg to contain senders name
-		
-		//toolSocket.to(toSocket).emit('ChatMsgRcv', msg);
+		for(var i = 0; i < AddressBook.length; i++){
+			if(socket.id == AddressBook[i].socketId){
+				toolSocket.to(toSocket).emit('ChatMsgRcv', "Private from " + AddressBook[i].CharacterName + ": " + msg);
+			}
+			if(toSocket == AddressBook[i].socketId){
+				toolSocket.to(socket.id).emit('ChatMsgRcv', "Private to " + AddressBook[i].CharacterName + ": " + msg);
+			}
+		}
 	});
 	
 });
